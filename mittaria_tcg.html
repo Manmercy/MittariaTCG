@@ -25,7 +25,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
   background-size:200%;animation:rb 3s linear infinite;z-index:0;}
 
 /* ===== LANDING ===== */
-#sc-land{flex-direction:column;align-items:center;justify-content:center;
+#sc-land{flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;
   background:radial-gradient(ellipse at center,#0d0d2e 0%,#08080f 70%);}
 
 .stars{position:fixed;inset:0;pointer-events:none;}
@@ -39,7 +39,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
   background-size:200%;animation:rb 3s linear infinite;z-index:0;}
 .showcase-in{position:absolute;inset:2px;border-radius:10px;background:#050510;
   display:flex;flex-direction:column;overflow:hidden;z-index:1;}
-.sc-art{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+.sc-art{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0;overflow:hidden;
   background:radial-gradient(ellipse at 30% 30%,#1a1a50,#080818);}
 .sc-logo{font-size:11px;font-weight:900;letter-spacing:2px;color:#fff;text-align:center;
   line-height:1.3;margin-bottom:6px;text-shadow:0 0 12px rgba(92,88,237,.9);}
@@ -168,7 +168,7 @@ button:disabled{opacity:.4;cursor:not-allowed;}
 .bc-hdr{padding:3px 4px;display:flex;align-items:center;justify-content:space-between;}
 .bc-name{font-size:7px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:52px;}
 .bc-el{font-size:8px;}
-.bc-art{flex:1;display:flex;align-items:center;justify-content:center;font-size:26px;position:relative;}
+.bc-art{flex:1;display:flex;align-items:center;justify-content:center;font-size:26px;position:relative;min-height:0;overflow:hidden;}
 .bc-pos-badge{position:absolute;bottom:2px;right:2px;font-size:7px;font-weight:700;
   padding:1px 4px;border-radius:3px;}
 .pos-a{background:rgba(255,80,80,.85);color:#fff;}
@@ -216,7 +216,7 @@ button:disabled{opacity:.4;cursor:not-allowed;}
 .hc-hdr{padding:3px 4px;display:flex;justify-content:space-between;align-items:center;}
 .hc-name{font-size:7px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;
   text-overflow:ellipsis;max-width:48px;}
-.hc-art{flex:1;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.hc-art{flex:1;display:flex;align-items:center;justify-content:center;font-size:22px;min-height:0;overflow:hidden;}
 .hc-foot{padding:2px 4px;display:flex;justify-content:space-between;font-size:8px;
   font-weight:700;background:rgba(0,0,0,.6);}
 
@@ -304,22 +304,23 @@ button:disabled{opacity:.4;cursor:not-allowed;}
   <div class="card-duo">
     <div class="showcase">
       <div class="showcase-in">
-        <div class="sc-art">
-          <div class="sc-logo">MITTARIA<br>GENESIS</div>
-          <div class="sc-glow">🌟</div>
+        <div class="sc-art" style="padding:0;overflow:hidden;background:linear-gradient(180deg,#0a0a28 0%,#1a0a30 100%);">
+          <img src="img_mitria_web.png" style="width:100%;height:100%;object-fit:cover;object-position:top center;" alt="Mitria">
         </div>
       </div>
     </div>
     <div class="showcase">
       <div class="showcase-in">
-        <div class="sc-back">
-          <div class="sc-sil">🌟</div>
+        <div class="sc-back" style="background:#050510;">
+          <img src="logo_mittaria.svg" style="width:65%;opacity:0.9;filter:brightness(0) saturate(100%) invert(40%) sepia(80%) saturate(500%) hue-rotate(220deg) brightness(120%);" alt="Mittaria Logo">
         </div>
       </div>
     </div>
   </div>
   <div class="brand-title">MITTARIA GENESIS</div>
   <div class="brand-sub">TRADING CARD GAME</div>
+  <img src="img_dark_empress_web.png" style="position:absolute;right:30px;bottom:0;height:85%;object-fit:contain;object-position:bottom;opacity:0.3;pointer-events:none;" alt="">
+  <img src="img_ember_web.png" style="position:absolute;left:30px;bottom:0;height:80%;object-fit:contain;object-position:bottom;opacity:0.3;pointer-events:none;" alt="">
   <div class="land-btns">
     <button class="btn btn-a" onclick="showScreen('sc-how')">📖 HOW TO PLAY</button>
     <button class="btn btn-b" onclick="startGame()">⚔️ PLAY TEST</button>
@@ -401,7 +402,7 @@ button:disabled{opacity:.4;cursor:not-allowed;}
   <!-- Nav -->
   <div class="g-nav">
     <button class="btn btn-back btn-sm" onclick="showScreen('sc-land')" style="border:none;padding:4px 8px;">← Menu</button>
-    <div class="g-logo">MITTARIA GENESIS</div>
+    <img src="logo_mittaria.svg" style="height:22px;filter:brightness(0) saturate(100%) invert(55%) sepia(60%) saturate(600%) hue-rotate(220deg) brightness(110%);" alt="M"> <div class="g-logo">MITTARIA GENESIS</div>
     <div class="phase-pill ph-draw" id="phase-pill">DRAW</div>
     <div class="g-crystal">💎 <span class="g-crystal-n" id="g-crys">0</span> Crystal</div>
     <div class="g-turn" id="g-turn">Turn 1</div>
@@ -512,6 +513,15 @@ button:disabled{opacity:.4;cursor:not-allowed;}
 <div class="msg-float" id="msg-float"></div>
 
 <script>
+
+// CHARACTER IMAGE MAP
+const CHAR_IMGS = {
+  mitria: 'img_mitria_web.png',
+  dark_empress: 'img_dark_empress_web.png',
+  ember: 'img_ember_web.png',
+  michio: 'img_michio_web.png',
+};
+
 // ============================================================
 // CARD DATABASE
 // ============================================================
@@ -532,6 +542,13 @@ const CARDS = {
   light_fairy:{id:'light_fairy',name:'Light Fairy',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:2,el:'light',emoji:'🧚',skill:'',bg:'linear-gradient(135deg,#080f08,#0f1808)'},
   worm_scout:{id:'worm_scout',name:'Worm Scout',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:0,el:'shadow',emoji:'🐛',skill:'',bg:'linear-gradient(135deg,#0f0805,#180c08)'},
   shadow_sprite:{id:'shadow_sprite',name:'Shadow Sprite',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:0,el:'shadow',emoji:'🌑',skill:'',bg:'linear-gradient(135deg,#080010,#100018)'},
+  // EXTRA COMMONS (new)
+  crystal_child:{id:'crystal_child',name:'Crystal Child',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:1,el:'crystal',emoji:'💫',skill:'',bg:'linear-gradient(135deg,#001820,#002535)'},
+  fire_sprite:{id:'fire_sprite',name:'Fire Sprite',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:0,el:'fire',emoji:'🔸',skill:'',bg:'linear-gradient(135deg,#1a0500,#2a0800)'},
+  mana_wisp:{id:'mana_wisp',name:'Mana Wisp',type:'char',rarity:'common',cost:0,cv:1,atk:0,def:2,el:'light',emoji:'🌙',skill:'',bg:'linear-gradient(135deg,#101020,#151535)'},
+  shadow_bat:{id:'shadow_bat',name:'Shadow Bat',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:1,el:'shadow',emoji:'🦇',skill:'',bg:'linear-gradient(135deg,#0a0010,#140018)'},
+  storm_seed:{id:'storm_seed',name:'Storm Seed',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:0,el:'wind',emoji:'🌿',skill:'',bg:'linear-gradient(135deg,#081008,#0f180f)'},
+  worm_drone:{id:'worm_drone',name:'Worm Drone',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:1,el:'shadow',emoji:'🪲',skill:'',bg:'linear-gradient(135deg,#0c0a00,#181200)'},
   // COMPANIONS
   lo_phoenix:{id:'lo_phoenix',name:'Lo Phoenix',type:'companion',rarity:'epic',cost:0,cv:0,emoji:'🐦‍🔥',effect:'+2 ATK',ab:2,db:0,bg:'linear-gradient(90deg,rgba(255,100,0,.5),rgba(186,101,255,.5))'},
   snowball:{id:'snowball',name:'Snowball',type:'companion',rarity:'rare',cost:0,cv:0,emoji:'❄️',effect:'+2 DEF',ab:0,db:2,bg:'linear-gradient(90deg,rgba(0,150,255,.5),rgba(165,225,232,.5))'},
@@ -593,13 +610,13 @@ const FINAL_P_DECK = [
   'charm_fragment','charm_fragment','charm_fragment',
 ]; // 2+3+3+2+4+4+2+3+2+2+3+3+3 = 36... still short
 
-const PDECK = ['mitria','mitria','lo','lo','lo','michio','michio','michio','ember','ember','crystal_guard','crystal_guard','crystal_guard','crystal_guard','light_sprite','light_sprite','light_sprite','light_sprite','light_fairy','light_fairy','light_fairy','lo_phoenix','lo_phoenix','lo_phoenix','snowball','snowball','nero','nero','crystal_burst','crystal_burst','crystal_burst','crystal_burst','shield_charm','shield_charm','shield_charm','charm_fragment','charm_fragment','charm_fragment','charm_fragment','worm_guard'];
+const PDECK = ['mitria','mitria','lo','lo','lo','michio','michio','ember','ember','crystal_guard','crystal_guard','crystal_guard','light_sprite','light_sprite','light_sprite','light_sprite','light_fairy','light_fairy','light_fairy','light_fairy','crystal_child','crystal_child','crystal_child','crystal_child','mana_wisp','mana_wisp','mana_wisp','fire_sprite','fire_sprite','lo_phoenix','lo_phoenix','snowball','snowball','crystal_burst','crystal_burst','crystal_burst','shield_charm','shield_charm','charm_fragment','charm_fragment'];
 // Count: 2+3+3+2+4+4+3+3+3+2+2+4+3+3+4+1 = 42... close enough, let me just count
 // mitria x2, lo x3, michio x3, ember x2, crystal_guard x4, light_sprite x4, light_fairy x3
 // lo_phoenix x3, snowball x2, nero x2, crystal_burst x4, shield_charm x3, charm_fragment x4, worm_guard x1
 // 2+3+3+2+4+4+3+3+2+2+4+3+4+1 = 40 ✓
 
-const AIDECK = ['dark_empress','dark_empress','lo','lo','ember','ember','ember','shadow_minion','shadow_minion','shadow_minion','shadow_minion','worm_scout','worm_scout','worm_scout','worm_scout','shadow_sprite','shadow_sprite','shadow_sprite','shadow_sprite','worm_guard','worm_guard','worm_guard','nero','nero','nero','dark_cloak','dark_cloak','dark_cloak','crystal_burst','crystal_burst','dark_surge','dark_surge','dark_surge','shadow_veil','shadow_veil','shadow_veil','charm_fragment','charm_fragment','charm_fragment','charm_fragment'];
+const AIDECK = ['dark_empress','dark_empress','lo','lo','ember','ember','shadow_minion','shadow_minion','shadow_minion','worm_scout','worm_scout','worm_scout','worm_scout','shadow_sprite','shadow_sprite','shadow_sprite','shadow_bat','shadow_bat','shadow_bat','shadow_bat','worm_drone','worm_drone','worm_drone','worm_drone','storm_seed','storm_seed','nero','nero','dark_cloak','dark_cloak','crystal_burst','crystal_burst','dark_surge','dark_surge','shadow_veil','shadow_veil','charm_fragment','charm_fragment','charm_fragment','charm_fragment'];
 // dark_empress x2, lo x2, ember x3, shadow_minion x4, worm_scout x4, shadow_sprite x4
 // worm_guard x3, nero x3, dark_cloak x3, crystal_burst x2, dark_surge x3, shadow_veil x3, charm_fragment x4
 // 2+2+3+4+4+4+3+3+3+2+3+3+4 = 40 ✓
@@ -838,10 +855,10 @@ function openPosModal(card) {
 }
 
 function confirmPosition(pos) {
-  closeModal('ov-pos');
-  const card = G.pendingCard;
+  const card = G.pendingCard;   // save BEFORE closeModal nulls it
   const lane = G.pendingLane;
-  if (!card) return;
+  closeModal('ov-pos');
+  if (!card || lane < 0) return;
 
   const inst = makeInst(card.id);
   inst.pos = pos;
@@ -913,9 +930,11 @@ function confirmSacrifice() {
     G.player.comps[i] = null;
   });
   G.crystal += total;
+  const savedCard = G.sacTarget || G.pendingCard;  // save before closeModal
+  const savedLane = G.pendingLane;
   closeModal('ov-sac');
-
-  G.pendingLane = G.pendingLane; // keep
+  G.pendingCard = savedCard;    // restore after closeModal nulled them
+  G.pendingLane = savedLane;
   openPosModal(G.pendingCard);
 }
 
@@ -992,9 +1011,9 @@ function destroyGate(side, laneIdx) {
   if (!s.gatesActive[laneIdx]) return;
   s.gatesActive[laneIdx] = false;
   const gateCard = s.gates[laneIdx];
-  if (gateCard && s.hand.length < 7) {
+  if (gateCard) {
     gateCard.sick = false;
-    s.hand.push(gateCard);
+    s.hand.push(gateCard);  // Gate goes to hand, ignoring hand limit
   }
   s.gateCount = s.gatesActive.filter(Boolean).length;
 }
@@ -1361,7 +1380,7 @@ function renderAiHand() {
   G.ai.hand.forEach(() => {
     const el = document.createElement('div');
     el.className = 'mini-card-back';
-    el.textContent = '✦';
+    el.innerHTML = '<img src="logo_mittaria.svg" style="width:70%;opacity:0.5;filter:brightness(0) saturate(100%) invert(55%) sepia(60%) saturate(600%) hue-rotate(220deg) brightness(110%);" alt="M">';
     row.appendChild(el);
   });
 }
@@ -1383,7 +1402,7 @@ function renderLanes(side, gatesId, charsId, compId) {
     if (s.gatesActive[i]) {
       const gEl = document.createElement('div');
       gEl.className = 'gate-slot';
-      gEl.innerHTML = `<div class="gate-facedown"><span>✦</span></div>`;
+      gEl.innerHTML = `<div class="gate-facedown" style="background:linear-gradient(135deg,#050510,#0d0d22);"><img src="logo_mittaria.svg" style="width:55%;opacity:0.7;filter:brightness(0) saturate(100%) invert(55%) sepia(60%) saturate(600%) hue-rotate(220deg) brightness(110%);" alt="M"></div>`;
       gSlot.appendChild(gEl);
     } else {
       const emp = document.createElement('div');
@@ -1475,9 +1494,12 @@ function buildBoardCard(char, side, laneIdx) {
         <span class="bc-name">${char.name}</span>
         <span class="bc-el">${elIcon(char.el)}</span>
       </div>
-      <div class="bc-art">
-        <span>${char.emoji}</span>
-        <span class="bc-pos-badge ${char.pos==='attack'?'pos-a':'pos-g'}">${char.pos==='attack'?'ATK':'GRD'}</span>
+      <div class="bc-art" style="overflow:hidden;padding:0;${CHAR_IMGS[char.id]?'':''}">
+        ${CHAR_IMGS[char.id]
+          ? `<img src="${CHAR_IMGS[char.id]}" style="width:100%;height:100%;object-fit:cover;object-position:top center;" alt="${char.name}">`
+          : `<span style="font-size:26px">${char.emoji}</span>`
+        }
+        <span class="bc-pos-badge ${char.pos==='attack'?'pos-a':'pos-g'}" style="position:absolute;bottom:2px;right:2px;z-index:2">${char.pos==='attack'?'ATK':'GRD'}</span>
       </div>
       <div class="bc-stats">
         <span class="s-a">⚔${effAtk}</span>
@@ -1518,7 +1540,12 @@ function renderPlayerHand() {
           <span class="hc-name">${card.name}</span>
           <span style="font-size:8px">${elIcon(card.el)}</span>
         </div>
-        <div class="hc-art"><span>${card.emoji}</span></div>
+        <div class="hc-art" style="${CHAR_IMGS[card.id]?'padding:0;overflow:hidden;':''}">
+          ${CHAR_IMGS[card.id]
+            ? `<img src="${CHAR_IMGS[card.id]}" style="width:100%;height:100%;object-fit:cover;object-position:top center;" alt="${card.name}">`
+            : `<span style="font-size:22px">${card.emoji}</span>`
+          }
+        </div>
         <div class="hc-foot">${statsTxt}</div>
       </div>
     `;
