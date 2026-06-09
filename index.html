@@ -2419,6 +2419,218 @@ body, button, input, select, textarea {
   max-height:300px !important;
 }
 
+
+/* ===== v6_48 Clear Deck Button ===== */
+.clear-deck-btn{
+  border-color:#ff7b9f !important;
+  color:#ffb6c8 !important;
+  background:rgba(255,123,159,.10) !important;
+}
+.clear-deck-btn:hover{
+  background:rgba(255,123,159,.20) !important;
+  box-shadow:0 0 14px rgba(255,123,159,.22);
+}
+
+
+/* ===== v6_55 Deck Builder Real Layout Fix ===== */
+/* Root cause: .sc.on uses display:flex; without flex-direction:column,
+   Deck Builder header and body were laid out left-to-right, pushing cards/deck off-screen. */
+#sc-deckbuilder.on{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:stretch !important;
+  justify-content:flex-start !important;
+  overflow:hidden !important;
+}
+#sc-deckbuilder > .how-top{
+  flex:0 0 auto !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+  position:relative !important;
+  top:auto !important;
+  left:auto !important;
+  right:auto !important;
+  bottom:auto !important;
+}
+#sc-deckbuilder > .deckbuilder-body{
+  flex:1 1 auto !important;
+  min-height:0 !important;
+  width:100% !important;
+  max-width:none !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  box-sizing:border-box !important;
+}
+#sc-deckbuilder .deckbuilder-grid,
+#sc-deckbuilder #deckbuilder-root,
+#sc-deckbuilder .deckbuilder-layout,
+#sc-deckbuilder .deckbuilder-card-grid,
+#sc-deckbuilder .deck-current-list{
+  visibility:visible !important;
+}
+/* Keep the old visual style but make the top behave like a normal page header */
+#sc-deckbuilder > .how-top{
+  display:flex !important;
+  align-items:center !important;
+  gap:12px !important;
+  padding:14px 18px !important;
+  border-bottom:1px solid var(--border) !important;
+  background:rgba(5,5,16,.82) !important;
+  backdrop-filter:blur(8px);
+  z-index:70 !important;
+}
+#sc-deckbuilder > .how-top .how-title{
+  display:block !important;
+  flex:1 1 auto !important;
+  text-align:center !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+#sc-deckbuilder > .how-top .btn{
+  position:static !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+#sc-deckbuilder > .how-top .cl-filter-note{
+  display:none !important;
+}
+
+
+/* ===== v6_56 Deck Builder Header Match How To Play ===== */
+#sc-deckbuilder.on{
+  display:flex !important;
+  flex-direction:column !important;
+}
+#sc-deckbuilder > .deckbuilder-howtop{
+  flex:0 0 auto !important;
+  width:100% !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:12px !important;
+  box-sizing:border-box !important;
+  padding:14px 18px !important;
+  border-bottom:1px solid var(--border) !important;
+  background:rgba(5,5,16,.82) !important;
+  backdrop-filter:blur(8px);
+  position:relative !important;
+  top:auto !important;
+  left:auto !important;
+  right:auto !important;
+  bottom:auto !important;
+  z-index:80 !important;
+}
+#sc-deckbuilder > .deckbuilder-howtop .how-title{
+  flex:1 1 auto !important;
+  display:block !important;
+  text-align:center !important;
+  color:#fff !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  margin:0 !important;
+}
+#sc-deckbuilder > .deckbuilder-howtop .btn{
+  position:static !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+#sc-deckbuilder > .deckbuilder-howtop #btn-lang-deckbuilder{
+  margin-left:auto !important;
+}
+#sc-deckbuilder > .deckbuilder-howtop #deckbuilder-count-label{
+  display:none !important;
+}
+#sc-deckbuilder > .deckbuilder-body{
+  flex:1 1 auto !important;
+  min-height:0 !important;
+  overflow-y:auto !important;
+}
+@media (max-width:640px){
+  #sc-deckbuilder > .deckbuilder-howtop{
+    padding:12px 10px !important;
+    gap:8px !important;
+  }
+  #sc-deckbuilder > .deckbuilder-howtop .how-title{
+    font-size:24px !important;
+  }
+}
+
+
+/* ===== v6_57 Deck Builder Header Order Hotfix ===== */
+#sc-deckbuilder > .deckbuilder-howtop{
+  display:grid !important;
+  grid-template-columns:auto 1fr auto !important;
+  align-items:center !important;
+  width:100% !important;
+  gap:12px !important;
+}
+#sc-deckbuilder > .deckbuilder-howtop #btn-deckbuilder-back{
+  grid-column:1 !important;
+  justify-self:start !important;
+  order:0 !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+}
+#sc-deckbuilder > .deckbuilder-howtop #deckbuilder-title{
+  grid-column:2 !important;
+  justify-self:center !important;
+  order:1 !important;
+  text-align:center !important;
+  width:100% !important;
+}
+#sc-deckbuilder > .deckbuilder-howtop #btn-lang-deckbuilder{
+  grid-column:3 !important;
+  justify-self:end !important;
+  order:2 !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+}
+#sc-deckbuilder > .deckbuilder-howtop #deckbuilder-count-label{
+  display:none !important;
+}
+
+
+/* ===== v6_58 Deck Builder Header Size + Duplicate Title Fix ===== */
+#sc-deckbuilder > .deckbuilder-howtop{
+  padding:18px 22px !important;
+  min-height:68px !important;
+}
+#sc-deckbuilder > .deckbuilder-howtop #btn-deckbuilder-back,
+#sc-deckbuilder > .deckbuilder-howtop #btn-lang-deckbuilder{
+  min-width:108px !important;
+  min-height:38px !important;
+  padding:10px 16px !important;
+  font-size:13px !important;
+  border-radius:999px !important;
+  font-weight:800 !important;
+}
+#sc-deckbuilder > .deckbuilder-howtop #deckbuilder-title{
+  font-size:40px !important;
+  letter-spacing:.09em !important;
+  line-height:1 !important;
+}
+#sc-deckbuilder .deckbuilder-hero-title{
+  display:none !important;
+}
+@media (max-width:640px){
+  #sc-deckbuilder > .deckbuilder-howtop{
+    padding:14px 12px !important;
+    min-height:58px !important;
+  }
+  #sc-deckbuilder > .deckbuilder-howtop #btn-deckbuilder-back,
+  #sc-deckbuilder > .deckbuilder-howtop #btn-lang-deckbuilder{
+    min-width:74px !important;
+    min-height:34px !important;
+    padding:8px 10px !important;
+    font-size:11px !important;
+  }
+  #sc-deckbuilder > .deckbuilder-howtop #deckbuilder-title{
+    font-size:28px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2479,15 +2691,13 @@ body, button, input, select, textarea {
 
 <!-- ============ DECK BUILDER ============ -->
 <div class="sc" id="sc-deckbuilder">
-  <div class="how-top">
-    <button class="btn btn-back btn-sm" onclick="showScreen('sc-land')">← Back</button>
-    <div class="how-title" id="deckbuilder-title">DECK BUILDER / จัด DECK</div>
-    <div class="cl-filter-note" id="deckbuilder-count-label">40 / 40</div>
-
-    <button class="btn btn-back btn-sm" onclick="toggleLanguage()" style="margin-left:10px">TH / EN</button>
+  <div class="how-top deckbuilder-howtop">
+    <button class="btn btn-back btn-sm" id="btn-deckbuilder-back" onclick="showScreen('sc-land')">← Back</button>
+    <div class="how-title" id="deckbuilder-title">DECK BUILDER</div>
+    <button class="btn btn-back btn-sm" id="btn-lang-deckbuilder" onclick="toggleLanguage()" style="margin-left:auto">TH / EN</button>
+    <div class="cl-filter-note" id="deckbuilder-count-label" style="display:none">40 / 40</div>
   </div>
   <div class="deckbuilder-body">
-    <div class="deckbuilder-hero-title">DECK BUILDER</div>
     <div class="deckbuilder-help" id="deckbuilder-help">
       <strong>Deck Rule:</strong> 40 cards total. Recommended ratio: <strong>24 Character</strong> / <strong>8 Companion</strong> / <strong>8 Spell</strong>. 
       Tap + / − to adjust copies. Current prototype allows up to <strong>3 copies per card</strong>.
@@ -2514,6 +2724,7 @@ body, button, input, select, textarea {
     <div class="deckbuilder-grid" id="deckbuilder-root"></div>
     <div class="deckbuilder-bottom-actions">
       <button class="btn btn-back btn-sm random-build-btn" onclick="autoBuildDeck()">🎲 Random</button>
+      <button class="btn btn-back btn-sm clear-deck-btn" onclick="clearCurrentDeck()">Clear Cards</button>
       <button class="btn btn-back btn-sm" onclick="resetCustomDeck()">Reset Default</button>
       <button class="btn btn-a btn-sm" onclick="saveDeckToSlot()">Save Slot</button>
       <button class="btn btn-b btn-sm" onclick="saveDeckAndPlay()">Save & Play</button>
@@ -2914,6 +3125,9 @@ function updateLanguageUI(){
   const dbHelp = document.getElementById('deckbuilder-help');
   if (dbTitle) dbTitle.textContent = currentLang === 'th' ? 'จัด DECK' : 'DECK BUILDER';
   setText('btn-deck-builder', currentLang === 'th' ? '🧩 จัด DECK' : '🧩 DECK BUILDER');
+  setText('btn-deckbuilder-back', currentLang === 'th' ? '← กลับ' : '← Back');
+  setText('btn-lang-deckbuilder', t('lang'));
+  if (document.getElementById('deckbuilder-title')) document.getElementById('deckbuilder-title').textContent = currentLang === 'th' ? 'จัด DECK' : 'DECK BUILDER';
   setText('btn-auto-build', currentLang === 'th' ? '🎲 สุ่ม Deck' : '🎲 Random');
   setText('btn-reset-deck', currentLang === 'th' ? 'รีเซ็ต Deck' : 'Reset Default');
   setText('btn-save-play', currentLang === 'th' ? 'บันทึกและเล่น' : 'Save & Play');
@@ -3283,7 +3497,8 @@ function getPlayerDeckDef() {
 
 function getDeckBuilderCounts() {
   const counts = {};
-  getPlayerDeckDef().forEach(id => counts[id] = (counts[id] || 0) + 1);
+  const source = Array.isArray(CUSTOM_PDECK) ? CUSTOM_PDECK : getPlayerDeckDef();
+  source.forEach(id => counts[id] = (counts[id] || 0) + 1);
   return counts;
 }
 
@@ -3383,6 +3598,17 @@ function autoBuildDeck() {
   try { localStorage.setItem('mittaria_custom_deck_v1', JSON.stringify(picks)); } catch(e) {}
   renderDeckBuilder();
   showMsg(currentLang === 'th' ? '🎲 Random Deck แล้ว' : '🎲 Random Deck built');
+}
+
+
+
+function clearCurrentDeck() {
+  if (!confirm(currentLang === 'th' ? 'ล้างการ์ดทั้งหมดใน Deck นี้?' : 'Clear all cards from this deck?')) return;
+  deckBuilderCounts = {};
+  CUSTOM_PDECK = [];
+  try { localStorage.setItem('mittaria_custom_deck_v1', JSON.stringify([])); } catch(e) {}
+  renderDeckBuilder();
+  showMsg(currentLang === 'th' ? 'ล้างการ์ดใน Deck แล้ว' : 'Deck cleared');
 }
 
 
@@ -5908,7 +6134,13 @@ function showScreen(id) {
   document.getElementById(id).classList.add('on');
   updateLanguageUI();
   if (id === 'sc-cardlist') renderCardList();
-  if (id === 'sc-deckbuilder') renderDeckBuilder();
+  if (id === 'sc-deckbuilder') {
+    renderDeckBuilder();
+    setTimeout(() => {
+      const root = document.getElementById('deckbuilder-root');
+      if (root && !root.innerHTML.trim()) renderDeckBuilder();
+    }, 50);
+  }
 }
 
 function startGame() {
