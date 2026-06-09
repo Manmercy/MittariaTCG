@@ -151,6 +151,12 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .btn-end:hover:not(:disabled){background:rgba(235,110,202,.3);}
 button:disabled{opacity:.4;cursor:not-allowed;}
 
+.btn-redraw{border-color:#7dffbd;background:rgba(125,255,189,.12);color:#7dffbd;}
+.btn-redraw:hover:not(:disabled){background:rgba(125,255,189,.25);}
+.btn-reset{border-color:#ffd36e;background:rgba(255,211,110,.12);color:#ffd36e;}
+.btn-reset:hover:not(:disabled){background:rgba(255,211,110,.25);}
+
+
 
 .step-help{
   flex-shrink:0;
@@ -174,6 +180,34 @@ button:disabled{opacity:.4;cursor:not-allowed;}
   font-weight:400;
   margin-right:8px;
 }
+
+
+.battle-preview{
+  flex-shrink:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:34px;
+  padding:7px 14px;
+  background:linear-gradient(90deg,rgba(255,91,138,.14),rgba(255,184,77,.10),rgba(92,88,237,.12));
+  border-bottom:1px solid rgba(255,255,255,.08);
+  color:#fff;
+  font-size:12px;
+  text-align:center;
+}
+.battle-preview.on{display:flex;}
+.battle-preview strong{
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  letter-spacing:.08em;
+  font-weight:400;
+  color:#ffcf6b;
+}
+.battle-preview .bp-rule{color:var(--cyan);font-weight:700;}
+.battle-preview .bp-result.kill{color:#7dffbd;font-weight:800;}
+.battle-preview .bp-result.dead{color:#ff7b9f;font-weight:800;}
+.battle-preview .bp-result.standoff{color:#ffd36e;font-weight:800;}
+.battle-preview .bp-result.gate{color:#bba8ff;font-weight:800;}
 
 /* BOARD */
 .board{flex:1;display:flex;overflow:hidden;}
@@ -420,6 +454,745 @@ body, button, input, select, textarea {
   letter-spacing:0;
 }
 
+
+/* ===== v6_26 Readability Pass ===== */
+.card-info-bar{
+  flex-shrink:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:32px;
+  padding:7px 14px;
+  background:linear-gradient(90deg,rgba(125,255,189,.10),rgba(92,88,237,.14),rgba(235,110,202,.10));
+  border-bottom:1px solid rgba(255,255,255,.08);
+  color:#fff;
+  font-size:12px;
+  text-align:center;
+}
+.card-info-bar.on{display:flex;}
+.card-info-bar strong{
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  letter-spacing:.08em;
+  font-weight:400;
+  color:#7dffbd;
+}
+.card-info-bar .ci-type{color:var(--cyan);font-weight:800;text-transform:uppercase;}
+.card-info-bar .ci-eff{color:#ffd36e;font-weight:800;}
+
+.board{overflow:auto;}
+.board-main{overflow:auto;min-width:680px;padding:6px 10px;gap:5px;}
+.lanes-row{gap:8px;}
+.lane-col{width:118px;}
+.gate-slot,.gate-empty,.char-slot,.bc{width:94px;height:126px;border-radius:9px;}
+.bc-name{font-size:9px;max-width:66px;}
+.bc-el{font-size:10px;}
+.bc-art{font-size:31px;}
+.bc-pos-badge{font-size:8px;padding:2px 5px;}
+.bc-stats{font-size:10px;padding:3px 6px;}
+.comp-slot{width:94px;height:34px;font-size:9px;}
+.comp-bar{
+  width:94px;
+  height:36px;
+  align-items:flex-start;
+  justify-content:center;
+  flex-direction:column;
+  padding:3px 5px;
+  gap:1px;
+  font-size:9px;
+  line-height:1.05;
+  overflow:hidden;
+}
+.comp-bar .comp-name{
+  width:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  color:#fff;
+}
+.comp-bar .comp-eff{
+  width:100%;
+  display:block;
+  margin-left:0 !important;
+  font-size:9px !important;
+  color:#a5e1e8 !important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.hand-row{gap:8px;padding:8px 12px;min-height:124px;justify-content:flex-start;}
+.hc{width:78px;height:112px;border-radius:9px;}
+.hc-name{font-size:8.5px;max-width:60px;}
+.hc-art{font-size:27px;}
+.hc-foot{font-size:9px;padding:3px 5px;min-height:15px;}
+
+.step-help{font-size:13px;min-height:32px;}
+.battle-preview{font-size:13px;min-height:38px;}
+.g-actions{gap:6px;flex-wrap:wrap;}
+.btn-phase{font-size:10px;padding:5px 10px;}
+
+.sidebar{width:145px;padding:8px 6px;gap:8px;}
+.side-section{padding:6px;}
+.g-log{min-height:120px;}
+.log-entry{font-size:9.5px;line-height:1.45;}
+
+@media (max-width: 900px){
+  .g-logo{display:none;}
+  .g-nav{gap:6px;padding:4px 8px;flex-wrap:wrap;}
+  .sidebar{display:none;}
+  .board-main{min-width:640px;}
+  .lane-col{width:110px;}
+  .gate-slot,.gate-empty,.char-slot,.bc{width:88px;height:118px;}
+  .comp-slot,.comp-bar{width:88px;}
+  .hand-row{min-height:118px;}
+  .hc{width:74px;height:106px;}
+}
+
+
+.card-detail-modal{max-width:520px;width:92%;}
+.card-detail-wrap{display:flex;gap:14px;align-items:stretch;}
+.card-detail-art{width:150px;height:210px;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#11152b;display:flex;align-items:center;justify-content:center;font-size:48px;flex-shrink:0;}
+.card-detail-art img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+.card-detail-info{flex:1;color:#fff;}
+.card-detail-name{font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;font-size:30px;letter-spacing:.08em;margin-bottom:4px;}
+.card-detail-row{font-size:12px;line-height:1.65;color:#dfe4ff;border-bottom:1px solid rgba(255,255,255,.07);padding:4px 0;}
+.card-detail-effect{margin-top:10px;padding:10px;border-radius:10px;background:rgba(165,225,232,.08);border:1px solid rgba(165,225,232,.18);font-size:13px;line-height:1.55;color:#fff;}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px;}
+
+
+/* ===== v6_28 UX Readability Pass ===== */
+.info-btn{
+  position:absolute;
+  top:3px;
+  right:3px;
+  z-index:5;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.45);
+  background:rgba(0,0,0,.62);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  cursor:pointer;
+  box-shadow:0 0 8px rgba(0,0,0,.35);
+}
+.info-btn:hover{background:rgba(165,225,232,.35);border-color:var(--cyan);}
+.type-badge{
+  position:absolute;
+  top:3px;
+  left:3px;
+  z-index:4;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.04em;
+  padding:2px 4px;
+  border-radius:4px;
+  color:#fff;
+  background:rgba(0,0,0,.65);
+  border:1px solid rgba(255,255,255,.18);
+}
+.type-char{background:rgba(96,144,255,.72);}
+.type-companion{background:rgba(235,110,202,.78);}
+.type-spell{background:rgba(125,255,189,.62);color:#06131a;}
+
+.hc .type-badge{font-size:6.5px;}
+.hc .info-btn{width:17px;height:17px;font-size:9px;}
+
+.bc-wrap{transition:transform .18s, box-shadow .18s;}
+.bc.pos-guard .bc-wrap{
+  transform:translateY(-10px);
+  box-shadow:0 -6px 18px rgba(96,144,255,.32);
+}
+.bc.pos-attack .bc-wrap{
+  box-shadow:0 6px 16px rgba(255,80,80,.22);
+}
+.bc-pos-badge{
+  font-size:12px !important;
+  padding:3px 7px !important;
+  border-radius:999px !important;
+  box-shadow:0 0 8px rgba(0,0,0,.45);
+}
+.bc-pos-badge::before{
+  font-size:13px;
+  margin-right:3px;
+}
+.pos-a::before{content:'⚔';}
+.pos-g::before{content:'🛡';}
+
+.gate-slot.guard-protected .gate-facedown,
+.gate-empty.guard-protected{
+  box-shadow:0 0 16px rgba(96,144,255,.55);
+  border-color:rgba(96,144,255,.75);
+}
+.gate-slot.guard-protected::after,
+.gate-empty.guard-protected::after{
+  content:'🛡 Guard';
+  position:absolute;
+  top:-17px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:8px;
+  color:#a9c6ff;
+  background:rgba(0,0,0,.65);
+  border:1px solid rgba(96,144,255,.35);
+  border-radius:999px;
+  padding:1px 6px;
+  white-space:nowrap;
+  z-index:5;
+}
+
+.log-entry:first-child{
+  border-left:3px solid var(--cyan);
+  background:rgba(165,225,232,.08);
+}
+
+
+/* ===== v6_30 UX Fixes ===== */
+.hc .info-btn{display:none !important;}
+.bc .info-btn,.comp-bar .info-btn{
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s, transform .15s;
+}
+.bc:hover .info-btn,.comp-bar:hover .info-btn{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateY(-4px);
+}
+.type-badge{
+  top:auto !important;
+  bottom:22px !important;
+  left:4px !important;
+  opacity:.82;
+  font-size:6.5px !important;
+}
+.hc .type-badge{
+  bottom:18px !important;
+  font-size:6px !important;
+}
+.bc .type-badge{
+  bottom:24px !important;
+}
+.battle-result-big{
+  position:fixed;
+  left:50%;
+  top:46%;
+  transform:translate(-50%,-50%) scale(.92);
+  z-index:200;
+  padding:18px 34px;
+  border-radius:18px;
+  background:rgba(0,0,0,.78);
+  border:2px solid rgba(255,255,255,.2);
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  font-size:52px;
+  letter-spacing:.08em;
+  color:#fff;
+  text-align:center;
+  pointer-events:none;
+  opacity:0;
+  animation:battleResultPop 1.15s ease forwards;
+  box-shadow:0 0 40px rgba(0,0,0,.55);
+}
+.battle-result-big small{
+  display:block;
+  font-family:'Prompt','Noto Sans Thai',system-ui,sans-serif;
+  font-size:13px;
+  letter-spacing:.02em;
+  margin-top:2px;
+}
+.battle-result-big.win{border-color:#7dffbd;color:#7dffbd;}
+.battle-result-big.defeat{border-color:#ff7b9f;color:#ff7b9f;}
+.battle-result-big.standoff{border-color:#ffd36e;color:#ffd36e;}
+@keyframes battleResultPop{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.72);}
+  15%{opacity:1;transform:translate(-50%,-50%) scale(1.04);}
+  70%{opacity:1;transform:translate(-50%,-50%) scale(1);}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(.96);}
+}
+.modal-actions .btn-small-action{
+  padding:8px 12px;
+  border-radius:8px;
+  font-size:11px;
+}
+
+
+/* ===== v6_32 How + Card List Info ===== */
+.cl-card{
+  cursor:pointer;
+}
+.cl-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 28px rgba(0,0,0,.32), 0 0 18px rgba(165,225,232,.12);
+}
+.cl-info-btn{
+  position:absolute;
+  top:8px;
+  right:8px;
+  z-index:5;
+  border:1px solid rgba(255,255,255,.38);
+  background:rgba(0,0,0,.58);
+  color:#fff;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:13px;
+}
+.cl-info-btn:hover{
+  background:rgba(165,225,232,.35);
+  border-color:var(--cyan);
+}
+.deck-ratio-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:10px;
+  margin:10px 0 12px;
+}
+.deck-ratio-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px;
+}
+.deck-ratio-card h4{
+  margin:0 0 6px !important;
+}
+.deck-ratio-card .big{
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  font-size:28px;
+  color:#fff;
+  letter-spacing:.06em;
+}
+
+
+/* ===== v6_33 Action Overlay + Phase Announce ===== */
+.card-action-overlay{
+  position:absolute;
+  inset:0;
+  z-index:8;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  background:rgba(3,5,14,.68);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s;
+  backdrop-filter:blur(1px);
+}
+.bc:hover .card-action-overlay,
+.comp-bar:hover .card-action-overlay{
+  opacity:1;
+  pointer-events:auto;
+}
+.action-icon-btn{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.42);
+  background:rgba(0,0,0,.72);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  cursor:pointer;
+  box-shadow:0 0 14px rgba(0,0,0,.55);
+}
+.action-icon-btn:hover{
+  transform:scale(1.08);
+  background:rgba(165,225,232,.34);
+  border-color:var(--cyan);
+}
+.action-icon-btn.disabled{
+  opacity:.35;
+  pointer-events:none;
+}
+.bc > .info-btn,
+.comp-bar > .info-btn{
+  display:none !important;
+}
+.phase-announce{
+  position:fixed;
+  left:50%;
+  top:28%;
+  transform:translate(-50%,-50%) scale(.92);
+  z-index:190;
+  padding:14px 30px;
+  border-radius:16px;
+  background:rgba(5,8,20,.82);
+  border:2px solid rgba(165,225,232,.35);
+  color:#fff;
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  font-size:42px;
+  letter-spacing:.09em;
+  text-align:center;
+  pointer-events:none;
+  opacity:0;
+  animation:phaseAnnouncePop 1.2s ease forwards;
+  box-shadow:0 0 36px rgba(0,0,0,.52);
+}
+.phase-announce small{
+  display:block;
+  font-family:'Prompt','Noto Sans Thai',system-ui,sans-serif;
+  font-size:12px;
+  letter-spacing:.02em;
+  color:#dfeaff;
+  margin-top:2px;
+}
+@keyframes phaseAnnouncePop{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.76);}
+  15%{opacity:1;transform:translate(-50%,-50%) scale(1.04);}
+  72%{opacity:1;transform:translate(-50%,-50%) scale(1);}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(.96);}
+}
+.battle-result-big.win{color:#7dffbd;}
+.battle-result-big.defeat{color:#ffb27b;}
+.battle-result-big.standoff{color:#ffd36e;}
+
+
+/* ===== v6_34 Flow + Hover Info Fix ===== */
+.cl-info-btn{display:none !important;}
+.hc .info-btn{
+  display:flex !important;
+  top:-22px !important;
+  right:50% !important;
+  transform:translateX(50%) translateY(4px);
+  opacity:0;
+  pointer-events:none;
+  width:28px;
+  height:28px;
+  font-size:14px;
+  border-radius:999px;
+  z-index:30;
+}
+.hc:hover .info-btn{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(50%) translateY(0);
+}
+.hc{overflow:visible !important;}
+.hc-wrap{overflow:hidden;}
+.char-slot.droppable.sacrifice-ready{
+  border-color:rgba(125,255,189,.95);
+  background:rgba(125,255,189,.16);
+  color:#7dffbd;
+  box-shadow:0 0 18px rgba(125,255,189,.35);
+}
+.char-slot.droppable.sacrifice-ready::after{
+  content:'PLACE HERE';
+  position:absolute;
+  bottom:8px;
+  font-size:8px;
+  font-weight:900;
+  color:#7dffbd;
+  letter-spacing:.08em;
+}
+.hc.sacrifice-mode{
+  box-shadow:0 0 16px rgba(125,255,189,.35);
+}
+
+
+/* ===== v6_35 Visual Clarity + AI Pass ===== */
+.cl-card:hover{
+  transform:translateY(-7px) scale(1.025) !important;
+  border-color:var(--cyan) !important;
+  box-shadow:
+    0 0 0 2px rgba(165,225,232,.55),
+    0 0 30px rgba(165,225,232,.42),
+    0 18px 36px rgba(0,0,0,.42) !important;
+  filter:brightness(1.12);
+}
+.cl-card:hover::after{
+  content:'CLICK FOR INFO';
+  position:absolute;
+  left:50%;
+  top:10px;
+  transform:translateX(-50%);
+  z-index:9;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.09em;
+  padding:4px 9px;
+  border-radius:999px;
+  background:rgba(0,0,0,.72);
+  color:#a5e1e8;
+  border:1px solid rgba(165,225,232,.4);
+  pointer-events:none;
+}
+.card-action-overlay{
+  inset:auto 5px 5px auto !important;
+  width:auto !important;
+  height:auto !important;
+  background:transparent !important;
+  backdrop-filter:none !important;
+  gap:0 !important;
+}
+.bc:hover .card-action-overlay,
+.comp-bar:hover .card-action-overlay{
+  opacity:1;
+  pointer-events:auto;
+}
+.bc .action-icon-btn,
+.comp-bar .action-icon-btn{
+  width:26px !important;
+  height:26px !important;
+  font-size:12px !important;
+  border-radius:8px !important;
+  background:rgba(0,0,0,.68) !important;
+  box-shadow:0 0 8px rgba(0,0,0,.45) !important;
+}
+.hover-formation-icon{
+  position:absolute;
+  z-index:7;
+  right:5px;
+  top:25px;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:rgba(255,80,80,.82);
+  color:#fff;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  font-size:15px;
+  border:1px solid rgba(255,255,255,.24);
+  box-shadow:0 0 10px rgba(255,80,80,.38);
+  pointer-events:none;
+}
+.bc.pos-attack:hover .hover-formation-icon{
+  display:flex;
+}
+.hc .info-btn{
+  display:flex !important;
+  top:auto !important;
+  bottom:7px !important;
+  right:7px !important;
+  left:auto !important;
+  transform:none !important;
+  width:22px !important;
+  height:22px !important;
+  font-size:10px !important;
+  border-radius:7px !important;
+  opacity:0;
+  pointer-events:none;
+  z-index:40;
+  background:rgba(0,0,0,.68);
+}
+.hc:hover .info-btn{
+  opacity:1;
+  pointer-events:auto;
+  transform:none !important;
+}
+.hc:hover .hc-wrap{
+  box-shadow:0 0 0 2px rgba(165,225,232,.28);
+}
+.no-img-creature{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 50% 35%,rgba(255,255,255,.16),transparent 30%),
+    radial-gradient(circle at 50% 65%,rgba(0,0,0,.25),transparent 45%);
+  font-size:34px;
+}
+.no-img-creature small{
+  font-size:7px;
+  color:rgba(255,255,255,.72);
+  margin-top:3px;
+  letter-spacing:.08em;
+  font-weight:900;
+}
+.hc .no-img-creature{font-size:26px;}
+.hc .no-img-creature small{font-size:6px;}
+
+
+/* ===== v6_36 Layout / Fair AI / Auto Play ===== */
+.btn-auto{border-color:#a5e1e8;background:rgba(165,225,232,.11);color:#a5e1e8;}
+#sc-game{min-height:100vh;display:flex;flex-direction:column;}
+.board{min-height:0;overflow:hidden;}
+.board-main{
+  justify-content:space-between;
+  min-height:0;
+  padding:5px 10px 7px !important;
+  gap:4px !important;
+}
+.ai-hand-row{min-height:28px;padding:1px 0 !important;}
+.hand-row{
+  margin-top:auto;
+  min-height:116px !important;
+  padding:8px 12px 9px !important;
+  border-top:1px solid rgba(165,225,232,.08);
+  background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.18));
+}
+.sidebar{width:178px !important;}
+.lead-box{
+  padding:8px !important;
+  border-color:rgba(165,225,232,.28) !important;
+  background:linear-gradient(135deg,rgba(92,88,237,.11),rgba(255,255,255,.035)) !important;
+}
+.lead-art{width:48px !important;height:66px !important;}
+.lead-name{font-size:13px !important;}
+.lead-lp{font-size:17px !important;}
+.deck-stat{
+  border-bottom:1px solid rgba(255,255,255,.045);
+  padding:4px 0;
+}
+.void-link{
+  cursor:pointer;
+  color:#a5e1e8;
+}
+.void-link:hover{
+  color:#fff;
+  text-shadow:0 0 8px rgba(165,225,232,.55);
+}
+.void-modal{max-width:640px;}
+.void-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+  gap:10px;
+  max-height:60vh;
+  overflow-y:auto;
+  padding:4px;
+}
+.void-card{
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.04);
+  border-radius:10px;
+  padding:8px;
+  cursor:pointer;
+}
+.void-card:hover{
+  border-color:var(--cyan);
+  box-shadow:0 0 14px rgba(165,225,232,.2);
+}
+.void-card .v-name{
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  color:#fff;
+  font-size:17px;
+  letter-spacing:.06em;
+}
+.void-card .v-meta{
+  font-size:10px;
+  color:var(--dim);
+}
+.bc.pos-guard .bc-wrap{
+  transform:none !important;
+  box-shadow:0 0 18px rgba(96,144,255,.28), inset 0 0 0 2px rgba(96,144,255,.22) !important;
+}
+.bc-pos-badge{
+  font-size:13px !important;
+  padding:4px 8px !important;
+}
+.pos-g{
+  background:rgba(80,140,255,.95) !important;
+  min-width:48px;
+  text-align:center;
+}
+.pos-a{
+  background:rgba(255,80,80,.95) !important;
+  min-width:48px;
+  text-align:center;
+}
+@media (max-height: 760px){
+  .gate-slot,.gate-empty,.char-slot,.bc{height:104px !important;width:82px !important;}
+  .lane-col{width:96px !important;}
+  .comp-slot,.comp-bar{width:82px !important;height:30px !important;}
+  .hand-row{min-height:104px !important;}
+  .hc{height:98px !important;width:68px !important;}
+  .lead-art{width:42px !important;height:58px !important;}
+}
+
+
+/* ===== v6_37 Cancel Attack ===== */
+.btn-cancel-atk{
+  border-color:#ffcf6b;
+  background:rgba(255,207,107,.12);
+  color:#ffcf6b;
+}
+.btn-cancel-atk:hover:not(:disabled){
+  background:rgba(255,207,107,.24);
+}
+
+
+/* ===== v6_38 Deck Composition Visual ===== */
+.deck-visual{
+  margin:12px 0 14px;
+  border:1px solid rgba(165,225,232,.22);
+  background:rgba(0,0,0,.16);
+  border-radius:14px;
+  padding:14px;
+}
+.deck-visual-title{
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  letter-spacing:.09em;
+  color:#fff;
+  font-size:24px;
+  margin-bottom:8px;
+}
+.deck-stack{
+  display:grid;
+  grid-template-columns:3fr 1fr 1fr;
+  height:46px;
+  overflow:hidden;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.12);
+}
+.deck-seg{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:900;
+  color:#fff;
+  text-align:center;
+  border-right:1px solid rgba(0,0,0,.28);
+}
+.deck-seg:last-child{border-right:none;}
+.deck-char{background:linear-gradient(90deg,rgba(96,144,255,.9),rgba(92,88,237,.72));}
+.deck-comp{background:linear-gradient(90deg,rgba(235,110,202,.86),rgba(186,101,255,.72));}
+.deck-spell{background:linear-gradient(90deg,rgba(80,210,140,.82),rgba(45,160,120,.72));}
+.deck-mini-grid{
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:4px;
+  margin-top:12px;
+}
+.deck-mini{
+  height:20px;
+  border-radius:4px;
+  border:1px solid rgba(255,255,255,.12);
+}
+.deck-mini.char{background:rgba(96,144,255,.95);}
+.deck-mini.comp{background:rgba(235,110,202,.95);}
+.deck-mini.spell{background:rgba(80,210,140,.95);}
+.deck-legend-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:10px;
+  font-size:12px;
+  color:var(--dim);
+}
+.deck-dot{
+  width:10px;
+  height:10px;
+  border-radius:3px;
+  display:inline-block;
+  margin-right:4px;
+}
+
 </style>
 </head>
 <body>
@@ -500,10 +1273,95 @@ body, button, input, select, textarea {
       </div>
     </div>
 
+
+    <div class="how-sec">
+      <h2>🧩 Deck Composition / ประเภทการ์ดใน Deck</h2>
+      <p>ใน playtest เวอร์ชันนี้ Deck ถูกออกแบบให้มี 40 ใบ เพื่อให้สุ่มง่าย จั่วไม่ตัน และเห็น combo ได้เร็วขึ้น</p>
+
+      <div class="deck-visual">
+        <div class="deck-visual-title">1 DECK = 40 CARDS</div>
+        <div class="deck-stack" aria-label="Deck composition visual">
+          <div class="deck-seg deck-char">24 CHARACTER<br>60%</div>
+          <div class="deck-seg deck-comp">8 COMP<br>20%</div>
+          <div class="deck-seg deck-spell">8 SPELL<br>20%</div>
+        </div>
+        <div class="deck-mini-grid" aria-label="40 card grid">
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini char"></span>
+          <span class="deck-mini comp"></span>
+          <span class="deck-mini comp"></span>
+          <span class="deck-mini comp"></span>
+          <span class="deck-mini comp"></span>
+          <span class="deck-mini comp"></span>
+          <span class="deck-mini comp"></span>
+          <span class="deck-mini comp"></span>
+          <span class="deck-mini comp"></span>
+          <span class="deck-mini spell"></span>
+          <span class="deck-mini spell"></span>
+          <span class="deck-mini spell"></span>
+          <span class="deck-mini spell"></span>
+          <span class="deck-mini spell"></span>
+          <span class="deck-mini spell"></span>
+          <span class="deck-mini spell"></span>
+          <span class="deck-mini spell"></span>
+        </div>
+        <div class="deck-legend-row">
+          <span><i class="deck-dot deck-char"></i>Character 24: ตัวลงสนาม / ป้องกัน Gate / ใช้จ่าย Cost</span>
+          <span><i class="deck-dot deck-comp"></i>Companion 8: Attach เพื่อ Buff หรือ Pair Bonus</span>
+          <span><i class="deck-dot deck-spell"></i>Spell 8: แก้สถานการณ์ / จั่ว / ย้าย / ซ่อม Gate</span>
+        </div>
+      </div>
+
+      <div class="deck-ratio-grid">
+        <div class="deck-ratio-card">
+          <h4><span class="type-badge tb-char">CHARACTER</span></h4>
+          <div class="big">24 Cards</div>
+          <p>ตัวหลักสำหรับลงสนาม โจมตี ป้องกัน Gate และเป็นวัตถุดิบ Sacrifice เพื่อจ่าย Cost</p>
+        </div>
+        <div class="deck-ratio-card">
+          <h4><span class="type-badge tb-comp">COMPANION</span></h4>
+          <div class="big">8 Cards</div>
+          <p>การ์ดซัพพอร์ตที่ Attach กับ Character เพื่อเพิ่ม ATK / DEF หรือเปิด Pair Bonus</p>
+        </div>
+        <div class="deck-ratio-card">
+          <h4><span class="type-badge tb-spell">SPELL</span></h4>
+          <div class="big">8 Cards</div>
+          <p>การ์ดยุทธวิธี เช่น ย้ายเลน, จั่ว, ชุบชีวิต, ซ่อม Gate หรือเปลี่ยนจังหวะการเล่น</p>
+        </div>
+      </div>
+      <div class="rule-box">
+        <h4>Recommended 40-card ratio</h4>
+        <p><strong>Character 60%</strong> / <strong>Companion 20%</strong> / <strong>Spell 20%</strong><br>
+        เหตุผล: เกมต้องมี Character มากพอให้ไม่ตัน, Companion พอให้เกิด combo, และ Spell พอให้มีทางแก้สถานการณ์</p>
+      </div>
+    </div>
+
     <div class="how-sec">
       <h2>⚡ Turn Structure</h2>
       <div class="rule-box"><h4>① Draw Phase</h4><p>จั่ว 2 ใบ (Turn แรกจั่ว 0) — ถ้า Deck หมด = แพ้ทันที — Hand Limit 7 ใบ</p></div>
-      <div class="rule-box"><h4>② Main Phase</h4><p>ลง Character ได้ <strong>1 ใบต่อ Turn</strong> (เลือก Position) — ลง Companion / Spell ได้ไม่จำกัด — Sacrifice Character จาก Field เพื่อ Crystal</p></div>
+      <div class="rule-box"><h4>② Main Phase</h4><p>ลง Character ได้ตามจำนวนเลนและ Cost ที่จ่ายได้ (เลือก Formation ตอนลง) — ลง Companion / Spell ได้ไม่จำกัด — Sacrifice Character จาก Field เพื่อจ่าย Cost</p></div>
       <div class="rule-box"><h4>③ Battle Phase</h4><p>Character ที่อยู่ก่อน Turn นี้โจมตีได้ — Character ใหม่ยังโจมตีไม่ได้ (Summoning Sickness) — โจมตีได้เฉพาะ Lane เดียวกัน</p></div>
       <div class="rule-box"><h4>④ End Phase</h4><p>จบ Turn ฝ่ายตรงข้ามเริ่ม Turn</p></div>
     </div>
@@ -552,11 +1410,17 @@ body, button, input, select, textarea {
     <div class="g-turn" id="g-turn">Turn 1</div>
     <div class="g-actions">
       <button class="btn btn-back btn-sm" id="btn-lang-game" onclick="toggleLanguage()">TH / EN</button>
+      <button class="btn-phase btn-redraw" id="btn-redraw" onclick="redrawHand()">↻ Redraw</button>
+      <button class="btn-phase btn-auto" id="btn-auto" onclick="toggleAutoPlay()">▶ Auto</button>
+      <button class="btn-phase btn-reset" id="btn-reset-game" onclick="restartGame()">⟲ Restart</button>
       <button class="btn-phase btn-battle" id="btn-battle" onclick="goToBattle()" disabled>⚔️ Battle</button>
+      <button class="btn-phase btn-cancel-atk" id="btn-cancel-atk" onclick="cancelAttack()" disabled>Cancel Attack</button>
       <button class="btn-phase btn-end" id="btn-end" onclick="endTurn()" disabled>End Turn →</button>
     </div>
   </div>
   <div class="step-help" id="step-help"><strong>NEXT</strong> Click Play Test to start.</div>
+  <div class="battle-preview" id="battle-preview"></div>
+  <div class="card-info-bar" id="card-info-bar"></div>
 
   <!-- Board -->
   <div class="board">
@@ -600,6 +1464,8 @@ body, button, input, select, textarea {
         <div class="deck-stat"><span id="lbl-your-deck">Your Deck</span><span id="p-deck-cnt">40</span></div>
         <div class="deck-stat"><span id="lbl-ai-hand">AI Hand</span><span id="ai-hand-cnt">5</span></div>
         <div class="deck-stat"><span id="lbl-your-hand">Your Hand</span><span id="p-hand-cnt">5</span></div>
+        <div class="deck-stat void-link" onclick="openVoid('ai')"><span>AI Void</span><span id="ai-void-cnt">0</span></div>
+        <div class="deck-stat void-link" onclick="openVoid('player')"><span>Your Void</span><span id="p-void-cnt">0</span></div>
       </div>
       <div class="g-log" id="g-log">
         <div class="log-title" id="lbl-game-log">GAME LOG</div>
@@ -650,6 +1516,18 @@ body, button, input, select, textarea {
   </div>
 </div>
 
+
+<!-- Void / Graveyard Viewer -->
+<div class="ov" id="ov-void">
+  <div class="modal void-modal">
+    <h3 id="void-title">VOID</h3>
+    <div class="void-list" id="void-list"></div>
+    <div class="modal-btns">
+      <button class="btn btn-back btn-sm" onclick="closeVoid()">Close</button>
+    </div>
+  </div>
+</div>
+
 <!-- Win/Lose -->
 <div class="ov" id="ov-win">
   <div class="modal win-modal">
@@ -662,6 +1540,17 @@ body, button, input, select, textarea {
 
 <!-- Message float -->
 <div class="msg-float" id="msg-float"></div>
+
+
+<div class="ov" id="ov-card-detail">
+  <div class="modal card-detail-modal">
+    <h3 id="card-detail-title">CARD DETAIL</h3>
+    <div id="card-detail-body"></div>
+    <div class="modal-actions">
+      <button class="btn btn-a" onclick="closeCardDetail()">Close</button>
+    </div>
+  </div>
+</div>
 
 <script>
 const MITTARIA_LOGO_URI = 'assets/embedded/img_002_98f0d555ec16.svg';
@@ -749,22 +1638,22 @@ const CHAR_IMGS = {
 // ============================================================
 const CARDS = {
   // LEGENDARY
-  mitria:{id:'mitria',name:'Mitria',type:'char',rarity:'legendary',cost:2,cv:2,atk:4,def:3,el:'light',emoji:'🌟',skill:'Charm Aura: เมื่อโจมตีชนะ จั่ว 1 ใบ',bg:'linear-gradient(135deg,#0a0a30,#1a1050)',skillFn:'on_win_draw'},
-  dark_empress:{id:'dark_empress',name:'Dark Empress',type:'char',rarity:'legendary',cost:2,cv:2,atk:5,def:2,el:'shadow',emoji:'👑',skill:'Dark Command: เมื่อลงสนาม ฝ่ายตรงข้าม discard 1',bg:'linear-gradient(135deg,#0a0020,#200030)',skillFn:'on_play_discard'},
+  mitria:{id:'mitria',name:'Mitria',type:'char',rarity:'legendary',cost:2,cv:2,atk:5,def:4,el:'light',emoji:'🌟',skill:'Charm Aura: เมื่อโจมตีชนะ จั่ว 1 ใบ',bg:'linear-gradient(135deg,#0a0a30,#1a1050)',skillFn:'on_win_draw'},
+  dark_empress:{id:'dark_empress',name:'Dark Empress',type:'char',rarity:'legendary',cost:2,cv:2,atk:6,def:3,el:'shadow',emoji:'👑',skill:'Dark Command: เมื่อลงสนาม ฝ่ายตรงข้าม discard 1',bg:'linear-gradient(135deg,#0a0020,#200030)',skillFn:'on_play_discard'},
   // EPIC
   lo:{id:'lo',name:'Lo',type:'companion',rarity:'epic',cost:0,cv:0,el:'light',emoji:'🕊️',effect:'+1 ATK +1 DEF',ab:1,db:1,skill:'Light Companion',bg:'linear-gradient(90deg,rgba(120,220,255,.55),rgba(80,120,255,.55))'},
-  lo_hero:{id:'lo_hero',name:'Lo Hero',type:'char',rarity:'epic',cost:1,cv:1,atk:3,def:3,el:'light',emoji:'🐦',skill:'Balanced Heroic Bird',bg:'linear-gradient(135deg,#061531,#173b72)'},
-  ember:{id:'ember',name:'Ember',type:'char',rarity:'epic',cost:1,cv:1,atk:3,def:3,el:'fire',emoji:'🌺',skill:'',bg:'linear-gradient(135deg,#200010,#300020)'},
-  michio:{id:'michio',name:'Michio',type:'char',rarity:'epic',cost:1,cv:1,atk:2,def:3,el:'crystal',emoji:'⚙️',skill:'',bg:'linear-gradient(135deg,#001820,#002030)'},
+  lo_hero:{id:'lo_hero',name:'Lo Hero',type:'char',rarity:'epic',cost:1,cv:1,atk:4,def:3,el:'light',emoji:'🐦',skill:'Balanced Heroic Bird',bg:'linear-gradient(135deg,#061531,#173b72)'},
+  ember:{id:'ember',name:'Ember',type:'char',rarity:'epic',cost:1,cv:1,atk:4,def:3,el:'fire',emoji:'🌺',skill:'',bg:'linear-gradient(135deg,#200010,#300020)'},
+  michio:{id:'michio',name:'Michio',type:'char',rarity:'epic',cost:1,cv:1,atk:3,def:4,el:'crystal',emoji:'⚙️',skill:'',bg:'linear-gradient(135deg,#001820,#002030)'},
 
-  hong_yue:{id:'hong_yue',name:'Hong Yue',type:'char',rarity:'common',cost:0,cv:1,atk:3,def:2,el:'fire',emoji:'🪭',skill:'Moon Fan: Pair with Jade Brew for +1 DEF',pairWith:['jade_brew'],pairAtk:0,pairDef:1,bg:'linear-gradient(135deg,#5d0808,#c22727)'},
-  luna_veil:{id:'luna_veil',name:'Luna Veil',type:'char',rarity:'rare',cost:1,cv:1,atk:3,def:3,el:'shadow',emoji:'🎃',skill:'Witch Pact: Pair with Noct Bat for +1 ATK',pairWith:['noct_bat'],pairAtk:1,pairDef:0,bg:'linear-gradient(135deg,#21051f,#6b2d95)'},
-  verdantia:{id:'verdantia',name:'Verdantia',type:'char',rarity:'rare',cost:1,cv:1,atk:2,def:4,el:'light',emoji:'🕊️',skill:'Grace Wing: Pair with Celestine or Lo for +1 DEF',pairWith:['celestine','lo'],pairAtk:0,pairDef:1,bg:'linear-gradient(135deg,#14376d,#3b78cf)'},
-  solaria:{id:'solaria',name:'Solaria',type:'char',rarity:'rare',cost:1,cv:1,atk:4,def:2,el:'fire',emoji:'🔥',skill:'Blaze Pact: Pair with Flare Ace for +1 ATK',pairWith:['flare_ace'],pairAtk:1,pairDef:0,bg:'linear-gradient(135deg,#5f2300,#ff9a2d)'},
-  aria_byte:{id:'aria_byte',name:'Aria Byte',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:3,el:'crystal',emoji:'🧪',skill:'Pixel Sync: Pair with Pixel Pop for +1 ATK / +1 DEF',pairWith:['pixel_pop'],pairAtk:1,pairDef:1,bg:'linear-gradient(135deg,#53316d,#ffb35c)'},
-  lotus_noir:{id:'lotus_noir',name:'Lotus Noir',type:'char',rarity:'rare',cost:1,cv:1,atk:3,def:3,el:'shadow',emoji:'🌸',skill:'Lotus Veil: Pair with Aqua Pop or Dark Cloak for +1 DEF',pairWith:['aqua_pop','dark_cloak'],pairAtk:0,pairDef:1,bg:'linear-gradient(135deg,#3e112f,#88385f)'},
-  celestia_prime:{id:'celestia_prime',name:'Celestia Prime',type:'char',rarity:'legendary',cost:2,cv:2,atk:4,def:4,el:'light',emoji:'⭐',skill:'Star Oath: Pair with Celestine for +1 ATK / +1 DEF',pairWith:['celestine'],pairAtk:1,pairDef:1,bg:'linear-gradient(135deg,#a9d8ff,#e9f4ff)'},
-  prism_bloom:{id:'prism_bloom',name:'Prism Bloom',type:'char',rarity:'rare',cost:1,cv:1,atk:3,def:4,el:'crystal',emoji:'💠',skill:'Crystal Pulse: Pair with Aqua Pop for +1 DEF',pairWith:['aqua_pop'],pairAtk:0,pairDef:1,bg:'linear-gradient(135deg,#803258,#ffc1da)'},
+  hong_yue:{id:'hong_yue',name:'Hong Yue',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:2,el:'fire',emoji:'🪭',skill:'Moon Fan: Pair with Jade Brew for +1 DEF',pairWith:['jade_brew'],pairAtk:0,pairDef:1,bg:'linear-gradient(135deg,#5d0808,#c22727)'},
+  luna_veil:{id:'luna_veil',name:'Luna Veil',type:'char',rarity:'rare',cost:0,cv:1,atk:2,def:3,el:'shadow',emoji:'🎃',skill:'Witch Pact: Pair with Noct Bat for +1 ATK',pairWith:['noct_bat'],pairAtk:1,pairDef:0,bg:'linear-gradient(135deg,#21051f,#6b2d95)'},
+  verdantia:{id:'verdantia',name:'Verdantia',type:'char',rarity:'rare',cost:0,cv:1,atk:1,def:4,el:'light',emoji:'🕊️',skill:'Grace Wing: Pair with Celestine or Lo for +1 DEF',pairWith:['celestine','lo'],pairAtk:0,pairDef:1,bg:'linear-gradient(135deg,#14376d,#3b78cf)'},
+  solaria:{id:'solaria',name:'Solaria',type:'char',rarity:'rare',cost:0,cv:1,atk:3,def:1,el:'fire',emoji:'🔥',skill:'Blaze Pact: Pair with Flare Ace for +1 ATK',pairWith:['flare_ace'],pairAtk:1,pairDef:0,bg:'linear-gradient(135deg,#5f2300,#ff9a2d)'},
+  aria_byte:{id:'aria_byte',name:'Aria Byte',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:3,el:'crystal',emoji:'🧪',skill:'Pixel Sync: Pair with Pixel Pop for +1 ATK / +1 DEF',pairWith:['pixel_pop'],pairAtk:1,pairDef:1,bg:'linear-gradient(135deg,#53316d,#ffb35c)'},
+  lotus_noir:{id:'lotus_noir',name:'Lotus Noir',type:'char',rarity:'rare',cost:0,cv:1,atk:3,def:2,el:'shadow',emoji:'🌸',skill:'Lotus Veil: Pair with Aqua Pop or Dark Cloak for +1 DEF',pairWith:['aqua_pop','dark_cloak'],pairAtk:0,pairDef:1,bg:'linear-gradient(135deg,#3e112f,#88385f)'},
+  celestia_prime:{id:'celestia_prime',name:'Celestia Prime',type:'char',rarity:'legendary',cost:2,cv:2,atk:6,def:5,el:'light',emoji:'⭐',skill:'Star Oath: Pair with Celestine for +1 ATK / +1 DEF',pairWith:['celestine'],pairAtk:1,pairDef:1,bg:'linear-gradient(135deg,#a9d8ff,#e9f4ff)'},
+  prism_bloom:{id:'prism_bloom',name:'Prism Bloom',type:'char',rarity:'rare',cost:0,cv:1,atk:2,def:4,el:'crystal',emoji:'💠',skill:'Crystal Pulse: Pair with Aqua Pop for +1 DEF',pairWith:['aqua_pop'],pairAtk:0,pairDef:1,bg:'linear-gradient(135deg,#803258,#ffc1da)'},
   jade_brew:{id:'jade_brew',name:'Jade Brew',type:'companion',rarity:'common',cost:0,cv:0,el:'light',emoji:'☕',effect:'+1 ATK +1 DEF',ab:1,db:1,skill:'Best match for Hong Yue',bg:'linear-gradient(90deg,rgba(167,216,55,.65),rgba(51,126,72,.65))'},
   noct_bat:{id:'noct_bat',name:'Noct Bat',type:'companion',rarity:'rare',cost:0,cv:0,el:'shadow',emoji:'🦇',effect:'+2 ATK',ab:2,db:0,skill:'Best match for Luna Veil',bg:'linear-gradient(90deg,rgba(22,30,88,.7),rgba(113,33,160,.7))'},
   aqua_pop:{id:'aqua_pop',name:'Aqua Pop',type:'companion',rarity:'rare',cost:0,cv:0,el:'water',emoji:'💧',effect:'+1 ATK +2 DEF',ab:1,db:2,skill:'Best match for Lotus Noir / Prism Bloom',bg:'linear-gradient(90deg,rgba(61,170,255,.72),rgba(244,220,109,.45))'},
@@ -775,14 +1664,14 @@ const CARDS = {
   shadow_minion:{id:'shadow_minion',name:'Shadow Minion',type:'char',rarity:'rare',cost:0,cv:1,atk:2,def:1,el:'shadow',emoji:'👤',skill:'',bg:'linear-gradient(135deg,#080018,#100025)'},
   crystal_guard:{id:'crystal_guard',name:'Crystal Guard',type:'char',rarity:'rare',cost:0,cv:1,atk:1,def:3,el:'crystal',emoji:'🛡️',skill:'',bg:'linear-gradient(135deg,#001020,#002030)'},
   worm_guard:{id:'worm_guard',name:'Worm Guard',type:'char',rarity:'rare',cost:0,cv:1,atk:0,def:3,el:'shadow',emoji:'🪱',skill:'',bg:'linear-gradient(135deg,#0f0800,#181000)'},  // COMMON
-  light_sprite:{id:'light_sprite',name:'Light Sprite',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:1,el:'light',emoji:'✨',skill:'',bg:'linear-gradient(135deg,#181008,#201808)'},
+  light_sprite:{id:'light_sprite',name:'Light Sprite',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:1,el:'light',emoji:'🧚',skill:'',bg:'linear-gradient(135deg,#181008,#201808)'},
   light_fairy:{id:'light_fairy',name:'Light Fairy',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:2,el:'light',emoji:'🧚',skill:'',bg:'linear-gradient(135deg,#080f08,#0f1808)'},
   worm_scout:{id:'worm_scout',name:'Worm Scout',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:0,el:'shadow',emoji:'🐛',skill:'',bg:'linear-gradient(135deg,#0f0805,#180c08)'},
-  shadow_sprite:{id:'shadow_sprite',name:'Shadow Sprite',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:0,el:'shadow',emoji:'🌑',skill:'',bg:'linear-gradient(135deg,#080010,#100018)'},
-  crystal_apprentice:{id:'crystal_apprentice',name:'Crystal Apprentice',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:1,el:'crystal',emoji:'🔷',skill:'',bg:'linear-gradient(135deg,#061020,#102040)'},
-  mini_mimic:{id:'mini_mimic',name:'Mini Mimic',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:1,el:'neutral',emoji:'🎁',skill:'',bg:'linear-gradient(135deg,#12080a,#221014)'},
-  fire_imp:{id:'fire_imp',name:'Fire Imp',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:1,el:'fire',emoji:'🔥',skill:'',bg:'linear-gradient(135deg,#180800,#2a1200)'},
-  moon_wisp:{id:'moon_wisp',name:'Moon Wisp',type:'char',rarity:'common',cost:0,cv:1,atk:0,def:2,el:'shadow',emoji:'🌙',skill:'',bg:'linear-gradient(135deg,#080014,#141028)'},
+  shadow_sprite:{id:'shadow_sprite',name:'Shadow Sprite',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:0,el:'shadow',emoji:'👤',skill:'',bg:'linear-gradient(135deg,#080010,#100018)'},
+  crystal_apprentice:{id:'crystal_apprentice',name:'Crystal Apprentice',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:1,el:'crystal',emoji:'🧙',skill:'',bg:'linear-gradient(135deg,#061020,#102040)'},
+  mini_mimic:{id:'mini_mimic',name:'Mini Mimic',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:1,el:'neutral',emoji:'👾',skill:'',bg:'linear-gradient(135deg,#12080a,#221014)'},
+  fire_imp:{id:'fire_imp',name:'Fire Imp',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:1,el:'fire',emoji:'😈',skill:'',bg:'linear-gradient(135deg,#180800,#2a1200)'},
+  moon_wisp:{id:'moon_wisp',name:'Moon Wisp',type:'char',rarity:'common',cost:0,cv:1,atk:0,def:2,el:'shadow',emoji:'👻',skill:'',bg:'linear-gradient(135deg,#080014,#141028)'},
   // COMPANIONS
   lobot:{id:'lobot',name:'Lobot',type:'companion',rarity:'epic',cost:0,cv:0,el:'crystal',emoji:'🤖',effect:'+1 ATK +1 DEF',ab:1,db:1,skill:'Tech Support',bg:'linear-gradient(90deg,rgba(180,220,255,.5),rgba(80,130,255,.5))'},
   snowball:{id:'snowball',name:'Snowball',type:'companion',rarity:'epic',cost:0,cv:0,el:'water',emoji:'❄️',effect:'+0 ATK +2 DEF',ab:0,db:2,skill:'Frost Shield',bg:'linear-gradient(90deg,rgba(0,150,255,.5),rgba(165,225,232,.5))'},
@@ -851,29 +1740,27 @@ const FINAL_P_DECK = [
 ]; // 2+3+3+2+4+4+2+3+2+2+3+3+3 = 36... still short
 
 const PDECK = [
-  // LEGENDARY / EPIC core
-  'mitria','mitria','dark_empress','celestia_prime','lo_hero','lo_hero','michio','michio','ember','ember',
-  // lower-rarity art Characters
-  'hong_yue','hong_yue','hong_yue',
-  'aria_byte','aria_byte','aria_byte',
-  'verdantia','verdantia',
+  // Characters 24
+  'light_sprite','light_sprite',
+  'crystal_apprentice','crystal_apprentice',
+  'fire_imp','fire_imp',
+  'mini_mimic',
+  'hong_yue','hong_yue',
+  'aria_byte','aria_byte',
   'solaria','solaria',
-  'luna_veil','luna_veil',
-  'lotus_noir','lotus_noir',
-  'prism_bloom','prism_bloom',
-  // a small no-art support base
-  'crystal_guard','mini_mimic',
-  // Companions (art-heavy)
-  'lobot','lo','snowball','nero',
+  'luna_veil','lotus_noir','verdantia','prism_bloom',
+  'lo_hero','lo_hero','ember','michio',
+  'mitria','mitria','celestia_prime',
+
+  // Companions 8
   'jade_brew','jade_brew',
-  'noct_bat',
-  'aqua_pop','aqua_pop',
-  'celestine','celestine',
-  'flare_ace','flare_ace',
   'pixel_pop','pixel_pop',
-  // Spells
+  'flare_ace','aqua_pop','lo','snowball',
+
+  // Spells 8
+  'lane_shift','lane_shift',
   'crystal_burst','shield_charm','charm_fragment','rebirth_charm',
-  'gate_recall','gate_rebuild','lane_shift','quick_reposition','mirror_step'
+  'gate_recall','quick_reposition'
 ];
 // Count: 2+3+3+2+4+4+3+3+3+2+2+4+3+3+4+1 = 42... close enough, let me just count
 // mitria x2, lo x3, michio x3, ember x2, crystal_guard x4, light_sprite x4, light_fairy x3
@@ -881,29 +1768,28 @@ const PDECK = [
 // 2+3+3+2+4+4+3+3+2+2+4+3+4+1 = 40 ✓
 
 const AIDECK = [
-  // LEGENDARY / EPIC core
-  'dark_empress','dark_empress','mitria','celestia_prime','lo_hero','ember','ember','michio',
-  // lower-rarity art Characters
+  // Characters 24
+  'worm_scout','worm_scout',
+  'shadow_sprite','shadow_sprite',
+  'moon_wisp','moon_wisp',
+  'fire_imp','fire_imp',
+  'mini_mimic',
   'hong_yue','hong_yue',
   'aria_byte','aria_byte',
-  'verdantia',
   'solaria','solaria',
-  'luna_veil','luna_veil',
-  'lotus_noir','lotus_noir',
-  'prism_bloom',
-  // shadow / basic support
-  'shadow_minion','shadow_minion','shadow_sprite','shadow_sprite','moon_wisp','worm_guard',
-  // Companions (art-heavy)
-  'lobot','lo','nero','nero','dark_cloak','dark_cloak',
-  'jade_brew',
+  'luna_veil','lotus_noir','verdantia','prism_bloom',
+  'lo_hero','ember','michio',
+  'dark_empress','dark_empress',
+
+  // Companions 8
   'noct_bat','noct_bat',
-  'aqua_pop',
-  'celestine',
-  'flare_ace','flare_ace',
-  'pixel_pop',
-  // Spells
-  'crystal_burst','dark_surge','shadow_veil','charm_fragment','rebirth_charm',
-  'gate_recall','gate_rebuild','lane_shift','quick_reposition','mirror_step'
+  'nero','nero',
+  'dark_cloak','aqua_pop','celestine','flare_ace',
+
+  // Spells 8
+  'dark_surge','dark_surge',
+  'shadow_veil','shadow_veil',
+  'lane_shift','gate_recall','rebirth_charm','mirror_step'
 ];
 // dark_empress x2, lo x2, ember x3, shadow_minion x4, worm_scout x4, shadow_sprite x4
 // worm_guard x3, nero x3, dark_cloak x3, crystal_burst x2, dark_surge x3, shadow_veil x3, charm_fragment x4
@@ -914,6 +1800,7 @@ const AIDECK = [
 // ============================================================
 let G = {};
 let msgTimer = null;
+let detailContext = null;
 
 function makeState(deckDef) {
   return {
@@ -959,6 +1846,15 @@ function shuffle(a) {
   return a;
 }
 
+
+function drawGateCard(side) {
+  const s = G[side];
+  if (!s.deck.length) return null;
+  let idx = s.deck.findIndex(c => c.rarity !== 'epic' && c.rarity !== 'legendary');
+  if (idx < 0) idx = 0;
+  return s.deck.splice(idx, 1)[0];
+}
+
 function initGame() {
   attackerLane = -1;
   G = {
@@ -978,6 +1874,12 @@ function initGame() {
     sacNeeded: 0,
     log: [],
     aiThinking: false,
+    autoPlay: false,
+    redrawCount: 0,
+    maxRedraw: 3,
+    highDrawHelpCount: 0,
+    maxHighDrawHelp: 2,
+    sacrificeReady: false,
   };
   G.player.lead = makeLead('mitria');
   G.ai.lead = makeLead('dark_empress');
@@ -986,7 +1888,7 @@ function initGame() {
   ['player','ai'].forEach(side => {
     const s = G[side];
     for (let i = 0; i < 5; i++) {
-      if (s.deck.length > 0) s.gates[i] = s.deck.shift();
+      if (s.deck.length > 0) s.gates[i] = drawGateCard(side);
     }
   });
 
@@ -994,16 +1896,20 @@ function initGame() {
   drawCards('ai', 5);
   drawCards('player', 5);
   ensureOpeningPlayable('ai');
-  ensureOpeningPlayable('player');
+  const openingFixed = ensureOpeningPlayable('player');
   G.player.hand.forEach(c => c.sick = false); // starting hand not sick
 
   G.phase = 'main';
   addLog('🎮 Game Start! Deck shuffled.', 'ls');
+  if (openingFixed) addLog('🧩 Anti-brick: free Character added to opening hand', 'lc');
+  addLog('Formation Rule: ATK target = ATK vs ATK / Guard target = ATK vs DEF.', 'lc');
+  addLog('Redraw: if your hand is dead, use ↻ Redraw up to 3 times per game. Midgame assist helps Epic/Legend appear.', 'lc');
   addLog(`Turn 1 — Your turn`, 'ls');
 
   render();
   updatePhaseUI();
   showMsg('Your Turn — Main Phase');
+  showPhaseAnnounce('YOUR TURN', 'Main Phase');
 }
 
 function drawCards(side, n) {
@@ -1022,18 +1928,89 @@ function drawCards(side, n) {
   return drew;
 }
 
+function handHasPlayableChar(side) {
+  const s = G[side];
+  return s.hand.some(c => c.type === 'char' && (c.cost || 0) === 0);
+}
+
+function handIsBricked(side) {
+  const s = G[side];
+  const hasChar = s.hand.some(c => c.type === 'char');
+  const hasFreeChar = handHasPlayableChar(side);
+  const onlyCompanionOrSpell = s.hand.every(c => c.type !== 'char');
+  return !hasChar || !hasFreeChar || onlyCompanionOrSpell;
+}
+
 function ensureOpeningPlayable(side) {
-  // For playtest: avoid dead opening hands with no free character.
+  // For playtest: avoid dead opening hands.
   // Move one cost-0 Character from deck into hand if the opening hand has none.
   const s = G[side];
-  const hasFreeChar = s.hand.some(c => c.type === 'char' && c.cost === 0);
-  if (hasFreeChar) return;
-  const idx = s.deck.findIndex(c => c.type === 'char' && c.cost === 0);
-  if (idx < 0) return;
+  const hasFreeChar = handHasPlayableChar(side);
+  if (hasFreeChar) return false;
+  const idx = s.deck.findIndex(c => c.type === 'char' && (c.cost || 0) === 0);
+  if (idx < 0) return false;
   if (s.hand.length >= 7) s.hand.pop();
   const c = s.deck.splice(idx, 1)[0];
   c.sick = false;
   s.hand.unshift(c);
+  return true;
+}
+
+
+function ensureMidgameHighRarity(side) {
+  const s = G[side];
+  if (side !== 'player') return false;
+  if (G.turn < 4) return false;
+  if (G.highDrawHelpCount >= G.maxHighDrawHelp) return false;
+  if (s.hand.some(c => c.rarity === 'epic' || c.rarity === 'legendary')) return false;
+  const idx = s.deck.findIndex(c => (c.rarity === 'epic' || c.rarity === 'legendary') && c.type === 'char');
+  if (idx < 0 || s.hand.length >= 7) return false;
+  const c = s.deck.splice(idx, 1)[0];
+  c.sick = false;
+  s.hand.push(c);
+  G.highDrawHelpCount++;
+  addLog(`🌟 Midgame draw assist: ${c.name} added to hand (${G.highDrawHelpCount}/${G.maxHighDrawHelp})`, 'lc');
+  return true;
+}
+
+function smoothDraw(side) {
+  // Soft anti-brick rule for prototype:
+  // after drawing, if player has no free Character and board is empty, fetch one from deck.
+  const s = G[side];
+  const hasBoard = s.lanes.some(Boolean);
+  if (hasBoard || handHasPlayableChar(side)) return false;
+  return ensureOpeningPlayable(side);
+}
+
+function redrawHand() {
+  if (G.phase !== 'main' || G.activePlayer !== 'player' || G.aiThinking) {
+    showMsg(currentLang === 'th' ? 'Redraw ใช้ได้เฉพาะ Main Phase ของคุณ' : 'Redraw is only available during your Main Phase');
+    return;
+  }
+  if (G.redrawCount >= G.maxRedraw) {
+    showMsg(currentLang === 'th' ? 'ใช้ Redraw ครบแล้วในเกมนี้' : 'No Redraw uses left this game.');
+    return;
+  }
+  const s = G.player;
+  while (s.hand.length) {
+    const card = s.hand.pop();
+    card.sick = false;
+    s.deck.push(card);
+  }
+  s.deck = shuffle(s.deck);
+  drawCards('player', 5);
+  const fixed = ensureOpeningPlayable('player');
+  G.redrawCount++;
+  addLog(`↻ Redraw Hand used (${G.redrawCount}/${G.maxRedraw})${fixed ? ' — free Character added' : ''}`, 'lp');
+  showMsg(currentLang === 'th' ? 'Redraw มือใหม่แล้ว' : 'Hand redrawn');
+  G.selectedCard = null;
+  render();
+  updatePhaseUI();
+}
+
+function restartGame() {
+  if (!confirm(currentLang === 'th' ? 'เริ่มเกมใหม่?' : 'Restart the game?')) return;
+  startGame();
 }
 
 
@@ -1081,23 +2058,22 @@ function attachCompToLane(side, laneIdx, compCardLike, removeFromHand=true) {
 
   const inst = makeInst(compCardLike.id);
   const oldComp = G[side].comps[laneIdx];
-  const oldPairAtk = host.pairBuffAtk || 0;
-  const oldPairDef = host.pairBuffDef || 0;
 
-  if (oldComp) {
-    host.atkBuff = (host.atkBuff || 0) - (oldComp.ab || 0) - oldPairAtk;
-    host.defBuff = (host.defBuff || 0) - (oldComp.db || 0) - oldPairDef;
-    if (host.atkBuff < 0) host.atkBuff = 0;
-    if (host.defBuff < 0) host.defBuff = 0;
-    sendToGrave(side, oldComp);
-  }
+  // Separate temporary buffs from persistent Companion buffs.
+  const oldPersistentAtk = n(oldComp?.ab) + n(host.pairBuffAtk);
+  const oldPersistentDef = n(oldComp?.db) + n(host.pairBuffDef);
+  const tempAtk = Math.max(0, n(host.atkBuff) - oldPersistentAtk);
+  const tempDef = Math.max(0, n(host.defBuff) - oldPersistentDef);
+
+  if (oldComp) sendToGrave(side, oldComp);
 
   const pair = getPairBonus(host, inst);
-  host.pairBuffAtk = pair.atk || 0;
-  host.pairBuffDef = pair.def || 0;
+  host.pairBuffAtk = n(pair.atk);
+  host.pairBuffDef = n(pair.def);
+
   G[side].comps[laneIdx] = inst;
-  host.atkBuff = (host.atkBuff || 0) + (inst.ab || 0) + (pair.atk || 0);
-  host.defBuff = (host.defBuff || 0) + (inst.db || 0) + (pair.def || 0);
+  host.atkBuff = tempAtk + n(inst.ab) + n(pair.atk);
+  host.defBuff = tempDef + n(inst.db) + n(pair.def);
 
   if (removeFromHand) {
     G[side].hand = G[side].hand.filter(c => c.iid !== compCardLike.iid);
@@ -1109,6 +2085,164 @@ function attachCompToLane(side, laneIdx, compCardLike, removeFromHand=true) {
 // ============================================================
 // PHASE CONTROL
 // ============================================================
+
+
+
+function n(v) {
+  const x = Number(v || 0);
+  return Number.isFinite(x) ? x : 0;
+}
+
+function resetLaneBuffs(side, laneIdx) {
+  const host = G[side]?.lanes?.[laneIdx];
+  if (!host) return;
+  host.atkBuff = 0;
+  host.defBuff = 0;
+  host.pairBuffAtk = 0;
+  host.pairBuffDef = 0;
+}
+
+function recalcLaneCompBuff(side, laneIdx) {
+  const host = G[side]?.lanes?.[laneIdx];
+  if (!host) return;
+  const comp = G[side]?.comps?.[laneIdx];
+
+  // Clear all temporary buffs, then re-apply persistent Companion + Pair bonus.
+  host.atkBuff = 0;
+  host.defBuff = 0;
+  host.pairBuffAtk = 0;
+  host.pairBuffDef = 0;
+
+  if (!comp) return;
+
+  const pair = getPairBonus(host, comp);
+  host.pairBuffAtk = n(pair.atk);
+  host.pairBuffDef = n(pair.def);
+  host.atkBuff = n(comp.ab) + n(pair.atk);
+  host.defBuff = n(comp.db) + n(pair.def);
+}
+
+function recalcAllCompBuffs(side) {
+  for (let i = 0; i < 5; i++) recalcLaneCompBuff(side, i);
+}
+
+function getEffAtk(card) {
+  return n(card?.atk) + n(card?.atkBuff);
+}
+
+function getEffDef(card) {
+  return n(card?.def) + n(card?.defBuff);
+}
+
+function getDefenseValue(card) {
+  if (!card) return 0;
+  return card.pos === 'attack' ? getEffAtk(card) : getEffDef(card);
+}
+
+function getDefenseLabel(card) {
+  return card?.pos === 'attack' ? 'ATK' : 'DEF';
+}
+
+function getFormationRule(card) {
+  return card?.pos === 'attack' ? 'ATK Formation: ATK vs ATK' : 'Guard Formation: ATK vs DEF';
+}
+
+function compareCombat(attacker, defender) {
+  const atkValue = getEffAtk(attacker);
+  const defValue = getDefenseValue(defender);
+  const result = atkValue > defValue ? 'attacker_wins' : atkValue < defValue ? 'defender_wins' : 'standoff';
+  return {
+    atkValue,
+    defValue,
+    defLabel: getDefenseLabel(defender),
+    rule: getFormationRule(defender),
+    result
+  };
+}
+
+
+function getCombatPreview(myLane, theirLane) {
+  const atk = G.player?.lanes?.[myLane];
+  const def = G.ai?.lanes?.[theirLane];
+  if (!atk) return null;
+
+  const myAtk = getEffAtk(atk);
+
+  if (!def) {
+    if (G.ai.gatesActive[theirLane]) {
+      return {
+        html: `<strong>PREVIEW</strong> ${atk.name} ATK ${myAtk} → Gate ${theirLane+1} <span class="bp-rule">[Attack Gate]</span> <span class="bp-result gate">DESTROY GATE</span>`,
+        plain: `${atk.name} ATK ${myAtk} attacks Gate ${theirLane+1}`
+      };
+    }
+    return {
+      html: `<strong>PREVIEW</strong> ${atk.name} ATK ${myAtk} → Enemy Lead <span class="bp-rule">[Direct Lead Damage]</span> <span class="bp-result kill">-${myAtk} LP</span>`,
+      plain: `${atk.name} deals ${myAtk} damage to enemy Lead`
+    };
+  }
+
+  const cmp = compareCombat(atk, def);
+  let result = 'STANDOFF';
+  let resultClass = 'standoff';
+  if (cmp.result === 'attacker_wins') { result = `${def.name} DESTROYED`; resultClass = 'kill'; }
+  else if (cmp.result === 'defender_wins') { result = `${atk.name} DESTROYED`; resultClass = 'dead'; }
+
+  return {
+    html: `<strong>PREVIEW</strong> ${atk.name} ATK ${cmp.atkValue} vs ${def.name} ${cmp.defLabel} ${cmp.defValue} <span class="bp-rule">[${cmp.rule}]</span> <span class="bp-result ${resultClass}">${result}</span>`,
+    plain: `${atk.name} ATK ${cmp.atkValue} vs ${def.name} ${cmp.defLabel} ${cmp.defValue} [${cmp.rule}] = ${result}`
+  };
+}
+
+function updateBattlePreview(laneIdx=null) {
+  const el = document.getElementById('battle-preview');
+  if (!el) return;
+  if (G.phase !== 'battle' || attackerLane < 0) {
+    el.classList.remove('on');
+    el.innerHTML = '';
+    return;
+  }
+  const lane = laneIdx ?? attackerLane;
+  const pv = getCombatPreview(attackerLane, lane);
+  if (!pv) {
+    el.classList.remove('on');
+    el.innerHTML = '';
+    return;
+  }
+  el.innerHTML = pv.html;
+  el.classList.add('on');
+}
+
+
+
+function getCardInfoHtml(card) {
+  if (!card) return '';
+  const type = card.type || 'card';
+  if (type === 'char') {
+    const atk = getEffAtk(card);
+    const def = getEffDef(card);
+    return `<strong>CARD</strong> <span class="ci-type">Character</span> ${card.emoji || ''} ${card.name} — ATK ${atk} / DEF ${def} / Cost ${card.cost || 0} <span class="ci-eff">${card.skill || ''}</span>`;
+  }
+  if (type === 'companion') {
+    return `<strong>CARD</strong> <span class="ci-type">Companion</span> ${card.emoji || ''} ${card.name} — <span class="ci-eff">${card.effect || card.skill || 'Support'}</span> | Select your Character lane to attach or replace.`;
+  }
+  if (type === 'spell') {
+    return `<strong>CARD</strong> <span class="ci-type">Spell</span> ${card.emoji || ''} ${card.name} — <span class="ci-eff">${card.effect || card.skill || 'Use spell effect'}</span>`;
+  }
+  return `<strong>CARD</strong> ${card.name}`;
+}
+
+function updateCardInfo() {
+  const el = document.getElementById('card-info-bar');
+  if (!el) return;
+  if (!G || !G.selectedCard || G.phase !== 'main') {
+    el.classList.remove('on');
+    el.innerHTML = '';
+    return;
+  }
+  el.innerHTML = getCardInfoHtml(G.selectedCard);
+  el.classList.add('on');
+}
+
 
 function getStepHelpText() {
   if (!G || !G.phase) return currentLang === 'th' ? 'กด Play Test เพื่อเริ่มเกม' : 'Click Play Test to start.';
@@ -1136,8 +2270,8 @@ function getStepHelpText() {
     }
     if (selected && selected.type === 'companion' && hasSelectedHand) {
       return currentLang === 'th'
-        ? 'เลือก Character ฝั่งคุณเพื่อใส่หรือ Replace Companion'
-        : 'Select one of your Characters to attach or replace the Companion.';
+        ? 'เลือก Character ฝั่งคุณเพื่อใส่หรือ Replace Companion — ดูความสามารถที่แถบ CARD'
+        : 'Select one of your Characters to attach or replace the Companion — check the CARD info bar.';
     }
     if (selected && selected.type === 'spell' && hasSelectedHand) {
       return currentLang === 'th'
@@ -1145,19 +2279,19 @@ function getStepHelpText() {
         : 'Choose the Spell target or follow the opened prompt.';
     }
     return currentLang === 'th'
-      ? 'Main Phase: คลิกการ์ดบนมือเพื่อเล่น, คลิก Character บนสนามเพื่อใช้ Formation Command, หรือกด Battle'
-      : 'Main Phase: click a hand card to play it, click a board Character for Formation Command, or press Battle.';
+      ? 'Main Phase: เล่นการ์ด / ใช้ Formation Command / ถ้ามือตันให้กด ↻ จั่วใหม่ / หรือกด Battle'
+      : 'Main Phase: play a hand card, use Formation Command, press ↻ Redraw if bricked, or press Battle.';
   }
 
   if (G.phase === 'battle') {
     if (attackerLane >= 0) {
       return currentLang === 'th'
-        ? 'เลือกเป้าหมายใน Lane เดียวกัน: Character, Gate หรือ Lead หลัง Gate แตกแล้ว'
-        : 'Choose a target in the same lane: Character, Gate, or Lead after the Gate is broken.';
+        ? 'เลือกเป้าหมายใน Lane เดียวกัน แล้วดู PREVIEW: ATK เป้าหมาย = วัด ATK / GRD เป้าหมาย = วัด DEF'
+        : 'Choose a target in the same lane and check PREVIEW: ATK target uses ATK / GRD target uses DEF.';
     }
     return currentLang === 'th'
-      ? 'Battle Phase: คลิก Character ฝั่งคุณที่เป็น Attack Formation แล้วเลือกเป้าหมายใน Lane เดียวกัน'
-      : 'Battle Phase: click your Attack Formation Character, then choose a target in the same lane.';
+      ? 'Battle Phase: คลิก Character ฝั่งคุณที่เป็น ATK Formation ถ้าเป้าหมายเป็น ATK = วัด ATK vs ATK / ถ้าเป็น GRD = วัด ATK vs DEF'
+      : 'Battle Phase: click your ATK Formation Character. If target is ATK = ATK vs ATK; if target is GRD = ATK vs DEF.';
   }
 
   return currentLang === 'th'
@@ -1176,11 +2310,19 @@ function updatePhaseUI() {
   const pill = document.getElementById('phase-pill');
   const btnB = document.getElementById('btn-battle');
   const btnE = document.getElementById('btn-end');
+  const btnCancelAtk = document.getElementById('btn-cancel-atk');
+  const btnR = document.getElementById('btn-redraw');
+  const btnReset = document.getElementById('btn-reset-game');
+  const btnAuto = document.getElementById('btn-auto');
   const turnEl = document.getElementById('g-turn');
 
   turnEl.textContent = `${t('turn')} ${G.turn}`;
   if (btnB) btnB.textContent = t('battle');
   if (btnE) btnE.textContent = t('end');
+  if (btnCancelAtk) btnCancelAtk.textContent = currentLang === 'th' ? 'ยกเลิกโจมตี' : 'Cancel Attack';
+  if (btnR) btnR.textContent = currentLang === 'th' ? `↻ จั่วใหม่ ${G.redrawCount||0}/${G.maxRedraw||3}` : `↻ Redraw ${G.redrawCount||0}/${G.maxRedraw||3}`;
+  if (btnReset) btnReset.textContent = currentLang === 'th' ? '⟲ เริ่มใหม่' : '⟲ Restart';
+  if (btnAuto) btnAuto.textContent = G?.autoPlay ? (currentLang === 'th' ? '⏸ Auto' : '⏸ Auto') : (currentLang === 'th' ? '▶ Auto' : '▶ Auto');
 
   const phases = {
     draw: ['DRAW', 'ph-draw'],
@@ -1196,33 +2338,44 @@ function updatePhaseUI() {
   const isPlayer = G.activePlayer === 'player' && !G.aiThinking;
   btnB.disabled = !(isPlayer && G.phase === 'main');
   btnE.disabled = !(isPlayer && G.phase === 'battle');
+  if (btnCancelAtk) btnCancelAtk.disabled = !(isPlayer && G.phase === 'battle' && attackerLane >= 0);
+  if (btnR) btnR.disabled = !(isPlayer && G.phase === 'main' && G.redrawCount < G.maxRedraw);
+  if (btnReset) btnReset.disabled = false;
   updateStepHelp();
+  updateCardInfo();
 }
 
 function goToBattle() {
   if (G.phase !== 'main') return;
   G.phase = 'battle';
+  attackerLane = -1;
   G.selectedCard = null;
+  updateBattlePreview();
   updatePhaseUI();
   render();
   showMsg('Battle Phase — Select a Character to attack');
+  showPhaseAnnounce('BATTLE PHASE', 'Select a Character to attack');
   addLog('⚔️ Battle Phase', 'ls');
 }
 
 function endTurn() {
   if (G.phase !== 'battle') return;
   G.selectedCard = null;
+  attackerLane = -1;
+  updateBattlePreview();
   // remove buffs, reset veil
   ['player','ai'].forEach(side => {
     G[side].lanes.forEach(c => {
-      if (c) { c.atkBuff = 0; c.defBuff = 0; c.veiled = false; c.exhausted = false; }
+      if (c) { c.atkBuff = 0; c.defBuff = 0; c.pairBuffAtk = 0; c.pairBuffDef = 0; c.veiled = false; c.exhausted = false; c.formationLocked = false; }
     });
+    recalcAllCompBuffs(side);
   });
   // remove sickness from player chars
   G.player.lanes.forEach(c => { if (c) c.sick = false; });
   G.playedChar = false;
   G.crystal = 0;
   addLog('— End of your turn —', 'ls');
+  showPhaseAnnounce('END TURN', 'AI turn begins');
   doAiTurn();
 }
 
@@ -1245,21 +2398,31 @@ function selectHandCard(idx) {
   if (card.type === 'companion') {
     G.selectedCard = card;
     render();
-    showMsg('Select a Lane with your Character to attach companion');
+    showMsg(`${card.name}: ${card.effect || card.skill || ''} — Select a Character lane. Existing Companion will be replaced.`);
     return;
   }
   if (card.type === 'spell') {
     G.selectedCard = card;
     render();
-    showMsg('Click to use spell');
+    showMsg(`${card.name}: ${card.effect || card.skill || ''}`);
     playSpell(card);
     return;
   }
   // character: playtest mode allows any number of characters per turn,
   // limited only by empty lanes, hand size, and sacrifice cost.
   G.selectedCard = card;
+  G.pendingCard = card;
+  G.pendingLane = -1;
+  G.sacrificeReady = false;
+
+  if ((card.cost || 0) > 0) {
+    render();
+    openSacModal(card, card.cost, -1);
+    return;
+  }
+
   render();
-  showMsg(currentLang === 'th' ? 'เลือก Lane เพื่อวาง Character' : 'Select a Lane to place character');
+  showMsg(currentLang === 'th' ? 'เลือก Lane สีเขียวเพื่อวาง Character' : 'Select a green Lane to place character');
 }
 
 function clickPlayerLane(laneIdx) {
@@ -1280,24 +2443,29 @@ function clickPlayerLane(laneIdx) {
     if ((result.pair?.atk || 0) > 0 || (result.pair?.def || 0) > 0) {
       addLog(`✨ Pair Bonus activated on ${G.player.lanes[laneIdx].name}: +${result.pair.atk||0} ATK / +${result.pair.def||0} DEF`, 'lp');
     }
+    addLog(`📊 ${G.player.lanes[laneIdx].name} final stats: ATK ${getEffAtk(G.player.lanes[laneIdx])} / DEF ${getEffDef(G.player.lanes[laneIdx])}`, 'lc');
     render();
     return;
   }
 
   if (card.type !== 'char') return;
-  if (G.player.lanes[laneIdx]) { showMsg('Lane already occupied'); return; }
 
-  // Check cost
-  const cost = card.cost;
-  if (cost === 0) {
-    G.pendingCard = card;
-    G.pendingLane = laneIdx;
-    openPosModal(card);
-  } else {
-    G.pendingCard = card;
-    G.pendingLane = laneIdx;
-    openSacModal(card, cost);
+  const cost = card.cost || 0;
+  if (G.player.lanes[laneIdx]) {
+    showMsg(currentLang === 'th' ? 'เลนนี้มีตัวอยู่แล้ว เลือก Lane ว่างหรือเลนที่บูชายัญไปแล้ว' : 'Lane occupied. Select an empty lane or the lane you sacrificed.');
+    return;
   }
+
+  if (cost > 0 && !G.sacrificeReady) {
+    G.pendingCard = card;
+    G.pendingLane = -1;
+    openSacModal(card, cost, -1);
+    return;
+  }
+
+  G.pendingCard = card;
+  G.pendingLane = laneIdx;
+  openPosModal(card);
 }
 
 function confirmPosition(pos) {
@@ -1314,8 +2482,11 @@ function confirmPosition(pos) {
       return;
     }
 
+    const oldPos = c.pos;
     c.pos = pos;
+    c.formationLocked = true;
     addLog(`${pos === 'attack' ? '⚔️' : '🛡️'} Formation Command: ${c.name} set to ${pos === 'attack' ? 'Attack' : 'Guard'} Formation`, 'lp');
+    addLog(`⏳ ${c.name} cannot attack this turn after switching Formation`, 'lc');
     render();
     return;
   }
@@ -1337,6 +2508,7 @@ function confirmPosition(pos) {
   G.selectedCard = null;
   G.pendingCard = null;
   G.pendingLane = -1;
+  G.sacrificeReady = false;
 
   addLog(`🎮 You played ${inst.emoji} ${inst.name} (${pos}) → Lane ${lane+1}`, 'lp');
   addLog(`💤 ${inst.name} cannot attack this turn`, 'lc');
@@ -1345,15 +2517,16 @@ function confirmPosition(pos) {
   render();
 }
 
-function openSacModal(card, needed) {
+function openSacModal(card, needed, preselectLane=-1) {
   G.sacNeeded = needed;
   G.sacSelected = [];
+  if (preselectLane >= 0 && G.player.lanes[preselectLane]) G.sacSelected = [preselectLane];
   G.sacTarget = card;
 
   document.getElementById('sac-info').innerHTML =
     currentLang === 'th'
-      ? `การลง <strong>${card.emoji} ${card.name}</strong> ต้องจ่าย <strong>${needed} Cost</strong><br>เลือก Character บนสนามเพื่อสังเวย:`
-      : `Playing <strong>${card.emoji} ${card.name}</strong> requires <strong>${needed} Cost</strong>.<br>Sacrifice characters from your field:`;
+      ? `การลง <strong>${card.emoji} ${card.name}</strong> ต้องจ่าย <strong>${needed} Cost</strong><br>${preselectLane >= 0 ? 'เลนที่ต้องการลงทับถูกเลือกเป็นวัตถุดิบบูชายัญแล้ว<br>' : ''}เลือก Character บนสนามเพื่อจ่าย Cost จากนั้นค่อยเลือก Lane ที่จะลง:`
+      : `Playing <strong>${card.emoji} ${card.name}</strong> requires <strong>${needed} Cost</strong>.<br>${preselectLane >= 0 ? 'The target lane is preselected as sacrifice.<br>' : ''}Sacrifice characters from your field, then select a Lane to place the card:`;
 
   buildSacGrid();
   updateSacBar();
@@ -1402,10 +2575,29 @@ function confirmSacrifice() {
   G.crystal += total;
   document.getElementById('ov-sac').classList.remove('on');
   G.sacSelected = [];
+  G.sacrificeReady = true;
+  G.selectedCard = G.pendingCard;
+  G.pendingLane = -1;
   render();
+  showMsg(currentLang === 'th' ? 'เลือก Lane สีเขียวเพื่อวางการ์ดที่จ่าย Cost แล้ว' : 'Select a green Lane to place the paid Cost card');
+}
 
-  // Keep pendingCard/pendingLane, then choose attack/guard position.
-  openPosModal(G.pendingCard);
+
+function quickSwitchFormation(laneIdx) {
+  if (G.phase !== 'main' || G.activePlayer !== 'player' || G.aiThinking) return;
+  const c = G.player.lanes[laneIdx];
+  if (!c) return;
+  if (c.sick) {
+    showMsg(currentLang === 'th' ? 'ตัวที่เพิ่งลงยังเปลี่ยน Formation ไม่ได้' : 'Newly played cards cannot switch formation yet');
+    return;
+  }
+  c.pos = c.pos === 'attack' ? 'guard' : 'attack';
+  c.formationLocked = true;
+  addLog(`🔄 ${c.name} switched to ${c.pos === 'attack' ? 'ATK' : 'GRD'} Formation`, 'lp');
+  addLog(`⏳ ${c.name} cannot attack this turn after switching Formation`, 'lc');
+  showMsg(`${c.name}: ${c.pos === 'attack' ? 'ATK' : 'GRD'} Formation — cannot attack this turn`);
+  render();
+  updatePhaseUI();
 }
 
 function toggleFormation(laneIdx) {
@@ -1424,8 +2616,8 @@ function toggleFormation(laneIdx) {
   document.getElementById('lbl-choose-position').textContent = currentLang === 'th' ? 'FORMATION COMMAND' : 'FORMATION COMMAND';
   document.getElementById('pos-card-info').innerHTML =
     currentLang === 'th'
-      ? `<strong>${c.emoji} ${c.name}</strong><br>เลือก Formation ใหม่ในช่วง Main Phase`
-      : `<strong>${c.emoji} ${c.name}</strong><br>Choose a new Formation during Main Phase`;
+      ? `<strong>${c.emoji} ${c.name}</strong><br>ATK = วัด ATK vs ATK เมื่อโดนตี<br>GRD = วัด ATK vs DEF เมื่อโดนตี`
+      : `<strong>${c.emoji} ${c.name}</strong><br>ATK = uses ATK when attacked<br>GRD = uses DEF when attacked`;
 
   document.getElementById('ov-pos').classList.add('on');
 }
@@ -1440,12 +2632,34 @@ function openPosModal(card) {
 // COMBAT
 let attackerLane = -1;
 
+
+function cancelAttack() {
+  if (G.phase !== 'battle' || attackerLane < 0) return;
+  const c = G.player.lanes[attackerLane];
+  attackerLane = -1;
+  G.selectedCard = null;
+  updateBattlePreview();
+  render();
+  updatePhaseUI();
+  showMsg(currentLang === 'th' ? 'ยกเลิกการโจมตีแล้ว' : 'Attack cancelled');
+  addLog(`↩️ Attack cancelled${c ? ': ' + c.name : ''}`, 'lc');
+}
+
+
 function clickPlayerCharForAttack(laneIdx) {
   if (G.phase !== 'battle' || G.aiThinking) return;
+  if (attackerLane === laneIdx && G.selectedCard) {
+    cancelAttack();
+    return;
+  }
   const c = G.player.lanes[laneIdx];
   if (!c) return;
   if (c.sick) {
     showMsg(currentLang === 'th' ? 'การ์ดที่เพิ่งลงยังโจมตีไม่ได้ในเทิร์นนี้' : 'Newly played cards cannot attack this turn');
+    return;
+  }
+  if (c.formationLocked) {
+    showMsg(currentLang === 'th' ? 'การ์ดที่สลับ Formation แล้วจะโจมตีไม่ได้ในเทิร์นนี้' : 'Cards that switched Formation cannot attack this turn');
     return;
   }
   if (c.pos !== 'attack') {
@@ -1464,17 +2678,29 @@ function clickPlayerCharForAttack(laneIdx) {
   attackerLane = laneIdx;
   G.selectedCard = c;
   render();
-  showMsg(`${c.emoji} ${c.name} ready to attack — select target lane`);
+  updatePhaseUI();
+  showMsg(`${c.emoji} ${c.name} ready to attack — select target lane or click again to cancel`);
 }
 
 function clickAiLane(laneIdx) {
   if (G.phase !== 'battle' || attackerLane < 0 || G.aiThinking) return;
-  if (laneIdx !== attackerLane) { showMsg('Can only attack same lane!'); return; }
+  if (laneIdx !== attackerLane) {
+    showMsg(currentLang === 'th' ? 'โจมตีได้เฉพาะ Lane เดียวกันเท่านั้น' : 'Can only attack the same lane!');
+    return;
+  }
+
+  const pv = getCombatPreview(attackerLane, laneIdx);
+  if (pv) {
+    addLog(`🔎 ${pv.plain}`, 'lc');
+    updateBattlePreview(laneIdx);
+  }
 
   resolveCombat(attackerLane, laneIdx);
   attackerLane = -1;
   G.selectedCard = null;
+  updateBattlePreview();
   render();
+  updatePhaseUI();
 }
 
 function resolveCombat(myLane, theirLane) {
@@ -1493,31 +2719,32 @@ function resolveCombat(myLane, theirLane) {
       // Skill: mitria on_win_draw
       if (atk.skillFn === 'on_win_draw') drawCards('player', 1);
     } else {
-      const myAtk = atk.atk + (atk.atkBuff||0);
+      const myAtk = getEffAtk(atk);
       damageLead('ai', myAtk, theirLane);
       if (atk.skillFn === 'on_win_draw') drawCards('player', 1);
     }
   } else {
     // Attack character
-    const myAtk = atk.atk + (atk.atkBuff||0);
-    const theirStat = def.pos === 'attack' ? (def.atk+(def.atkBuff||0)) : (def.def+(def.defBuff||0));
-    const mode = def.pos === 'attack' ? 'ATK vs ATK' : 'ATK vs DEF';
+    const cmp = compareCombat(atk, def);
 
-    addLog(`⚔️ L${myLane+1}: ${atk.emoji}${atk.name}(${myAtk}) vs ${def.emoji}${def.name}(${theirStat}) [${mode}]`, 'lc');
-    showDmgFloat('-' + myAtk, theirLane, 'ai');
+    addLog(`⚔️ L${myLane+1}: ${atk.emoji}${atk.name} ATK ${cmp.atkValue} vs ${def.emoji}${def.name} ${cmp.defLabel} ${cmp.defValue} [${cmp.rule}]`, 'lc');
+    showDmgFloat('-' + cmp.atkValue, theirLane, 'ai');
 
-    if (myAtk > theirStat) {
+    if (cmp.result === 'attacker_wins') {
       removeLaneToGrave('ai', theirLane);
-      addLog(`✅ ${def.name} destroyed!`, 'lp');
+      addLog(`✅ Result: ${cmp.atkValue} > ${cmp.defValue} — ${def.name} destroyed!`, 'lp');
+      showBattleResultBig('win', 'BREAK', `${atk.name} destroyed ${def.name}`);
       showDmgFloat('KILL!', theirLane, 'ai');
       if (atk.skillFn === 'on_win_draw') drawCards('player', 1);
-    } else if (myAtk < theirStat) {
-      showDmgFloat('-' + theirStat, myLane, 'player');
+    } else if (cmp.result === 'defender_wins') {
+      showDmgFloat('-' + cmp.defValue, myLane, 'player');
       removeLaneToGrave('player', myLane);
-      addLog(`❌ ${atk.name} destroyed!`, 'la');
+      addLog(`❌ Result: ${cmp.atkValue} < ${cmp.defValue} — ${atk.name} destroyed!`, 'la');
+      showBattleResultBig('defeat', 'COUNTER', `${atk.name} was destroyed`);
     } else {
-      showDmgFloat('-' + theirStat, myLane, 'player');
-      addLog(`⚡ Standoff — neither destroyed`, 'lc');
+      showDmgFloat('-' + cmp.defValue, myLane, 'player');
+      addLog(`⚡ Result: ${cmp.atkValue} = ${cmp.defValue} — STANDOFF / neither destroyed`, 'lc');
+      showBattleResultBig('standoff', 'STAND OFF', `${atk.name} vs ${def.name}`);
     }
   }
   checkWin();
@@ -1542,6 +2769,26 @@ function damageLead(side, amount, laneIdx) {
   const targetName = side === 'ai' ? 'AI Lead' : 'Your Lead';
   addLog(`💔 ${targetName} takes ${amount} damage! LP ${lead.lp}/${lead.maxLp}`, side === 'ai' ? 'lp' : 'la');
   showDmgFloat('-' + amount + ' LP', laneIdx, side);
+}
+
+
+function showBattleResultBig(kind, main, sub='') {
+  document.querySelectorAll('.battle-result-big').forEach(e => e.remove());
+  const el = document.createElement('div');
+  el.className = `battle-result-big ${kind}`;
+  el.innerHTML = `${main}${sub ? `<small>${sub}</small>` : ''}`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1200);
+}
+
+
+function showPhaseAnnounce(main, sub='') {
+  document.querySelectorAll('.phase-announce').forEach(e => e.remove());
+  const el = document.createElement('div');
+  el.className = 'phase-announce';
+  el.innerHTML = `${main}${sub ? `<small>${sub}</small>` : ''}`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1250);
 }
 
 function showDmgFloat(txt, lane, side='ai') {
@@ -1615,8 +2862,15 @@ function openTargetModal(card, mode) {
       if (!c) return;
       const el = document.createElement('div');
       el.className = 'tgt-item';
-      el.innerHTML = `<span style="font-size:18px">${c.emoji}</span> ${c.name} — ATK${c.atk+c.atkBuff} / DEF${c.def+c.defBuff}`;
-      el.onclick = () => applySpell(i);
+      const protectedLegend = mode === 'enemy_char' && c.rarity === 'legendary';
+      el.innerHTML = `<span style="font-size:18px">${c.emoji}</span> ${c.name} — ATK${getEffAtk(c)} / DEF${getEffDef(c)} ${protectedLegend ? '<small style="color:#ffd36e">Legendary: protected</small>' : ''}`;
+      if (protectedLegend) {
+        el.style.opacity = '.45';
+        el.style.cursor = 'not-allowed';
+        el.title = 'Crystal Burst cannot destroy Legendary cards';
+      } else {
+        el.onclick = () => applySpell(i);
+      }
       list.appendChild(el);
     });
   } else if (mode === 'my_char') {
@@ -1696,8 +2950,13 @@ function applySpell(targetIdx) {
   if (mode === 'enemy_char') {
     const c = G.ai.lanes[targetIdx];
     if (c) {
-      addLog(`💎 Crystal Burst: Destroyed ${c.name}!`, 'lp');
-      removeLaneToGrave('ai', targetIdx);
+      if (c.rarity === 'legendary') {
+        addLog(`💎 Crystal Burst: ${c.name} is Legendary and resists destruction!`, 'lc');
+        showMsg(currentLang === 'th' ? 'Crystal Burst ทำลาย Legendary ไม่ได้' : 'Crystal Burst cannot destroy Legendary cards');
+      } else {
+        addLog(`💎 Crystal Burst: Destroyed ${c.name}!`, 'lp');
+        removeLaneToGrave('ai', targetIdx);
+      }
     }
   } else if (mode === 'enemy_char_veil') {
     const c = G.ai.lanes[targetIdx];
@@ -1775,11 +3034,14 @@ function doAiTurn() {
   updatePhaseUI();
   render();
   addLog(`— Turn ${G.turn}: AI Turn —`, 'ls');
+  showPhaseAnnounce('AI TURN', 'Opponent is thinking');
 
   // Draw
   setTimeout(() => {
-    drawCards('ai', 2);
-    addLog(`🤖 AI draws 2 cards`, 'la');
+    const aiDrawN = 2;
+    drawCards('ai', aiDrawN);
+    addLog(`🤖 AI draws ${aiDrawN} cards`, 'la');
+    showPhaseAnnounce('AI DRAW', `AI draws ${aiDrawN} cards`);
     render();
 
     // Main phase: play cards
@@ -1787,67 +3049,135 @@ function doAiTurn() {
   }, 500);
 }
 
+function aiCardScore(c) {
+  if (!c) return 0;
+  return n(c.atk) * 2 + n(c.def) + (c.rarity === 'legendary' ? 8 : c.rarity === 'epic' ? 5 : c.rarity === 'rare' ? 3 : 0);
+}
+
+function aiLaneThreatScore(laneIdx) {
+  const playerChar = G.player.lanes[laneIdx];
+  const aiGateAlive = G.ai.gatesActive[laneIdx];
+
+  // A lane with an enemy attacker and an exposed/active AI Gate is dangerous.
+  let score = 0;
+  if (aiGateAlive) score += 4;
+  if (playerChar) {
+    score += getEffAtk(playerChar) * 2;
+    if (playerChar.pos === 'attack') score += 5;
+    if (playerChar.rarity === 'legendary') score += 6;
+    else if (playerChar.rarity === 'epic') score += 4;
+  } else if (aiGateAlive) {
+    score += 2; // keep some body in front of Gates even before danger appears.
+  }
+  return score;
+}
+
+function aiBestLaneForCharacter(card) {
+  // New priority: defend AI Gates first, then pressure empty lanes.
+  let bestLane = -1;
+  let bestScore = -999;
+  for (let i = 0; i < 5; i++) {
+    if (G.ai.lanes[i]) continue;
+
+    const target = G.player.lanes[i];
+    let score = aiLaneThreatScore(i);
+
+    if (!target) {
+      score += G.player.gatesActive[i] ? 3 : 7; // pressure is good, but defense now matters more.
+    } else {
+      const fake = { ...card, atkBuff:0, defBuff:0, pos:'attack' };
+      const cmp = compareCombat(fake, target);
+      if (cmp.result === 'attacker_wins') score += 8;
+      else if (cmp.result === 'standoff') score += 3;
+      else score += 1; // still valuable as a blocker.
+    }
+
+    score += aiCardScore(card) * .65;
+    if (score > bestScore) { bestScore = score; bestLane = i; }
+  }
+  return bestLane;
+}
+
+function aiChooseFormationForLane(inst, laneIdx) {
+  const threat = G.player.lanes[laneIdx];
+  if (!threat) return inst.atk >= inst.def ? 'attack' : 'guard';
+
+  // If the player is likely to attack this lane, Guard protects the Gate better when DEF is useful.
+  const incoming = getEffAtk(threat);
+  if (inst.def >= incoming || inst.def >= inst.atk) return 'guard';
+
+  // If AI can win the duel by attacking, stay Attack.
+  const fake = { ...inst, atkBuff:0, defBuff:0, pos:'attack' };
+  const cmp = compareCombat(fake, threat);
+  if (cmp.result === 'attacker_wins') return 'attack';
+
+  return 'guard';
+}
+
 function aiMainPhase() {
   // Remove sickness from AI chars
   G.ai.lanes.forEach(c => { if (c) c.sick = false; });
 
-  let playedChar = false;
-
-  // Play spells
-  G.ai.hand.forEach(c => {
-    if (c.type === 'spell') {
-      aiPlaySpell(c);
-    }
+  // Play spells first, but not blindly if they have no useful target handled in aiPlaySpell.
+  G.ai.hand.slice().forEach(c => {
+    if (c.type === 'spell') aiPlaySpell(c);
   });
   G.ai.hand.filter(c => c.type === 'spell').forEach(c => discardToGrave('ai', c));
   G.ai.hand = G.ai.hand.filter(c => c.type !== 'spell');
 
-  // Play companions
-  const compHand = G.ai.hand.filter(c => c.type === 'companion');
+  // Play / replace companions on best matching or strongest lanes.
+  const compHand = G.ai.hand.filter(c => c.type === 'companion')
+    .sort((a,b) => (n(b.ab)+n(b.db)) - (n(a.ab)+n(a.db)));
   compHand.forEach(comp => {
-    const lane = G.ai.lanes.findIndex((c, i) => c && !G.ai.comps[i]);
-    if (lane >= 0) {
-      const ci = makeInst(comp.id);
-      G.ai.comps[lane] = ci;
-      G.ai.lanes[lane].atkBuff = (G.ai.lanes[lane].atkBuff||0) + (ci.ab||0);
-      G.ai.lanes[lane].defBuff = (G.ai.lanes[lane].defBuff||0) + (ci.db||0);
-      G.ai.hand = G.ai.hand.filter(c => c.iid !== comp.iid);
-      addLog(`🤖 AI attached ${ci.name} to Lane ${lane+1}`, 'la');
+    let bestLane = -1;
+    let bestScore = -999;
+    for (let i = 0; i < 5; i++) {
+      const host = G.ai.lanes[i];
+      if (!host) continue;
+      const old = G.ai.comps[i];
+      const pair = getPairBonus(host, comp);
+      const newScore = n(comp.ab) + n(comp.db) + n(pair.atk) + n(pair.def) + (Array.isArray(host.pairWith) && host.pairWith.includes(comp.id) ? 4 : 0);
+      const oldScore = old ? n(old.ab) + n(old.db) + n(host.pairBuffAtk) + n(host.pairBuffDef) : -1;
+      const score = newScore - oldScore + aiCardScore(host) * .08;
+      if ((!old || newScore > oldScore) && score > bestScore) { bestScore = score; bestLane = i; }
+    }
+    if (bestLane >= 0) {
+      const result = attachCompToLane('ai', bestLane, comp, true);
+      if (result.oldComp) addLog(`🤖 AI replaced ${result.oldComp.name} with ${result.inst.name} in Lane ${bestLane+1}`, 'la');
+      else addLog(`🤖 AI attached ${result.inst.name} to Lane ${bestLane+1}`, 'la');
+      if (n(result.pair?.atk) || n(result.pair?.def)) {
+        addLog(`🤖 Pair Bonus: ${G.ai.lanes[bestLane].name} gains +${n(result.pair.atk)} ATK / +${n(result.pair.def)} DEF`, 'la');
+      }
     }
   });
 
-  // Play character (best available)
-  if (!playedChar) {
-    const emptyLane = G.ai.lanes.findIndex(c => !c);
-    if (emptyLane >= 0) {
-      // Find best char in hand (highest ATK)
-      const charCards = G.ai.hand.filter(c => c.type === 'char');
-      if (charCards.length > 0) {
-        // Prefer free cards first, then spend crystal via sacrifice
-        let candidate = charCards.find(c => c.cost === 0);
-        if (!candidate) {
-          // Try to sacrifice to play something stronger
-          candidate = aiTryTribute(charCards);
-        }
-        if (candidate) {
-          const inst = makeInst(candidate.id);
-          inst.sick = true;
-          // Randomly choose attack or guard
-          inst.pos = (inst.atk >= inst.def) ? 'attack' : 'guard';
-          G.ai.lanes[emptyLane] = inst;
-          G.ai.hand = G.ai.hand.filter(c => c.iid !== candidate.iid);
-          addLog(`🤖 AI played ${inst.emoji} ${inst.name} (${inst.pos}) → Lane ${emptyLane+1}`, 'la');
-          playedChar = true;
+  // AI can play up to 2 characters per turn to increase pressure.
+  let played = 0;
+  while (played < 2) {
+    const charCards = G.ai.hand.filter(c => c.type === 'char').sort((a,b) => aiCardScore(b) - aiCardScore(a));
+    if (!charCards.length) break;
 
-          // Skill: dark empress discard
-          if (inst.skillFn === 'on_play_discard' && G.player.hand.length > 0) {
-            const discIdx = Math.floor(Math.random() * G.player.hand.length);
-            const disc = G.player.hand.splice(discIdx, 1)[0];
-            discardToGrave('player', disc);
-            addLog(`👑 Dark Empress: You discard ${disc.emoji} ${disc.name}!`, 'la');
-          }
-        }
-      }
+    let candidate = charCards.find(c => (c.cost || 0) === 0);
+    if (!candidate) candidate = aiTryTribute(charCards);
+    if (!candidate) break;
+
+    const lane = aiBestLaneForCharacter(candidate);
+    if (lane < 0) break;
+
+    const inst = makeInst(candidate.id);
+    inst.sick = true;
+    inst.pos = aiChooseFormationForLane(inst, lane);
+
+    G.ai.lanes[lane] = inst;
+    G.ai.hand = G.ai.hand.filter(c => c.iid !== candidate.iid);
+    addLog(`🤖 AI played ${inst.emoji} ${inst.name} (${inst.pos}) → Lane ${lane+1}`, 'la');
+    played++;
+
+    if (inst.skillFn === 'on_play_discard' && G.player.hand.length > 0) {
+      const discIdx = Math.floor(Math.random() * G.player.hand.length);
+      const disc = G.player.hand.splice(discIdx, 1)[0];
+      discardToGrave('player', disc);
+      addLog(`👑 Dark Empress: You discard ${disc.emoji} ${disc.name}!`, 'la');
     }
   }
 
@@ -1901,12 +3231,14 @@ function aiPlaySpell(spell) {
       addLog(`🤖 AI used ${spell.name}: returned ${c.name} to hand`, 'la');
     }
   } else if (spell.spellFn === 'destroy_enemy') {
-    const targets = G.player.lanes.map((c,i) => c ? i : -1).filter(i => i>=0);
+    const targets = G.player.lanes.map((c,i) => c && c.rarity !== 'legendary' ? i : -1).filter(i => i>=0);
     if (targets.length > 0) {
       const t = targets[Math.floor(Math.random()*targets.length)];
       const c = G.player.lanes[t];
       addLog(`🤖 AI used Crystal Burst: Destroyed ${c.name}!`, 'la');
       removeLaneToGrave('player', t);
+    } else {
+      addLog(`🤖 AI used Crystal Burst, but no non-Legendary target was available`, 'lc');
     }
   } else if (spell.spellFn === 'veil_enemy') {
     const targets = G.player.lanes.map((c,i) => c ? i : -1).filter(i => i>=0);
@@ -1942,12 +3274,37 @@ function aiPlaySpell(spell) {
   }
 }
 
+
+function aiAdjustFormationsForDefense() {
+  G.ai.lanes.forEach((c, i) => {
+    if (!c || c.sick) return;
+    const threat = G.player.lanes[i];
+    if (!threat || !G.ai.gatesActive[i]) return;
+
+    const incoming = getEffAtk(threat);
+    const shouldGuard = c.def >= c.atk || c.def >= incoming || getEffAtk(c) < getDefenseValue(threat);
+    if (shouldGuard && c.pos !== 'guard') {
+      c.pos = 'guard';
+      c.formationLocked = true;
+      addLog(`🛡️ AI switches ${c.name} to Guard to protect Gate ${i+1}`, 'la');
+    }
+  });
+}
+
+
 function aiBattlePhase() {
+  aiAdjustFormationsForDefense();
+  render();
   addLog(`🤖 AI Battle Phase`, 'la');
   let attacked = false;
 
-  G.ai.lanes.forEach((c, laneIdx) => {
-    if (!c || c.sick || c.veiled) return;
+  // Sort attackers by ATK, strongest first.
+  const attackers = G.ai.lanes
+    .map((c, laneIdx) => ({ c, laneIdx }))
+    .filter(x => x.c && !x.c.sick && !x.c.veiled && !x.c.formationLocked && x.c.pos === 'attack')
+    .sort((a,b) => getEffAtk(b.c) - getEffAtk(a.c));
+
+  attackers.forEach(({ c, laneIdx }) => {
     const target = G.player.lanes[laneIdx];
     const gateActive = G.player.gatesActive[laneIdx];
 
@@ -1958,41 +3315,52 @@ function aiBattlePhase() {
         showDmgFloat('-1 GATE', laneIdx, 'player');
         attacked = true;
       } else {
-        const myAtk = c.atk + (c.atkBuff||0);
+        const myAtk = getEffAtk(c);
         damageLead('player', myAtk, laneIdx);
         attacked = true;
       }
     } else {
-      const myAtk = c.atk + (c.atkBuff||0);
-      const theirStat = target.pos === 'attack' ? (target.atk+(target.atkBuff||0)) : (target.def+(target.defBuff||0));
-      const mode = target.pos === 'attack' ? 'ATK vs ATK' : 'ATK vs DEF';
-      addLog(`⚔️ AI L${laneIdx+1}: ${c.emoji}(${myAtk}) vs ${target.emoji}(${theirStat}) [${mode}]`, 'lc');
-      showDmgFloat('-' + myAtk, laneIdx, 'player');
+      const cmp = compareCombat(c, target);
 
-      if (myAtk > theirStat) {
+      // Smarter AI: avoid suicide unless attacking a very important target.
+      const importantTarget = target.rarity === 'legendary' || target.rarity === 'epic';
+      if (cmp.result === 'defender_wins' && !importantTarget) {
+        addLog(`🤖 AI holds ${c.name} in Lane ${laneIdx+1} to avoid bad trade`, 'la');
+        return;
+      }
+
+      addLog(`⚔️ AI L${laneIdx+1}: ${c.emoji}${c.name} ATK ${cmp.atkValue} vs ${target.emoji}${target.name} ${cmp.defLabel} ${cmp.defValue} [${cmp.rule}]`, 'lc');
+      showDmgFloat('-' + cmp.atkValue, laneIdx, 'player');
+
+      if (cmp.result === 'attacker_wins') {
         removeLaneToGrave('player', laneIdx);
-        addLog(`❌ Your ${target.name} destroyed!`, 'la');
-      } else if (myAtk < theirStat) {
-        showDmgFloat('-' + theirStat, laneIdx, 'ai');
+        addLog(`❌ Result: ${cmp.atkValue} > ${cmp.defValue} — Your ${target.name} destroyed!`, 'la');
+        showBattleResultBig('defeat', 'BREAK', `AI destroyed ${target.name}`);
+      } else if (cmp.result === 'defender_wins') {
+        showDmgFloat('-' + cmp.defValue, laneIdx, 'ai');
         removeLaneToGrave('ai', laneIdx);
-        addLog(`✅ AI ${c.name} destroyed!`, 'lp');
+        addLog(`✅ Result: ${cmp.atkValue} < ${cmp.defValue} — AI ${c.name} destroyed!`, 'lp');
+        showBattleResultBig('win', 'COUNTER', `${target.name} destroyed AI ${c.name}`);
       } else {
-        showDmgFloat('-' + theirStat, laneIdx, 'ai');
-        addLog(`⚡ Standoff`, 'lc');
+        showDmgFloat('-' + cmp.defValue, laneIdx, 'ai');
+        addLog(`⚡ Result: ${cmp.atkValue} = ${cmp.defValue} — STANDOFF`, 'lc');
+        showBattleResultBig('standoff', 'STAND OFF', `${c.name} vs ${target.name}`);
       }
       attacked = true;
     }
   });
 
-  if (!attacked) addLog(`🤖 AI has no valid attacks`, 'la');
+  if (!attacked) addLog(`🤖 AI has no strong attacks`, 'la');
 
   checkWin();
   render();
 
   setTimeout(() => {
     // AI end turn
-    G.ai.lanes.forEach(c => { if(c){ c.atkBuff=0; c.defBuff=0; c.exhausted=false; c.veiled=false; c.sick=false; } });
-    G.player.lanes.forEach(c => { if(c){ c.atkBuff=0; c.defBuff=0; c.veiled=false; } });
+    G.ai.lanes.forEach(c => { if(c){ c.atkBuff=0; c.defBuff=0; c.pairBuffAtk=0; c.pairBuffDef=0; c.exhausted=false; c.veiled=false; c.sick=false; c.formationLocked=false; } });
+    G.player.lanes.forEach(c => { if(c){ c.atkBuff=0; c.defBuff=0; c.pairBuffAtk=0; c.pairBuffDef=0; c.veiled=false; c.formationLocked=false; } });
+    recalcAllCompBuffs('ai');
+    recalcAllCompBuffs('player');
     G.activePlayer = 'player';
     G.phase = 'main';
     G.aiThinking = false;
@@ -2003,13 +3371,17 @@ function aiBattlePhase() {
     // Player draw
     if (G.player.deck.length === 0) { endGame(false, 'Deck is empty!'); return; }
     drawCards('player', 2);
+    showPhaseAnnounce('DRAW 2', 'Your new turn begins');
+    ensureMidgameHighRarity('player');
     G.player.lanes.forEach(c => { if(c) c.sick = false; });
 
     addLog(`— Turn ${G.turn}: Your Turn —`, 'ls');
+    showPhaseAnnounce('YOUR TURN', 'Main Phase');
   addLog(currentLang === 'th' ? 'กติกาใหม่: ลง Character ได้หลายใบ Guard โจมตีไม่ได้ ใช้ Formation Command ใน Main Phase ใบที่เพิ่งลงยังโจมตีไม่ได้ และมี Spell ซ่อม Gate' : 'New rule: play multiple Characters, Guard cannot attack, use Formation Command in Main Phase, newly played cards cannot attack, and Gate restore spells are enabled', 'lc');
     updatePhaseUI();
     render();
     showMsg('Your Turn — Main Phase');
+    if (G.autoPlay) setTimeout(autoPlayTick, 500);
   }, 1000);
 }
 
@@ -2081,7 +3453,7 @@ function renderLanes(side, gatesId, charsId, compId) {
     gSlot.className = 'lane-col';
     if (s.gatesActive[i]) {
       const gEl = document.createElement('div');
-      gEl.className = 'gate-slot';
+      gEl.className = 'gate-slot' + (s.lanes[i]?.pos === 'guard' ? ' guard-protected' : '');
       const canHitGate = side === 'ai' && G.phase === 'battle' && attackerLane === i && !s.lanes[i];
       gEl.innerHTML = `<div class="gate-facedown${canHitGate ? ' attackable' : ''}" style="background:linear-gradient(135deg,#050510,#0d0d22);${canHitGate ? 'cursor:pointer;box-shadow:0 0 14px rgba(255,80,80,.45);' : ''}"><img src="${MITTARIA_LOGO_URI}" class="back-logo" alt="Mittaria Logo"></div>`;
       if (canHitGate) {
@@ -2091,7 +3463,7 @@ function renderLanes(side, gatesId, charsId, compId) {
       gSlot.appendChild(gEl);
     } else {
       const emp = document.createElement('div');
-      emp.className = 'gate-empty';
+      emp.className = 'gate-empty' + (s.lanes[i]?.pos === 'guard' ? ' guard-protected' : '');
       emp.textContent = '×';
       // If player's battle phase and this is AI's empty gate lane, mark attackable
       if (side === 'ai' && G.phase === 'battle' && attackerLane === i && !s.lanes[i]) {
@@ -2117,6 +3489,7 @@ function renderLanes(side, gatesId, charsId, compId) {
 
       if (side === 'player' && G.phase === 'main' && G.selectedCard && G.selectedCard.type === 'char') {
         emp.classList.add('droppable');
+        if (G.sacrificeReady) emp.classList.add('sacrifice-ready');
         emp.onclick = () => clickPlayerLane(i);
       } else if (side === 'ai' && G.phase === 'battle' && attackerLane === i) {
         // Empty enemy lane: click here to attack Gate first, then Lead after Gate is gone.
@@ -2135,10 +3508,14 @@ function renderLanes(side, gatesId, charsId, compId) {
     if (comp) {
       const cb = document.createElement('div');
       cb.className = 'comp-bar';
-      cb.innerHTML = `${comp.emoji} ${comp.name} <span style="margin-left:auto;font-size:7px;color:var(--cyan)">${comp.effect}</span>`;
+      cb.innerHTML = `<div class="comp-name">COMP • ${comp.emoji} ${comp.name}</div><div class="comp-eff">${comp.effect || comp.skill || ''}</div><div class="card-action-overlay"><button class="action-icon-btn" title="Companion Info" onclick="event.stopPropagation(); showCardDetailByIid('${side}Comp', '${comp.iid}')">🔍</button></div>`;
+      cb.style.position = 'relative';
+      cb.title = `${comp.name} — ${comp.effect || comp.skill || ''}`;
       if (side === 'player' && G.phase === 'main' && G.selectedCard?.type === 'companion' && s.lanes[i]) {
         cb.classList.add('droppable');
-        cb.title = currentLang === 'th' ? 'Replace Companion' : 'Replace Companion';
+        cb.title = currentLang === 'th'
+          ? `Replace Companion: ${comp.name} (${comp.effect || comp.skill || ''})`
+          : `Replace Companion: ${comp.name} (${comp.effect || comp.skill || ''})`;
         cb.onclick = () => clickPlayerLane(i);
       }
       cpSlot.appendChild(cb);
@@ -2158,9 +3535,9 @@ function renderLanes(side, gatesId, charsId, compId) {
 
 function buildBoardCard(char, side, laneIdx) {
   const bc = document.createElement('div');
-  bc.className = `bc rr-${char.rarity}`;
+  bc.className = `bc rr-${char.rarity} ${char.pos === 'guard' ? 'pos-guard' : 'pos-attack'}`;
 
-  const canAttack = side === 'player' && G.phase === 'battle' && char.pos === 'attack' && !char.sick && !char.exhausted && !char.veiled;
+  const canAttack = side === 'player' && G.phase === 'battle' && char.pos === 'attack' && !char.sick && !char.exhausted && !char.veiled && !char.formationLocked;
   const canFormation = side === 'player' && G.phase === 'main' && !G.aiThinking && !G.selectedCard;
   const isAttacker = side === 'player' && G.selectedCard?.iid === char.iid && G.phase === 'battle';
   const isTarget = side === 'ai' && G.phase === 'battle' && attackerLane >= 0 && laneIdx === attackerLane;
@@ -2170,23 +3547,35 @@ function buildBoardCard(char, side, laneIdx) {
   if (isAttacker) bc.classList.add('selected-atk');
   if (char.sick) bc.classList.add('sick');
   if (char.exhausted) bc.classList.add('exhausted');
+  if (char.formationLocked) bc.classList.add('formation-locked');
   if (isTarget) bc.classList.add('target-able');
 
   if (side === 'player' && G.phase === 'main' && !G.selectedCard) {
-    bc.onclick = () => toggleFormation(laneIdx);
-    bc.title = currentLang === 'th' ? 'Formation Command: เลือก Attack / Guard' : 'Formation Command: choose Attack / Guard';
+    bc.onclick = () => quickSwitchFormation(laneIdx);
+    bc.title = currentLang === 'th' ? 'คลิกเพื่อสลับ Formation' : 'Click to switch Formation';
   } else if (side === 'player' && G.phase === 'battle') {
     bc.onclick = () => clickPlayerCharForAttack(laneIdx);
   }
   if (side === 'ai' && G.phase === 'battle' && attackerLane === laneIdx) {
     bc.onclick = () => clickAiLane(laneIdx);
+    bc.onmouseenter = () => updateBattlePreview(laneIdx);
+    const atkVal = char.atk + (char.atkBuff||0);
+    const defVal = char.def + (char.defBuff||0);
+    bc.title = char.pos === 'attack'
+      ? `ATK Formation: battle uses ATK vs ATK (${char.name} ATK ${atkVal})`
+      : `Guard Formation: battle uses ATK vs DEF (${char.name} DEF ${defVal})`;
   }
 
-  const effAtk = char.atk + (char.atkBuff||0);
-  const effDef = char.def + (char.defBuff||0);
+  const effAtk = getEffAtk(char);
+  const effDef = getEffDef(char);
 
   bc.innerHTML = `
     <div class="bc-wrap" style="background:${char.bg||'linear-gradient(135deg,#0a0a20,#15152a)'}">
+      <span class="type-badge type-char">CHAR</span>
+      <span class="hover-formation-icon">${char.pos === 'attack' ? '⚔' : ''}</span>
+      <div class="card-action-overlay">
+        <button class="action-icon-btn" title="Card Info" onclick="event.stopPropagation(); showCardDetailByIid('${side}', '${char.iid}')">🔍</button>
+      </div>
       <div class="bc-hdr">
         <span class="bc-name">${char.name}</span>
         <span class="bc-el">${elIcon(char.el)}</span>
@@ -2194,9 +3583,12 @@ function buildBoardCard(char, side, laneIdx) {
       <div class="bc-art" style="overflow:hidden;padding:0;${CHAR_IMGS[char.id]?'':''}">
         ${CHAR_IMGS[char.id]
           ? `<img src="${CHAR_IMGS[char.id]}" style="width:100%;height:100%;object-fit:cover;object-position:top center;" alt="${char.name}">`
-          : `<span style="font-size:26px">${char.emoji}</span>`
+          : `<div class="no-img-creature"><span>${char.emoji}</span><small>CHAR</small></div>`
         }
         <span class="bc-pos-badge ${char.pos==='attack'?'pos-a':'pos-g'}" style="position:absolute;bottom:2px;right:2px;z-index:2">${char.pos==='attack'?'ATK':'GRD'}</span>
+        ${side === 'ai' && G.phase === 'battle' && attackerLane === laneIdx
+          ? `<span style="position:absolute;bottom:2px;left:2px;z-index:2;font-size:7px;background:rgba(0,0,0,.72);border:1px solid rgba(255,255,255,.16);border-radius:3px;padding:1px 3px;color:#fff">${char.pos === 'attack' ? 'uses ATK' : 'uses DEF'}</span>`
+          : ''}
       </div>
       <div class="bc-stats">
         <span class="s-a">⚔${effAtk}</span>
@@ -2220,6 +3612,7 @@ function renderPlayerHand() {
     const charUnplay = false;
 
     if (isSelected) hc.classList.add('selected');
+    if (isSelected && G.sacrificeReady) hc.classList.add('sacrifice-mode');
     if (!canPlay || charUnplay) hc.classList.add('unplay');
 
     hc.onclick = () => (canPlay && !charUnplay) ? selectHandCard(i) : null;
@@ -2229,10 +3622,12 @@ function renderPlayerHand() {
     const costTxt = card.type === 'char' ? `💎${card.cost}` : '';
     const statsTxt = card.type === 'char'
       ? `<span class="s-a">⚔${effAtk}</span><span class="s-d">🛡${effDef}</span><span class="s-c">${costTxt}</span>`
-      : `<span style="color:var(--dim);font-size:7px">${card.type.toUpperCase()}</span>`;
+      : `<span style="color:var(--cyan);font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${card.type === 'companion' ? (card.effect || 'COMPANION') : (card.effect || 'SPELL')}</span>`;
 
     hc.innerHTML = `
+      <button class="info-btn" onclick="event.stopPropagation(); showCardDetailByIid('playerHand', '${card.iid}')">🔍</button>
       <div class="hc-wrap" style="background:${card.bg||'linear-gradient(135deg,#0a0a20,#15152a)'}">
+        <span class="type-badge type-${card.type === 'char' ? 'char' : card.type === 'companion' ? 'companion' : 'spell'}">${card.type === 'char' ? 'CHAR' : card.type === 'companion' ? 'COMP' : 'SPELL'}</span>
         <div class="hc-hdr">
           <span class="hc-name">${card.name}</span>
           <span style="font-size:8px">${elIcon(card.el)}</span>
@@ -2240,7 +3635,9 @@ function renderPlayerHand() {
         <div class="hc-art" style="${CHAR_IMGS[card.id]?'padding:0;overflow:hidden;':''}">
           ${CHAR_IMGS[card.id]
             ? `<img src="${CHAR_IMGS[card.id]}" style="width:100%;height:100%;object-fit:cover;object-position:top center;" alt="${card.name}">`
-            : `<span style="font-size:22px">${card.emoji}</span>`
+            : card.type === 'char'
+              ? `<div class="no-img-creature"><span>${card.emoji}</span><small>CHAR</small></div>`
+              : `<span style="font-size:22px">${card.emoji}</span>`
           }
         </div>
         <div class="hc-foot">${statsTxt}</div>
@@ -2269,6 +3666,10 @@ function renderSidebar() {
   document.getElementById('p-deck-cnt').textContent = G.player.deck.length;
   document.getElementById('ai-hand-cnt').textContent = G.ai.hand.length;
   document.getElementById('p-hand-cnt').textContent = G.player.hand.length;
+  const av = document.getElementById('ai-void-cnt');
+  const pv = document.getElementById('p-void-cnt');
+  if (av) av.textContent = G.ai.grave.length;
+  if (pv) pv.textContent = G.player.grave.length;
 }
 
 
@@ -2435,7 +3836,7 @@ function renderCardList() {
 
   function renderCardListItem(card) {
     return `
-      <div class="cl-card cl-${card.rarity}" style="background:${card.bg || 'linear-gradient(135deg,#0a0a20,#15152a)'}">
+      <div class="cl-card cl-${card.rarity}" onclick="showCardDetailFromId('${card.id}')" title="Click for full card info" style="background:${card.bg || 'linear-gradient(135deg,#0a0a20,#15152a)'}">
         <div class="cl-art">
           ${getCardImageHtml(card)}
         </div>
@@ -2490,20 +3891,254 @@ function addLog(msg, cls) {
   const el = document.createElement('div');
   el.className = `log-entry ${cls||''}`;
   el.textContent = msg;
-  container.appendChild(el);
-  container.scrollTop = container.scrollHeight;
-  G.log.push(msg);
+  container.prepend(el);
+  container.scrollTop = 0;
+  G.log.unshift(msg);
 }
 
 // ============================================================
 // HELPERS
 // ============================================================
+
+
+function findCardByIid(area, iid) {
+  if (!iid) return null;
+  if (area === 'playerHand') return G.player?.hand?.find(c => c.iid === iid);
+  if (area === 'aiHand') return G.ai?.hand?.find(c => c.iid === iid);
+  if (area === 'player') return G.player?.lanes?.find(c => c && c.iid === iid);
+  if (area === 'ai') return G.ai?.lanes?.find(c => c && c.iid === iid);
+  if (area === 'playerComp') return G.player?.comps?.find(c => c && c.iid === iid);
+  if (area === 'aiComp') return G.ai?.comps?.find(c => c && c.iid === iid);
+  return null;
+}
+
+
+function showCardDetailFromId(id) {
+  const card = CARDS[id];
+  detailContext = { area: 'cardList', iid: id };
+  if (card) showCardDetail(card);
+}
+
+function showCardDetailByIid(area, iid) {
+  const card = findCardByIid(area, iid);
+  detailContext = { area, iid };
+  if (card) showCardDetail(card);
+}
+
+
+function detailContextLane() {
+  if (!detailContext || detailContext.area !== 'player') return -1;
+  return G.player.lanes.findIndex(c => c && c.iid === detailContext.iid);
+}
+
+function canSwitchFormationFromDetail() {
+  const lane = detailContextLane();
+  if (lane < 0) return false;
+  const c = G.player.lanes[lane];
+  return G.phase === 'main' && G.activePlayer === 'player' && !G.aiThinking && c && !c.sick;
+}
+
+function switchFormationFromDetail() {
+  const lane = detailContextLane();
+  if (lane < 0) return;
+  const c = G.player.lanes[lane];
+  if (!c) return;
+  if (!canSwitchFormationFromDetail()) {
+    showMsg(currentLang === 'th' ? 'ตอนนี้ยังเปลี่ยน Formation ไม่ได้' : 'Cannot switch Formation now');
+    return;
+  }
+  c.pos = c.pos === 'attack' ? 'guard' : 'attack';
+  c.formationLocked = true;
+  addLog(`🔄 ${c.name} switched to ${c.pos === 'attack' ? 'ATK' : 'GRD'} Formation`, 'lp');
+  addLog(`⏳ ${c.name} cannot attack this turn after switching Formation`, 'lc');
+  showMsg(`${c.name}: ${c.pos === 'attack' ? 'ATK' : 'GRD'} Formation — cannot attack this turn`);
+  showCardDetail(c);
+  render();
+  updatePhaseUI();
+}
+
+function showCardDetail(card) {
+  if (!card) return;
+  const ov = document.getElementById('ov-card-detail');
+  const title = document.getElementById('card-detail-title');
+  const body = document.getElementById('card-detail-body');
+  if (!ov || !title || !body) return;
+
+  title.textContent = card.name || 'CARD DETAIL';
+
+  const art = CHAR_IMGS[card.id]
+    ? `<img src="${CHAR_IMGS[card.id]}" alt="${card.name}">`
+    : `<span>${card.emoji || '🃏'}</span>`;
+
+  let statHtml = '';
+  if (card.type === 'char') {
+    statHtml = `
+      <div class="card-detail-row"><strong>Type:</strong> Character</div>
+      <div class="card-detail-row"><strong>Rarity:</strong> ${(card.rarity || '').toUpperCase()}</div>
+      <div class="card-detail-row"><strong>Element:</strong> ${elIcon(card.el)} ${card.el || 'neutral'}</div>
+      <div class="card-detail-row"><strong>Stats:</strong> ATK ${card.atk || 0} / DEF ${card.def || 0} / Cost ${card.cost || 0} / CV ${card.cv || 0}</div>
+      <div class="card-detail-row"><strong>Formation Rule:</strong> ATK = uses ATK when attacked / GRD = uses DEF when attacked</div>
+      ${card.formationLocked ? `<div class="card-detail-row"><strong>Status:</strong> Switched Formation this turn — cannot attack</div>` : ''}
+    `;
+  } else if (card.type === 'companion') {
+    statHtml = `
+      <div class="card-detail-row"><strong>Type:</strong> Companion</div>
+      <div class="card-detail-row"><strong>Rarity:</strong> ${(card.rarity || '').toUpperCase()}</div>
+      <div class="card-detail-row"><strong>Element:</strong> ${elIcon(card.el)} ${card.el || 'neutral'}</div>
+      <div class="card-detail-row"><strong>Buff:</strong> +${card.ab || 0} ATK / +${card.db || 0} DEF</div>
+      <div class="card-detail-row"><strong>Use:</strong> Attach to your Character. If one already exists, it replaces the old Companion.</div>
+    `;
+  } else {
+    statHtml = `
+      <div class="card-detail-row"><strong>Type:</strong> Spell</div>
+      <div class="card-detail-row"><strong>Rarity:</strong> ${(card.rarity || '').toUpperCase()}</div>
+      <div class="card-detail-row"><strong>Cost:</strong> ${card.cost || 0}</div>
+    `;
+  }
+
+  const effect = getCardDetailText ? getCardDetailText(card) : (card.skill || card.effect || 'No special effect');
+
+  body.innerHTML = `
+    <div class="card-detail-wrap">
+      <div class="card-detail-art">${art}</div>
+      <div class="card-detail-info">
+        <div class="card-detail-name">${card.emoji || ''} ${card.name}</div>
+        ${statHtml}
+        <div class="card-detail-effect"><strong>Skill / Effect</strong><br>${effect}</div>
+        ${card.type === 'char' && detailContext?.area === 'player'
+          ? `<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-a btn-small-action" onclick="switchFormationFromDetail()">${card.pos === 'attack' ? 'Switch to Guard 🛡' : 'Switch to Attack ⚔'}</button>
+              <span style="font-size:11px;color:var(--dim);align-self:center">${canSwitchFormationFromDetail() ? 'Main Phase action' : 'Cannot switch now'}</span>
+            </div>`
+          : ''}
+      </div>
+    </div>
+  `;
+
+  ov.classList.add('on');
+}
+
+function closeCardDetail() {
+  const ov = document.getElementById('ov-card-detail');
+  if (ov) ov.classList.remove('on');
+}
+
+
+function openVoid(side) {
+  const ov = document.getElementById('ov-void');
+  const title = document.getElementById('void-title');
+  const list = document.getElementById('void-list');
+  if (!ov || !title || !list) return;
+  const s = G[side];
+  title.textContent = side === 'player' ? 'YOUR VOID / สุสาน' : 'AI VOID / สุสาน';
+  if (!s.grave.length) {
+    list.innerHTML = `<div style="color:var(--dim);font-size:13px">No cards in Void.</div>`;
+  } else {
+    list.innerHTML = s.grave.map(c => `
+      <div class="void-card" onclick="showCardDetailFromId('${c.id}')">
+        <div style="font-size:26px">${c.emoji || '🃏'}</div>
+        <div class="v-name">${c.name}</div>
+        <div class="v-meta">${(c.type||'').toUpperCase()} • ${(c.rarity||'').toUpperCase()}</div>
+      </div>`).join('');
+  }
+  ov.classList.add('on');
+}
+
+function closeVoid() {
+  const ov = document.getElementById('ov-void');
+  if (ov) ov.classList.remove('on');
+}
+
+function toggleAutoPlay() {
+  if (!G || G.phase === 'done') return;
+  G.autoPlay = !G.autoPlay;
+  addLog(G.autoPlay ? '▶ Auto Play enabled' : '⏸ Auto Play disabled', 'lc');
+  updatePhaseUI();
+  if (G.autoPlay) setTimeout(autoPlayTick, 300);
+}
+
+function autoPlayTick() {
+  if (!G || !G.autoPlay || G.phase === 'done') return;
+  if (G.aiThinking || G.activePlayer !== 'player') {
+    setTimeout(autoPlayTick, 600);
+    return;
+  }
+
+  if (G.phase === 'main') {
+    // Try to attach best companion first.
+    const comp = G.player.hand.find(c => c.type === 'companion');
+    const compLane = G.player.lanes.findIndex((c,i) => c && (!G.player.comps[i] || (n(comp?.ab)+n(comp?.db)) > (n(G.player.comps[i]?.ab)+n(G.player.comps[i]?.db))));
+    if (comp && compLane >= 0) {
+      G.selectedCard = comp;
+      clickPlayerLane(compLane);
+      setTimeout(autoPlayTick, 450);
+      return;
+    }
+
+    // Play best free Character to best empty lane.
+    const char = G.player.hand
+      .filter(c => c.type === 'char' && (c.cost || 0) === 0)
+      .sort((a,b) => (n(b.atk)*2+n(b.def)) - (n(a.atk)*2+n(a.def)))[0];
+    const lane = G.player.lanes.findIndex(c => !c);
+    if (char && lane >= 0) {
+      G.selectedCard = char;
+      G.pendingCard = char;
+      G.pendingLane = lane;
+      const inst = makeInst(char.id);
+      confirmAutoPlace(lane, char, inst.atk >= inst.def ? 'attack' : 'guard');
+      setTimeout(autoPlayTick, 450);
+      return;
+    }
+
+    goToBattle();
+    setTimeout(autoPlayTick, 600);
+    return;
+  }
+
+  if (G.phase === 'battle') {
+    const lane = G.player.lanes.findIndex((c,i) => c && c.pos === 'attack' && !c.sick && !c.exhausted && !c.veiled && !c.formationLocked);
+    if (lane >= 0) {
+      clickPlayerCharForAttack(lane);
+      setTimeout(() => {
+        clickAiLane(lane);
+        setTimeout(autoPlayTick, 700);
+      }, 250);
+      return;
+    }
+    endTurn();
+    setTimeout(autoPlayTick, 900);
+  }
+}
+
+function confirmAutoPlace(lane, card, pos) {
+  if (!card || lane < 0 || G.player.lanes[lane]) return;
+  const inst = makeInst(card.id);
+  inst.pos = pos;
+  inst.sick = true;
+  G.player.lanes[lane] = inst;
+  G.player.hand = G.player.hand.filter(c => c.iid !== card.iid);
+  G.playedChar = true;
+  G.selectedCard = null;
+  G.pendingCard = null;
+  G.pendingLane = -1;
+  addLog(`🤖 Auto played ${inst.emoji} ${inst.name} (${pos}) → Lane ${lane+1}`, 'lp');
+  render();
+  updatePhaseUI();
+}
+
 function showMsg(txt) {
   const el = document.getElementById('msg-float');
+  if (!el) return;
+  if (msgTimer) clearTimeout(msgTimer);
+  el.classList.remove('show');
+  // Force reflow so the latest message replaces the old one cleanly.
+  void el.offsetWidth;
   el.textContent = txt;
   el.classList.add('show');
-  if (msgTimer) clearTimeout(msgTimer);
-  msgTimer = setTimeout(() => el.classList.remove('show'), 3000);
+  msgTimer = setTimeout(() => {
+    el.classList.remove('show');
+    msgTimer = null;
+  }, 2200);
 }
 
 function closeModal(id) {
@@ -2512,6 +4147,7 @@ function closeModal(id) {
   G.pendingFormationLane = -1;
   G.selectedCard = null;
   G.sacSelected = [];
+  G.sacrificeReady = false;
   render();
 }
 
