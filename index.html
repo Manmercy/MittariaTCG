@@ -2419,132 +2419,6 @@ body, button, input, select, textarea {
   max-height:300px !important;
 }
 
-
-/* ===== v6_48 Clear Deck Button ===== */
-.clear-deck-btn{
-  border-color:#ff7b9f !important;
-  color:#ffb6c8 !important;
-  background:rgba(255,123,159,.10) !important;
-}
-.clear-deck-btn:hover{
-  background:rgba(255,123,159,.20) !important;
-  box-shadow:0 0 14px rgba(255,123,159,.22);
-}
-
-
-/* ===== v6_54 Deck Builder Recovery ===== */
-#sc-deckbuilder{
-  overflow-y:auto !important;
-}
-#sc-deckbuilder .how-top{
-  position:sticky !important;
-  top:0 !important;
-  z-index:80 !important;
-  display:flex !important;
-  align-items:center !important;
-  gap:12px !important;
-  width:100% !important;
-  padding:14px 18px !important;
-  box-sizing:border-box !important;
-  border-bottom:1px solid var(--border) !important;
-  background:rgba(5,5,16,.88) !important;
-  backdrop-filter:blur(8px);
-}
-#sc-deckbuilder .how-top .how-title{
-  display:block !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  flex:1 !important;
-  text-align:center !important;
-  color:#fff !important;
-}
-#sc-deckbuilder .how-top .btn{
-  position:static !important;
-  display:inline-flex !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  min-width:82px !important;
-}
-#sc-deckbuilder .how-top .cl-filter-note{
-  display:none !important;
-}
-#sc-deckbuilder .deckbuilder-body{
-  display:block !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  width:100% !important;
-  max-width:1180px !important;
-  margin:0 auto !important;
-  padding:20px 24px 110px !important;
-  box-sizing:border-box !important;
-  overflow:visible !important;
-}
-#sc-deckbuilder .deckbuilder-help,
-#sc-deckbuilder .deckbuilder-summary,
-#sc-deckbuilder .deck-slot-panel,
-#sc-deckbuilder #deckbuilder-root{
-  display:block !important;
-  visibility:visible !important;
-  opacity:1 !important;
-}
-#sc-deckbuilder .deckbuilder-summary{
-  display:flex !important;
-  flex-wrap:wrap !important;
-}
-#sc-deckbuilder .deck-current-list{
-  display:grid !important;
-  grid-template-columns:1.6fr 1fr 1fr !important;
-  gap:10px !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  max-height:none !important;
-}
-#sc-deckbuilder .deckbuilder-layout{
-  display:flex !important;
-  flex-direction:column !important;
-  gap:18px !important;
-  visibility:visible !important;
-  opacity:1 !important;
-}
-#sc-deckbuilder .deckbuilder-card-grid{
-  display:grid !important;
-  grid-template-columns:repeat(auto-fill,minmax(170px,1fr)) !important;
-  gap:14px !important;
-  visibility:visible !important;
-  opacity:1 !important;
-}
-#sc-deckbuilder .deck-pick-card{
-  display:flex !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  min-height:248px !important;
-}
-#sc-deckbuilder .deck-pick-card.zero{
-  opacity:.55 !important;
-}
-#sc-deckbuilder .deckbuilder-bottom-actions{
-  position:fixed !important;
-  left:50% !important;
-  bottom:16px !important;
-  transform:translateX(-50%) !important;
-  z-index:90 !important;
-  display:flex !important;
-  gap:10px !important;
-  padding:10px !important;
-  border-radius:18px !important;
-  background:rgba(5,7,18,.88) !important;
-  border:1px solid rgba(255,255,255,.12) !important;
-  box-shadow:0 12px 36px rgba(0,0,0,.42) !important;
-}
-@media (max-width:920px){
-  #sc-deckbuilder .deck-current-list{
-    grid-template-columns:1fr !important;
-  }
-  #sc-deckbuilder .deckbuilder-card-grid{
-    grid-template-columns:repeat(auto-fill,minmax(140px,1fr)) !important;
-  }
-}
-
 </style>
 </head>
 <body>
@@ -2609,6 +2483,7 @@ body, button, input, select, textarea {
     <button class="btn btn-back btn-sm" onclick="showScreen('sc-land')">← Back</button>
     <div class="how-title" id="deckbuilder-title">DECK BUILDER / จัด DECK</div>
     <div class="cl-filter-note" id="deckbuilder-count-label">40 / 40</div>
+
     <button class="btn btn-back btn-sm" onclick="toggleLanguage()" style="margin-left:10px">TH / EN</button>
   </div>
   <div class="deckbuilder-body">
@@ -2639,7 +2514,6 @@ body, button, input, select, textarea {
     <div class="deckbuilder-grid" id="deckbuilder-root"></div>
     <div class="deckbuilder-bottom-actions">
       <button class="btn btn-back btn-sm random-build-btn" onclick="autoBuildDeck()">🎲 Random</button>
-      <button class="btn btn-back btn-sm clear-deck-btn" onclick="clearCurrentDeck()">Clear Cards</button>
       <button class="btn btn-back btn-sm" onclick="resetCustomDeck()">Reset Default</button>
       <button class="btn btn-a btn-sm" onclick="saveDeckToSlot()">Save Slot</button>
       <button class="btn btn-b btn-sm" onclick="saveDeckAndPlay()">Save & Play</button>
@@ -3409,8 +3283,7 @@ function getPlayerDeckDef() {
 
 function getDeckBuilderCounts() {
   const counts = {};
-  const source = Array.isArray(CUSTOM_PDECK) ? CUSTOM_PDECK : getPlayerDeckDef();
-  source.forEach(id => counts[id] = (counts[id] || 0) + 1);
+  getPlayerDeckDef().forEach(id => counts[id] = (counts[id] || 0) + 1);
   return counts;
 }
 
@@ -3510,17 +3383,6 @@ function autoBuildDeck() {
   try { localStorage.setItem('mittaria_custom_deck_v1', JSON.stringify(picks)); } catch(e) {}
   renderDeckBuilder();
   showMsg(currentLang === 'th' ? '🎲 Random Deck แล้ว' : '🎲 Random Deck built');
-}
-
-
-
-function clearCurrentDeck() {
-  if (!confirm(currentLang === 'th' ? 'ล้างการ์ดทั้งหมดใน Deck นี้?' : 'Clear all cards from this deck?')) return;
-  deckBuilderCounts = {};
-  CUSTOM_PDECK = [];
-  try { localStorage.setItem('mittaria_custom_deck_v1', JSON.stringify([])); } catch(e) {}
-  renderDeckBuilder();
-  showMsg(currentLang === 'th' ? 'ล้างการ์ดใน Deck แล้ว' : 'Deck cleared');
 }
 
 
@@ -6036,43 +5898,6 @@ function closeModal(id) {
   render();
 }
 
-
-function emergencyRenderDeckBuilder() {
-  const root = document.getElementById('deckbuilder-root');
-  if (!root || root.innerHTML.trim()) return;
-  const counts = ensureDeckBuilderCounts ? ensureDeckBuilderCounts() : {};
-  const cards = Object.values(CARDS || {}).sort((a,b) => (a.type||'').localeCompare(b.type||'') || (a.name||'').localeCompare(b.name||''));
-  const typeNames = { char:'CHARACTER', companion:'COMPANION', spell:'SPELL' };
-  function art(card){
-    if (typeof CHAR_IMGS !== 'undefined' && CHAR_IMGS[card.id]) return `<img src="${CHAR_IMGS[card.id]}" alt="${card.name}" style="width:100%;height:100%;object-fit:cover;object-position:top center;">`;
-    return `<span style="font-size:36px">${card.emoji || '🃏'}</span>`;
-  }
-  root.innerHTML = `<div class="deckbuilder-layout">${
-    ['char','companion','spell'].map(type => {
-      const list = cards.filter(c => c.type === type);
-      return `<section>
-        <div class="deckbuilder-section-title">${typeNames[type]}</div>
-        <div class="deckbuilder-card-grid">
-          ${list.map(card => `
-            <div class="deck-pick-card cl-${card.rarity||''}" onclick="setDeckCount('${card.id}',1)">
-              <div class="deck-pick-art">${art(card)}</div>
-              <div class="deck-pick-body">
-                <div class="deck-pick-name">${card.name}</div>
-                <div class="deck-pick-meta">${(card.rarity||'').toUpperCase()} • ${card.type}</div>
-                <div class="deck-pick-controls">
-                  <button onclick="event.stopPropagation(); setDeckCount('${card.id}',-1)">−</button>
-                  <div class="deck-pick-count">${counts[card.id] || 0}</div>
-                  <button onclick="event.stopPropagation(); setDeckCount('${card.id}',1)">+</button>
-                  <button onclick="event.stopPropagation(); showCardDetailFromId('${card.id}')">🔍</button>
-                </div>
-              </div>
-            </div>`).join('')}
-        </div>
-      </section>`;
-    }).join('')
-  }</div>`;
-}
-
 function showScreen(id) {
   if (id !== 'sc-game' && G && typeof G === 'object') {
     G.autoPlay = false;
@@ -6083,10 +5908,7 @@ function showScreen(id) {
   document.getElementById(id).classList.add('on');
   updateLanguageUI();
   if (id === 'sc-cardlist') renderCardList();
-  if (id === 'sc-deckbuilder') {
-    renderDeckBuilder();
-    setTimeout(emergencyRenderDeckBuilder, 80);
-  }
+  if (id === 'sc-deckbuilder') renderDeckBuilder();
 }
 
 function startGame() {
