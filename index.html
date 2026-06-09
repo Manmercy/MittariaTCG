@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MITTARIA GENESIS — TCG Playtest Embedded</title>
+<link rel="icon" type="image/svg+xml" href="assets/embedded/img_002_98f0d555ec16.svg">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Prompt:wght@300;400;500;600;700;800&display=swap');
 :root {
@@ -1193,6 +1194,1357 @@ body, button, input, select, textarea {
   margin-right:4px;
 }
 
+
+/* ===== v6_39 Deck Builder ===== */
+.deckbuilder-body{
+  flex:1;
+  overflow-y:auto;
+  padding:22px 24px;
+  max-width:1180px;
+  margin:0 auto;
+  width:100%;
+}
+.deckbuilder-help{
+  color:var(--dim);
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px 14px;
+  font-size:13px;
+  line-height:1.6;
+  margin-bottom:12px;
+}
+.deckbuilder-summary{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:16px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  padding:8px 0;
+  background:linear-gradient(180deg,var(--bg),rgba(5,5,16,.82));
+}
+.db-pill{
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.05);
+  border-radius:999px;
+  padding:7px 12px;
+  font-size:12px;
+  color:#fff;
+  font-weight:800;
+}
+.db-total.bad{border-color:#ff7b9f;color:#ff7b9f;}
+.db-total.good{border-color:#7dffbd;color:#7dffbd;}
+.db-char{color:#a9c6ff;}
+.db-comp{color:#f0b0e0;}
+.db-spell{color:#90f0b0;}
+.deckbuilder-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  gap:14px;
+  padding-bottom:32px;
+}
+.db-card{
+  position:relative;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  overflow:hidden;
+  box-shadow:0 8px 22px rgba(0,0,0,.22);
+}
+.db-card:hover{
+  border-color:var(--cyan);
+  box-shadow:0 0 22px rgba(165,225,232,.18),0 12px 26px rgba(0,0,0,.32);
+}
+.db-art{
+  height:115px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(ellipse at center,rgba(92,88,237,.22),rgba(0,0,0,.18));
+  overflow:hidden;
+}
+.db-art img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+.db-art .db-emoji{font-size:42px;}
+.db-body{padding:10px;}
+.db-name{
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  color:#fff;
+  font-size:22px;
+  letter-spacing:.07em;
+  line-height:1;
+}
+.db-meta{font-size:10px;color:var(--dim);margin-top:4px;}
+.db-effect{font-size:10.5px;color:var(--dim);line-height:1.4;min-height:30px;margin-top:6px;}
+.db-controls{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:8px;
+}
+.db-controls button{
+  width:32px;
+  height:28px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.38);
+  color:#fff;
+  cursor:pointer;
+  font-weight:900;
+}
+.db-controls button:hover{border-color:var(--cyan);color:var(--cyan);}
+.db-count{
+  flex:1;
+  text-align:center;
+  font-size:16px;
+  font-weight:900;
+  color:#fff;
+  background:rgba(255,255,255,.05);
+  border-radius:8px;
+  padding:4px;
+}
+.db-card.zero{opacity:.48;}
+.db-card.overcopy{border-color:#ff7b9f;}
+
+
+/* ===== v6_40 Layout + Deck Builder Fix ===== */
+.important-deck-rule{
+  border:1px solid rgba(125,255,189,.18);
+  border-radius:16px;
+  padding:14px;
+  background:linear-gradient(135deg,rgba(125,255,189,.055),rgba(92,88,237,.05));
+}
+.deckbuilder-body{
+  max-width:1320px !important;
+  padding:18px 22px !important;
+}
+.deckbuilder-help{
+  margin-bottom:10px !important;
+}
+.deckbuilder-summary{
+  align-items:center;
+  justify-content:center;
+  gap:10px !important;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:14px;
+  padding:10px !important;
+  margin-bottom:14px !important;
+}
+.deckbuilder-grid{
+  grid-template-columns:repeat(auto-fill,minmax(155px,1fr)) !important;
+  gap:12px !important;
+}
+.db-card{
+  border-radius:12px !important;
+}
+.db-art{
+  height:86px !important;
+}
+.db-body{
+  padding:8px !important;
+}
+.db-name{
+  font-size:18px !important;
+  min-height:20px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.db-meta{
+  font-size:9px !important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.db-effect{
+  display:none !important;
+}
+.db-controls{
+  gap:5px !important;
+}
+.db-controls button{
+  width:28px !important;
+  height:26px !important;
+  font-size:12px !important;
+}
+.db-count{
+  font-size:14px !important;
+}
+.board-main{
+  align-items:center;
+}
+.lanes-row,
+.hand-row,
+.ai-hand-row{
+  width:100%;
+  max-width:620px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.hand-row{
+  justify-content:center !important;
+  min-height:112px !important;
+  padding:8px 12px !important;
+}
+.hc{
+  width:74px !important;
+  height:106px !important;
+}
+.hc-name{
+  font-size:8.5px !important;
+  max-width:58px !important;
+}
+.hc-art{
+  font-size:26px !important;
+}
+.sidebar{
+  width:210px !important;
+  padding:10px 9px !important;
+  gap:9px !important;
+}
+.side-section{
+  padding:9px !important;
+}
+.g-log{
+  padding:8px !important;
+  min-height:210px;
+  background:rgba(0,0,0,.12);
+}
+.log-title{
+  font-size:11px !important;
+  color:#fff !important;
+}
+.log-entry{
+  font-size:11.5px !important;
+  line-height:1.55 !important;
+  padding:5px 6px !important;
+  margin-bottom:4px !important;
+  border-radius:6px !important;
+}
+.bc.selected-atk{
+  box-shadow:0 0 0 3px rgba(255,60,60,.95),0 0 24px rgba(255,60,60,.72) !important;
+  border-color:#ff3c3c !important;
+  transform:translateY(-2px);
+}
+.bc.selected-atk::before{
+  content:'ATTACKING';
+  position:absolute;
+  left:50%;
+  top:-18px;
+  transform:translateX(-50%);
+  z-index:9;
+  padding:2px 7px;
+  border-radius:999px;
+  background:rgba(255,60,60,.92);
+  color:#fff;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.08em;
+  white-space:nowrap;
+}
+@media (max-width: 980px){
+  .sidebar{width:190px !important;}
+  .lanes-row,.hand-row,.ai-hand-row{max-width:560px;}
+  .deckbuilder-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr)) !important;}
+}
+
+
+/* ===== v6_41 UI Table + Landing Polish ===== */
+.land-btns{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:stretch !important;
+  gap:12px !important;
+  width:min(340px,90vw);
+  left:50% !important;
+  transform:translateX(-50%);
+  bottom:42px !important;
+  padding:18px;
+  border:1px solid rgba(165,225,232,.18);
+  border-radius:26px;
+  background:linear-gradient(180deg,rgba(7,10,30,.72),rgba(6,8,22,.48));
+  backdrop-filter:blur(8px);
+  box-shadow:0 22px 60px rgba(0,0,0,.38), inset 0 0 0 1px rgba(255,255,255,.04);
+}
+.land-btns .btn{
+  width:100%;
+  border-radius:18px !important;
+  padding:14px 20px !important;
+  font-size:15px !important;
+}
+.g-primary-actions{
+  gap:10px !important;
+}
+.g-primary-actions .btn-phase{
+  min-width:112px;
+  padding:10px 18px !important;
+  border-radius:12px !important;
+  font-size:14px !important;
+  box-shadow:0 8px 18px rgba(0,0,0,.18);
+}
+.g-primary-actions .btn-battle{
+  background:linear-gradient(135deg,rgba(255,80,80,.30),rgba(255,96,96,.10)) !important;
+  border-width:2px;
+}
+.g-primary-actions .btn-end{
+  background:linear-gradient(135deg,rgba(235,110,202,.28),rgba(186,101,255,.10)) !important;
+  border-width:2px;
+}
+.side-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:8px;
+  background:rgba(255,255,255,.025);
+}
+.side-actions .btn,
+.side-actions .btn-phase{
+  width:100%;
+  padding:7px 8px !important;
+  border-radius:8px !important;
+  font-size:10px !important;
+  letter-spacing:.04em;
+}
+.sidebar{
+  width:230px !important;
+}
+.g-log{
+  min-height:260px !important;
+}
+.log-entry{
+  font-size:12px !important;
+}
+.deckbuilder-body{
+  max-width:1220px !important;
+}
+.deckbuilder-summary{
+  justify-content:flex-start !important;
+}
+.deckbuilder-grid{
+  display:block !important;
+}
+.db-table-wrap{
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:14px;
+  overflow:hidden;
+  background:rgba(255,255,255,.035);
+}
+.db-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+.db-table th{
+  position:sticky;
+  top:0;
+  z-index:5;
+  background:#11162a;
+  color:var(--cyan);
+  text-align:left;
+  padding:9px 10px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  letter-spacing:.08em;
+  font-size:15px;
+  font-weight:400;
+}
+.db-table td{
+  padding:8px 10px;
+  border-bottom:1px solid rgba(255,255,255,.055);
+  color:#dfe5ff;
+  vertical-align:middle;
+}
+.db-table tr:hover td{
+  background:rgba(165,225,232,.055);
+}
+.db-row.zero{
+  opacity:.44;
+}
+.db-type-row td{
+  background:linear-gradient(90deg,rgba(92,88,237,.22),rgba(165,225,232,.05));
+  color:#fff;
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  letter-spacing:.09em;
+  font-size:22px;
+  padding:10px 12px;
+}
+.db-thumb{
+  width:42px;
+  height:56px;
+  border-radius:7px;
+  overflow:hidden;
+  background:rgba(0,0,0,.25);
+  border:1px solid rgba(255,255,255,.10);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+}
+.db-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+}
+.db-name-cell{
+  min-width:170px;
+}
+.db-name-main{
+  color:#fff;
+  font-weight:800;
+  font-size:13px;
+}
+.db-name-sub{
+  color:var(--dim);
+  font-size:10px;
+  margin-top:2px;
+}
+.db-mini-stat{
+  white-space:nowrap;
+  color:#fff;
+  font-weight:800;
+}
+.db-effect-cell{
+  color:var(--dim);
+  max-width:320px;
+  line-height:1.35;
+}
+.db-table-controls{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  justify-content:flex-end;
+}
+.db-table-controls button{
+  width:30px;
+  height:28px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(0,0,0,.28);
+  color:#fff;
+  cursor:pointer;
+  font-weight:900;
+}
+.db-table-controls button:hover{
+  border-color:var(--cyan);
+  color:var(--cyan);
+}
+.db-count-table{
+  min-width:26px;
+  text-align:center;
+  font-weight:900;
+  color:#fff;
+  padding:4px 7px;
+  border-radius:7px;
+  background:rgba(255,255,255,.06);
+}
+@media (max-width: 980px){
+  .db-effect-cell{display:none;}
+  .db-table th:nth-child(5), .db-table td:nth-child(5){display:none;}
+  .sidebar{width:205px !important;}
+  .g-primary-actions .btn-phase{min-width:92px;font-size:12px !important;}
+}
+
+
+/* ===== v6_42 Menu / Playtest / Deck Builder Rework ===== */
+.land-btns{
+  top:50% !important;
+  bottom:auto !important;
+  transform:translate(-50%,-50%) !important;
+}
+.action-separator{
+  width:1px;
+  height:34px;
+  background:rgba(255,255,255,.18);
+  margin:0 8px;
+}
+.g-primary-actions{
+  flex-wrap:wrap;
+}
+.g-primary-actions .btn-back,
+.g-primary-actions .btn-redraw,
+.g-primary-actions .btn-auto,
+.g-primary-actions .btn-reset{
+  padding:7px 10px !important;
+  border-radius:9px !important;
+  font-size:10px !important;
+}
+.side-actions{display:none !important;}
+.deckbuilder-body{
+  max-width:1180px !important;
+}
+.deckbuilder-layout{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.deckbuilder-section-title{
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  font-size:30px;
+  letter-spacing:.08em;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,.12);
+  padding-bottom:6px;
+  margin-top:4px;
+}
+.deckbuilder-card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(185px,1fr));
+  gap:14px;
+}
+.deck-pick-card{
+  position:relative;
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  background:rgba(255,255,255,.04);
+  min-height:285px;
+  display:flex;
+  flex-direction:column;
+}
+.deck-pick-card:hover{
+  border-color:var(--cyan);
+  box-shadow:0 0 20px rgba(165,225,232,.18);
+}
+.deck-pick-art{
+  height:128px;
+  background:radial-gradient(ellipse at center,rgba(92,88,237,.24),rgba(0,0,0,.2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  font-size:42px;
+}
+.deck-pick-art img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+}
+.deck-pick-body{
+  padding:10px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  flex:1;
+}
+.deck-pick-name{
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  font-size:22px;
+  color:#fff;
+  letter-spacing:.07em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.deck-pick-meta{
+  font-size:10px;
+  color:var(--dim);
+}
+.deck-pick-effect{
+  font-size:10.5px;
+  color:var(--dim);
+  line-height:1.35;
+  max-height:42px;
+  overflow:hidden;
+}
+.deck-pick-controls{
+  margin-top:auto;
+  display:grid;
+  grid-template-columns:32px 1fr 32px 32px;
+  gap:6px;
+  align-items:center;
+}
+.deck-pick-controls button{
+  height:30px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.32);
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+}
+.deck-pick-controls button:hover{
+  color:var(--cyan);
+  border-color:var(--cyan);
+}
+.deck-pick-count{
+  text-align:center;
+  font-weight:900;
+  color:#fff;
+  padding:6px 0;
+  border-radius:8px;
+  background:rgba(255,255,255,.07);
+}
+.deck-pick-card.zero{
+  opacity:.55;
+}
+@media (max-width:900px){
+  .deckbuilder-card-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}
+  .deck-pick-card{min-height:260px;}
+  .deck-pick-art{height:105px;}
+}
+
+
+/* ===== v6_43 Final Layout Fix ===== */
+#sc-land{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+}
+#sc-land.on{display:flex;}
+.land-btns{
+  position:relative !important;
+  left:auto !important;
+  right:auto !important;
+  top:auto !important;
+  bottom:auto !important;
+  transform:none !important;
+  margin-top:24px;
+  width:min(380px,88vw) !important;
+  z-index:10;
+}
+.brand-title{
+  position:relative;
+  z-index:5;
+  text-align:center;
+}
+.brand-sub{
+  position:relative;
+  z-index:5;
+  text-align:center;
+}
+.g-nav{
+  gap:14px !important;
+}
+.g-primary-actions{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:18px !important;
+}
+.utility-actions-left{
+  display:flex;
+  gap:7px;
+  align-items:center;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.utility-actions-left .btn,
+.utility-actions-left .btn-phase{
+  padding:7px 10px !important;
+  font-size:10px !important;
+  border-radius:9px !important;
+}
+.btn-main-action{
+  min-width:190px !important;
+  min-height:54px !important;
+  padding:13px 24px !important;
+  border-radius:16px !important;
+  font-size:21px !important;
+  letter-spacing:.08em !important;
+  border-width:2px !important;
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif !important;
+  box-shadow:0 10px 28px rgba(0,0,0,.34), inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.main-action-draw{
+  border-color:#7dffbd !important;
+  background:linear-gradient(135deg,rgba(125,255,189,.36),rgba(40,150,110,.16)) !important;
+  color:#baffd5 !important;
+}
+.main-action-battle{
+  border-color:#ff6969 !important;
+  background:linear-gradient(135deg,rgba(255,70,70,.42),rgba(140,30,30,.18)) !important;
+  color:#ffd0d0 !important;
+}
+.main-action-end{
+  border-color:#eb6eca !important;
+  background:linear-gradient(135deg,rgba(235,110,202,.40),rgba(92,88,237,.18)) !important;
+  color:#ffd2f4 !important;
+}
+.main-action-wait{
+  border-color:rgba(255,255,255,.18) !important;
+  background:rgba(255,255,255,.04) !important;
+  color:var(--dim) !important;
+}
+.step-help{font-size:14px !important;min-height:36px !important;}
+.battle-preview{font-size:14px !important;min-height:42px !important;}
+.card-info-bar{font-size:14px !important;min-height:38px !important;}
+.bc-name{font-size:11px !important;max-width:76px !important;}
+.bc-stats{font-size:12px !important;}
+.comp-bar{font-size:10px !important;}
+.hc-name{font-size:9.5px !important;}
+.hc-foot{font-size:10px !important;}
+.lead-name{font-size:14px !important;}
+.lead-lp{font-size:19px !important;}
+.deck-stat{font-size:12px !important;}
+.log-entry{font-size:12.5px !important;}
+.deckbuilder-body{
+  max-width:none !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:18px 26px 110px !important;
+}
+.deckbuilder-summary{
+  position:sticky;
+  top:0;
+  z-index:30;
+  justify-content:center !important;
+}
+.deckbuilder-card-grid{
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr)) !important;
+}
+.deck-pick-card{
+  min-height:260px !important;
+}
+.deck-pick-art{
+  height:112px !important;
+}
+#sc-deckbuilder .how-top{
+  flex-wrap:wrap;
+}
+#sc-deckbuilder .how-top .btn{
+  order:10;
+}
+#sc-deckbuilder .how-top #deckbuilder-title,
+#sc-deckbuilder .how-top #deckbuilder-count-label{
+  order:0;
+}
+#sc-deckbuilder .how-top #btn-auto-build,
+#sc-deckbuilder .how-top #btn-reset-deck,
+#sc-deckbuilder .how-top #btn-save-play{
+  position:fixed;
+  bottom:18px;
+  z-index:80;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+#btn-auto-build{left:50%;transform:translateX(-180px);}
+#btn-reset-deck{left:50%;transform:translateX(-55px);}
+#btn-save-play{left:50%;transform:translateX(80px);}
+@media (max-width:920px){
+  .g-primary-actions{flex-direction:column;align-items:flex-end;gap:8px !important;}
+  .btn-main-action{min-width:160px !important;min-height:48px !important;font-size:18px !important;}
+  .deckbuilder-card-grid{grid-template-columns:repeat(auto-fill,minmax(145px,1fr)) !important;}
+}
+
+
+/* ===== v6_44 Major UI Fix ===== */
+#sc-land{
+  overflow-y:auto !important;
+  padding:44px 18px 60px;
+  justify-content:flex-start !important;
+}
+.land-btns{
+  margin-top:28px !important;
+  margin-bottom:40px;
+  gap:14px !important;
+}
+.play-hero-btn{
+  min-height:66px;
+  font-size:20px !important;
+  border-radius:24px !important;
+  background:linear-gradient(135deg,rgba(235,110,202,.42),rgba(92,88,237,.22),rgba(165,225,232,.10)) !important;
+  border-color:rgba(235,110,202,.85) !important;
+  box-shadow:0 14px 38px rgba(186,101,255,.32), inset 0 0 0 1px rgba(255,255,255,.12);
+}
+.ai-mode-toggle{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  color:var(--dim);
+  font-size:11px;
+  letter-spacing:.12em;
+  padding:8px 10px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:999px;
+  background:rgba(0,0,0,.18);
+}
+.ai-mode-toggle button{
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.04);
+  color:#fff;
+  border-radius:999px;
+  padding:6px 12px;
+  cursor:pointer;
+  font-size:11px;
+}
+.ai-mode-toggle button.on{
+  border-color:var(--cyan);
+  color:var(--cyan);
+  background:rgba(165,225,232,.14);
+}
+.g-log{
+  order:-5;
+  flex:0 0 230px !important;
+  min-height:230px !important;
+  max-height:270px;
+}
+.sidebar .side-section{
+  flex-shrink:0;
+}
+.bc-name{
+  color:#fff !important;
+  text-shadow:0 1px 4px rgba(0,0,0,.9);
+  font-size:12px !important;
+}
+.bc-stats{
+  color:#fff !important;
+  font-size:13px !important;
+  text-shadow:0 1px 4px rgba(0,0,0,.9);
+}
+.bc-el{font-size:13px !important;}
+.hc-name{color:#fff !important;text-shadow:0 1px 4px #000;font-size:10px !important;}
+.comp-name,.comp-eff{color:#fff !important;text-shadow:0 1px 3px #000;}
+.deckbuilder-body{
+  max-width:none !important;
+  width:100% !important;
+  padding:18px 24px 92px !important;
+  margin:0 !important;
+  box-sizing:border-box;
+}
+#sc-deckbuilder .how-top{
+  position:sticky;
+  top:0;
+  z-index:60;
+}
+#sc-deckbuilder .how-top #btn-auto-build,
+#sc-deckbuilder .how-top #btn-reset-deck,
+#sc-deckbuilder .how-top #btn-save-play{
+  display:none !important;
+}
+.deckbuilder-summary{
+  position:relative !important;
+  top:auto !important;
+  justify-content:center !important;
+}
+.deck-slot-panel{
+  width:100%;
+  border:1px solid rgba(165,225,232,.16);
+  border-radius:18px;
+  padding:14px;
+  background:rgba(255,255,255,.035);
+  margin:12px 0 18px;
+  box-sizing:border-box;
+}
+.deck-slot-head{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+  color:#fff;
+}
+.deck-slot-head input{
+  flex:1;
+  min-width:220px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.24);
+  color:#fff;
+  border-radius:10px;
+  padding:10px 12px;
+}
+.deck-slot-buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+.deck-slot-buttons button{
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.04);
+  color:#fff;
+  border-radius:10px;
+  padding:9px 12px;
+  cursor:pointer;
+}
+.deck-slot-buttons button.active{
+  border-color:var(--cyan);
+  color:var(--cyan);
+  background:rgba(165,225,232,.12);
+}
+.deck-current-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  max-height:132px;
+  overflow-y:auto;
+  padding-top:4px;
+}
+.deck-current-chip{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.2);
+  color:#fff;
+  border-radius:999px;
+  padding:5px 7px;
+  font-size:11px;
+  cursor:pointer;
+}
+.deck-current-chip em{
+  color:var(--cyan);
+  font-style:normal;
+  font-weight:900;
+}
+.deck-current-chip button{
+  border:0;
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  border-radius:999px;
+  width:18px;
+  height:18px;
+  cursor:pointer;
+}
+.deck-empty{color:var(--dim);font-size:12px;}
+.deckbuilder-bottom-actions{
+  position:fixed;
+  left:50%;
+  bottom:16px;
+  transform:translateX(-50%);
+  z-index:90;
+  display:flex;
+  gap:10px;
+  padding:10px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(5,7,18,.82);
+  backdrop-filter:blur(10px);
+  border-radius:18px;
+  box-shadow:0 12px 36px rgba(0,0,0,.42);
+}
+.deckbuilder-card-grid{
+  grid-template-columns:repeat(auto-fill,minmax(168px,1fr)) !important;
+  width:100%;
+}
+.deck-pick-card{
+  min-height:248px !important;
+}
+.deck-pick-art{
+  height:105px !important;
+}
+.deck-pick-effect{
+  max-height:34px !important;
+}
+@media (max-width:760px){
+  .deckbuilder-bottom-actions{
+    width:calc(100% - 24px);
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .deckbuilder-card-grid{
+    grid-template-columns:repeat(auto-fill,minmax(138px,1fr)) !important;
+  }
+  .deck-pick-card{min-height:230px !important;}
+}
+
+
+/* ===== v6_45 Deck Builder Visual Slots ===== */
+.deckbuilder-hero-title{
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  font-size:52px;
+  line-height:.9;
+  letter-spacing:.09em;
+  color:#fff;
+  text-align:center;
+  margin:8px 0 14px;
+  text-shadow:0 0 22px rgba(165,225,232,.22);
+}
+.deck-save-inline{
+  border:1px solid rgba(125,255,189,.45);
+  background:rgba(125,255,189,.14);
+  color:#baffd5;
+  border-radius:10px;
+  padding:10px 14px;
+  cursor:pointer;
+  font-weight:900;
+}
+.deck-save-inline:hover{
+  background:rgba(125,255,189,.24);
+  box-shadow:0 0 14px rgba(125,255,189,.25);
+}
+.db-pill{
+  cursor:pointer;
+  border-radius:14px !important;
+  min-width:112px;
+  text-align:center;
+}
+.db-pill.active{
+  box-shadow:0 0 18px rgba(165,225,232,.28);
+  border-color:var(--cyan) !important;
+  background:rgba(165,225,232,.12) !important;
+  color:#fff !important;
+}
+.deck-slot-buttons button.active{
+  box-shadow:0 0 20px rgba(165,225,232,.45), inset 0 0 0 1px rgba(255,255,255,.08);
+  transform:translateY(-1px);
+}
+.deck-current-list{
+  display:grid !important;
+  grid-template-columns:1.6fr 1fr 1fr;
+  gap:10px !important;
+  max-height:none !important;
+  overflow:visible !important;
+}
+.deck-zone{
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;
+  overflow:hidden;
+  min-height:155px;
+}
+.deck-zone-char{background:linear-gradient(135deg,rgba(96,144,255,.18),rgba(92,88,237,.06));}
+.deck-zone-comp{background:linear-gradient(135deg,rgba(235,110,202,.18),rgba(186,101,255,.06));}
+.deck-zone-spell{background:linear-gradient(135deg,rgba(80,210,140,.16),rgba(45,160,120,.06));}
+.deck-zone-title{
+  color:#fff;
+  font-family:'Bebas Neue','Arial Narrow','Impact',system-ui,sans-serif;
+  letter-spacing:.08em;
+  font-size:22px;
+  padding:10px 12px 6px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.deck-zone-title small{
+  color:var(--cyan);
+  font-size:15px;
+  float:right;
+  margin-top:3px;
+}
+.deck-zone-cards{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  padding:10px;
+  align-content:flex-start;
+}
+.deck-mini-card{
+  position:relative;
+  width:72px;
+  min-height:98px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.24);
+  border-radius:10px;
+  overflow:hidden;
+  cursor:pointer;
+}
+.deck-mini-card:hover{
+  border-color:var(--cyan);
+  box-shadow:0 0 12px rgba(165,225,232,.22);
+}
+.deck-mini-art{
+  height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  overflow:hidden;
+  background:rgba(0,0,0,.2);
+}
+.deck-mini-art img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+}
+.deck-mini-name{
+  color:#fff;
+  font-size:8px;
+  line-height:1.1;
+  padding:4px;
+  height:26px;
+  overflow:hidden;
+}
+.deck-mini-card b{
+  position:absolute;
+  left:4px;
+  bottom:3px;
+  color:var(--cyan);
+  font-size:10px;
+}
+.deck-mini-card button{
+  position:absolute;
+  right:3px;
+  bottom:2px;
+  width:18px;
+  height:18px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,80,80,.78);
+  color:#fff;
+  cursor:pointer;
+}
+.deck-empty-slot{
+  color:rgba(255,255,255,.45);
+  border:1px dashed rgba(255,255,255,.16);
+  border-radius:10px;
+  padding:18px;
+  width:100%;
+  text-align:center;
+  font-size:12px;
+}
+.deckbuilder-bottom-actions{
+  gap:12px !important;
+}
+.deckbuilder-bottom-actions .btn{
+  font-size:13px !important;
+  padding:11px 18px !important;
+  border-radius:13px !important;
+}
+.random-build-btn{
+  min-width:128px;
+  border-color:#ffd36e !important;
+  color:#ffd36e !important;
+  background:rgba(255,211,110,.12) !important;
+}
+@media (max-width:920px){
+  .deck-current-list{grid-template-columns:1fr !important;}
+  .deckbuilder-hero-title{font-size:40px;}
+}
+
+
+/* ===== v6_46 Playtest Hotfix ===== */
+.sidebar .g-log{
+  order:-10;
+  flex:0 0 240px !important;
+  min-height:220px !important;
+  max-height:280px !important;
+  display:block !important;
+  overflow-y:auto !important;
+}
+
+
+/* ===== v6_47 Deck Builder Interaction + AI Tuning ===== */
+#sc-deckbuilder .how-top{
+  position:absolute !important;
+  top:8px !important;
+  right:12px !important;
+  left:auto !important;
+  width:auto !important;
+  background:transparent !important;
+  border:0 !important;
+  padding:0 !important;
+  gap:6px !important;
+  z-index:120 !important;
+}
+#sc-deckbuilder .how-top .how-title,
+#sc-deckbuilder .how-top .cl-filter-note{
+  display:none !important;
+}
+#sc-deckbuilder .how-top .btn{
+  padding:7px 10px !important;
+  font-size:10px !important;
+  border-radius:999px !important;
+  background:rgba(0,0,0,.32) !important;
+  backdrop-filter:blur(6px);
+}
+.deckbuilder-hero-title{
+  margin-top:18px !important;
+}
+.deck-mini-card button{
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s, transform .15s;
+}
+.deck-mini-card:hover button{
+  opacity:1;
+  pointer-events:auto;
+  transform:scale(1.05);
+}
+.deck-pick-card{
+  cursor:pointer;
+}
+.deck-pick-card.full{
+  opacity:.38 !important;
+  filter:grayscale(.5);
+}
+.deck-pick-card.full::after{
+  content:'MAX';
+  position:absolute;
+  top:8px;
+  right:8px;
+  z-index:8;
+  background:rgba(0,0,0,.72);
+  border:1px solid rgba(255,255,255,.18);
+  color:#ffd36e;
+  border-radius:999px;
+  padding:3px 8px;
+  font-size:10px;
+  font-weight:900;
+}
+.deck-pick-card:hover{
+  transform:translateY(-3px);
+}
+.deck-pick-controls button{
+  cursor:pointer;
+}
+.sidebar{
+  width:260px !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  padding-right:10px !important;
+}
+.sidebar::-webkit-scrollbar,
+.deck-current-list::-webkit-scrollbar{
+  width:8px;
+}
+.sidebar::-webkit-scrollbar-thumb,
+.deck-current-list::-webkit-scrollbar-thumb{
+  background:rgba(165,225,232,.22);
+  border-radius:999px;
+}
+.deck-stat{
+  padding:7px 8px !important;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:8px;
+  margin-bottom:6px !important;
+  background:rgba(255,255,255,.025);
+}
+.void-link{
+  border-color:rgba(165,225,232,.22) !important;
+  background:rgba(165,225,232,.06) !important;
+  color:#dffaff !important;
+  font-weight:800;
+}
+.deck-stat span:last-child{
+  font-size:13px;
+  font-weight:900;
+  color:#fff !important;
+}
+.g-log{
+  flex:0 0 250px !important;
+  max-height:300px !important;
+}
+
+
+/* ===== v6_48 Clear Deck Button ===== */
+.clear-deck-btn{
+  border-color:#ff7b9f !important;
+  color:#ffb6c8 !important;
+  background:rgba(255,123,159,.10) !important;
+}
+.clear-deck-btn:hover{
+  background:rgba(255,123,159,.20) !important;
+  box-shadow:0 0 14px rgba(255,123,159,.22);
+}
+
+
+/* ===== v6_54 Deck Builder Recovery ===== */
+#sc-deckbuilder{
+  overflow-y:auto !important;
+}
+#sc-deckbuilder .how-top{
+  position:sticky !important;
+  top:0 !important;
+  z-index:80 !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:12px !important;
+  width:100% !important;
+  padding:14px 18px !important;
+  box-sizing:border-box !important;
+  border-bottom:1px solid var(--border) !important;
+  background:rgba(5,5,16,.88) !important;
+  backdrop-filter:blur(8px);
+}
+#sc-deckbuilder .how-top .how-title{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  flex:1 !important;
+  text-align:center !important;
+  color:#fff !important;
+}
+#sc-deckbuilder .how-top .btn{
+  position:static !important;
+  display:inline-flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  min-width:82px !important;
+}
+#sc-deckbuilder .how-top .cl-filter-note{
+  display:none !important;
+}
+#sc-deckbuilder .deckbuilder-body{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  width:100% !important;
+  max-width:1180px !important;
+  margin:0 auto !important;
+  padding:20px 24px 110px !important;
+  box-sizing:border-box !important;
+  overflow:visible !important;
+}
+#sc-deckbuilder .deckbuilder-help,
+#sc-deckbuilder .deckbuilder-summary,
+#sc-deckbuilder .deck-slot-panel,
+#sc-deckbuilder #deckbuilder-root{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+#sc-deckbuilder .deckbuilder-summary{
+  display:flex !important;
+  flex-wrap:wrap !important;
+}
+#sc-deckbuilder .deck-current-list{
+  display:grid !important;
+  grid-template-columns:1.6fr 1fr 1fr !important;
+  gap:10px !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  max-height:none !important;
+}
+#sc-deckbuilder .deckbuilder-layout{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:18px !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+#sc-deckbuilder .deckbuilder-card-grid{
+  display:grid !important;
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr)) !important;
+  gap:14px !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+#sc-deckbuilder .deck-pick-card{
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  min-height:248px !important;
+}
+#sc-deckbuilder .deck-pick-card.zero{
+  opacity:.55 !important;
+}
+#sc-deckbuilder .deckbuilder-bottom-actions{
+  position:fixed !important;
+  left:50% !important;
+  bottom:16px !important;
+  transform:translateX(-50%) !important;
+  z-index:90 !important;
+  display:flex !important;
+  gap:10px !important;
+  padding:10px !important;
+  border-radius:18px !important;
+  background:rgba(5,7,18,.88) !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  box-shadow:0 12px 36px rgba(0,0,0,.42) !important;
+}
+@media (max-width:920px){
+  #sc-deckbuilder .deck-current-list{
+    grid-template-columns:1fr !important;
+  }
+  #sc-deckbuilder .deckbuilder-card-grid{
+    grid-template-columns:repeat(auto-fill,minmax(140px,1fr)) !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1223,9 +2575,15 @@ body, button, input, select, textarea {
   <img src="assets/embedded/img_003_76348185c590.png" style="position:absolute;right:30px;bottom:0;height:85%;object-fit:contain;object-position:bottom;opacity:0.3;pointer-events:none;" alt="">
   <img src="assets/embedded/img_004_55f7fad4ccae.png" style="position:absolute;left:30px;bottom:0;height:80%;object-fit:contain;object-position:bottom;opacity:0.3;pointer-events:none;" alt="">
   <div class="land-btns">
+    <button class="btn btn-b play-hero-btn" id="btn-play" onclick="startGame()">⚔️ PLAY TEST</button>
+    <div class="ai-mode-toggle">
+      <span>AI MODE</span>
+      <button id="btn-ai-easy" onclick="setAiMode('easy')">Easy</button>
+      <button id="btn-ai-hard" onclick="setAiMode('hard')">Hard</button>
+    </div>
     <button class="btn btn-a" id="btn-how" onclick="showScreen('sc-how')">📖 HOW TO PLAY</button>
+    <button class="btn btn-a" id="btn-deck-builder" onclick="showScreen('sc-deckbuilder')">🧩 DECK BUILDER</button>
     <button class="btn btn-a" id="btn-card-list" onclick="showScreen('sc-cardlist')">🃏 CARD LIST</button>
-    <button class="btn btn-b" id="btn-play" onclick="startGame()">⚔️ PLAY TEST</button>
     <button class="btn btn-back" id="btn-lang-land" onclick="toggleLanguage()">TH / EN</button>
   </div>
 </div>
@@ -1244,6 +2602,51 @@ body, button, input, select, textarea {
   </div>
 </div>
 
+
+<!-- ============ DECK BUILDER ============ -->
+<div class="sc" id="sc-deckbuilder">
+  <div class="how-top">
+    <button class="btn btn-back btn-sm" onclick="showScreen('sc-land')">← Back</button>
+    <div class="how-title" id="deckbuilder-title">DECK BUILDER / จัด DECK</div>
+    <div class="cl-filter-note" id="deckbuilder-count-label">40 / 40</div>
+    <button class="btn btn-back btn-sm" onclick="toggleLanguage()" style="margin-left:10px">TH / EN</button>
+  </div>
+  <div class="deckbuilder-body">
+    <div class="deckbuilder-hero-title">DECK BUILDER</div>
+    <div class="deckbuilder-help" id="deckbuilder-help">
+      <strong>Deck Rule:</strong> 40 cards total. Recommended ratio: <strong>24 Character</strong> / <strong>8 Companion</strong> / <strong>8 Spell</strong>. 
+      Tap + / − to adjust copies. Current prototype allows up to <strong>3 copies per card</strong>.
+    </div>
+    <div class="deckbuilder-summary">
+      <button class="db-pill db-total active" onclick="setDeckBuilderFilter('all')">Total <span id="db-total">40</span>/40</button>
+      <button class="db-pill db-char" onclick="setDeckBuilderFilter('char')">Character <span id="db-char">24</span></button>
+      <button class="db-pill db-comp" onclick="setDeckBuilderFilter('companion')">Companion <span id="db-comp">8</span></button>
+      <button class="db-pill db-spell" onclick="setDeckBuilderFilter('spell')">Spell <span id="db-spell">8</span></button>
+    </div>
+    <div class="deck-slot-panel">
+      <div class="deck-slot-head">
+        <strong>DECK SLOTS</strong>
+        <input id="deck-name-input" maxlength="24" placeholder="Deck Name" oninput="updateDeckNameDraft(this.value)">
+        <button class="deck-save-inline" onclick="saveDeckToSlot()">Save Slot</button>
+      </div>
+      <div class="deck-slot-buttons">
+        <button id="deck-slot-1" onclick="loadDeckSlot(1)">Slot 1</button>
+        <button id="deck-slot-2" onclick="loadDeckSlot(2)">Slot 2</button>
+        <button id="deck-slot-3" onclick="loadDeckSlot(3)">Slot 3</button>
+      </div>
+      <div class="deck-current-list" id="deck-current-list"></div>
+    </div>
+    <div class="deckbuilder-grid" id="deckbuilder-root"></div>
+    <div class="deckbuilder-bottom-actions">
+      <button class="btn btn-back btn-sm random-build-btn" onclick="autoBuildDeck()">🎲 Random</button>
+      <button class="btn btn-back btn-sm clear-deck-btn" onclick="clearCurrentDeck()">Clear Cards</button>
+      <button class="btn btn-back btn-sm" onclick="resetCustomDeck()">Reset Default</button>
+      <button class="btn btn-a btn-sm" onclick="saveDeckToSlot()">Save Slot</button>
+      <button class="btn btn-b btn-sm" onclick="saveDeckAndPlay()">Save & Play</button>
+    </div>
+  </div>
+</div>
+
 <!-- ============ HOW TO PLAY ============ -->
 <div class="sc" id="sc-how">
   <div class="how-top">
@@ -1255,6 +2658,21 @@ body, button, input, select, textarea {
     <div class="how-sec">
       <h2>🎯 Overview</h2>
       <p>MITTARIA GENESIS เป็นเกม TCG แบบ 1v1 — ทำลาย Gate ทั้ง 5 ของฝ่ายตรงข้ามเพื่อชนะ แต่ละ Gate คือไพ่จาก Deck ที่วางคว่ำหน้าไว้เป็นชีวิต</p>
+    </div>
+
+
+    <div class="how-sec important-deck-rule">
+      <h2>🧩 Deck Building / วิธีจัด Deck</h2>
+      <div class="rule-box">
+        <h4>Deck Rule แบบสั้น</h4>
+        <p><strong>1 Deck = 40 ใบ</strong> โดยแนะนำให้จัดเป็น <strong>Character 24</strong> / <strong>Companion 8</strong> / <strong>Spell 8</strong></p>
+        <ul>
+          <li><strong>Character</strong> ต้องเยอะที่สุด เพราะเป็นตัวลงสนาม, ป้องกัน Gate, และใช้จ่าย Cost</li>
+          <li><strong>Companion</strong> ใช้เสริมตัวหลัก แต่ถ้าเยอะเกินจะมือเน่าเพราะไม่มีตัวให้ใส่</li>
+          <li><strong>Spell</strong> ใช้แก้สถานการณ์ เช่น จั่ว, ย้ายเลน, ชุบชีวิต, ซ่อม Gate</li>
+          <li>Prototype นี้ให้ใส่การ์ดซ้ำได้สูงสุดประมาณ <strong>3 ใบต่อชื่อการ์ด</strong></li>
+        </ul>
+      </div>
     </div>
 
     <div class="how-sec">
@@ -1351,6 +2769,18 @@ body, button, input, select, textarea {
           <p>การ์ดยุทธวิธี เช่น ย้ายเลน, จั่ว, ชุบชีวิต, ซ่อม Gate หรือเปลี่ยนจังหวะการเล่น</p>
         </div>
       </div>
+
+      <div class="rule-box">
+        <h4>Deck Building Rule / กติกาการจัด Deck</h4>
+        <ul>
+          <li><strong>Deck ต้องมี 40 ใบ</strong></li>
+          <li>แนะนำให้มี <strong>Character 24 ใบ</strong> เพื่อไม่ให้มือตันและมีตัวลงสนามพอ</li>
+          <li>แนะนำให้มี <strong>Companion 8 ใบ</strong> เพื่อเสริมตัวหลักโดยไม่แย่งพื้นที่ Character มากเกินไป</li>
+          <li>แนะนำให้มี <strong>Spell 8 ใบ</strong> เพื่อแก้สถานการณ์ เช่น ย้ายเลน, จั่ว, ชุบชีวิต, ซ่อม Gate</li>
+          <li>Prototype นี้ให้ใส่การ์ดซ้ำได้สูงสุดประมาณ <strong>3 ใบต่อชื่อการ์ด</strong></li>
+        </ul>
+      </div>
+
       <div class="rule-box">
         <h4>Recommended 40-card ratio</h4>
         <p><strong>Character 60%</strong> / <strong>Companion 20%</strong> / <strong>Spell 20%</strong><br>
@@ -1408,14 +2838,14 @@ body, button, input, select, textarea {
     <img src="assets/embedded/img_002_98f0d555ec16.svg" style="height:22px;filter:brightness(0) saturate(100%) invert(55%) sepia(60%) saturate(600%) hue-rotate(220deg) brightness(110%);" alt="M"> <div class="g-logo">MITTARIA GENESIS</div>
     <div class="phase-pill ph-draw" id="phase-pill">DRAW</div>
     <div class="g-turn" id="g-turn">Turn 1</div>
-    <div class="g-actions">
-      <button class="btn btn-back btn-sm" id="btn-lang-game" onclick="toggleLanguage()">TH / EN</button>
-      <button class="btn-phase btn-redraw" id="btn-redraw" onclick="redrawHand()">↻ Redraw</button>
-      <button class="btn-phase btn-auto" id="btn-auto" onclick="toggleAutoPlay()">▶ Auto</button>
-      <button class="btn-phase btn-reset" id="btn-reset-game" onclick="restartGame()">⟲ Restart</button>
-      <button class="btn-phase btn-battle" id="btn-battle" onclick="goToBattle()" disabled>⚔️ Battle</button>
-      <button class="btn-phase btn-cancel-atk" id="btn-cancel-atk" onclick="cancelAttack()" disabled>Cancel Attack</button>
-      <button class="btn-phase btn-end" id="btn-end" onclick="endTurn()" disabled>End Turn →</button>
+    <div class="g-actions g-primary-actions">
+      <div class="utility-actions-left">
+        <button class="btn btn-back btn-sm" id="btn-lang-game" onclick="toggleLanguage()">TH / EN</button>
+        <button class="btn-phase btn-redraw" id="btn-redraw" onclick="redrawHand()">↻ Redraw</button>
+        <button class="btn-phase btn-auto" id="btn-auto" onclick="toggleAutoPlay()">▶ Auto</button>
+        <button class="btn-phase btn-reset" id="btn-reset-game" onclick="restartGame()">⟲ Restart</button>
+      </div>
+      <button class="btn-phase btn-main-action main-action-main" id="btn-main-action" onclick="mainPhaseAction()" disabled>MAIN</button>
     </div>
   </div>
   <div class="step-help" id="step-help"><strong>NEXT</strong> Click Play Test to start.</div>
@@ -1447,6 +2877,10 @@ body, button, input, select, textarea {
 
     <!-- Sidebar -->
     <div class="sidebar">
+      <div class="g-log" id="g-log">
+        <div class="log-title" id="lbl-game-log">GAME LOG</div>
+        <div id="log-entries"></div>
+      </div>
       <div class="side-section">
         <div class="side-title">LEAD CARDS</div>
         <div id="ai-lead-box"></div>
@@ -1467,10 +2901,7 @@ body, button, input, select, textarea {
         <div class="deck-stat void-link" onclick="openVoid('ai')"><span>AI Void</span><span id="ai-void-cnt">0</span></div>
         <div class="deck-stat void-link" onclick="openVoid('player')"><span>Your Void</span><span id="p-void-cnt">0</span></div>
       </div>
-      <div class="g-log" id="g-log">
-        <div class="log-title" id="lbl-game-log">GAME LOG</div>
-        <div id="log-entries"></div>
-      </div>
+
     </div>
   </div>
 </div>
@@ -1592,7 +3023,8 @@ const UI = {
   }
 };
 function t(key){ return (UI[currentLang] && UI[currentLang][key]) || UI.en[key] || key; }
-function toggleLanguage(){ currentLang = currentLang === 'en' ? 'th' : 'en'; updateLanguageUI(); render(); if(document.getElementById('sc-cardlist')?.classList.contains('on')) renderCardList(); }
+function toggleLanguage(){ currentLang = currentLang === 'en' ? 'th' : 'en'; loadAiMode();
+updateLanguageUI(); render(); if(document.getElementById('sc-cardlist')?.classList.contains('on')) renderCardList(); }
 function setText(id, text){ const el=document.getElementById(id); if(el) el.textContent=text; }
 function updateLanguageUI(){
   setText('btn-how', t('how')); setText('btn-card-list', currentLang === 'th' ? '🃏 รายการการ์ด' : '🃏 CARD LIST'); setText('btn-play', t('play'));
@@ -1603,7 +3035,19 @@ function updateLanguageUI(){
   setText('lbl-ai-deck', t('aiDeck')); setText('lbl-your-deck', t('yourDeck')); setText('lbl-ai-hand', t('aiHand')); setText('lbl-your-hand', t('yourHand')); setText('lbl-game-log', t('gameLog'));
   setText('lbl-choose-position', t('choosePosition')); setText('lbl-sacrifice', t('sacrifice'));
   setText('btn-cancel-pos', t('cancel')); setText('btn-cancel-sac', t('cancel')); setText('btn-cancel-tgt', t('cancel')); setText('sac-confirm', t('confirm')); setText('btn-play-again', t('playAgain'));
-  const howBody = document.querySelector('#sc-how .how-body'); if(howBody) howBody.innerHTML = t('howHtml');
+  // Keep the authored How to Play DOM so the Deck Building section stays visible.
+  const dbTitle = document.getElementById('deckbuilder-title');
+  const dbHelp = document.getElementById('deckbuilder-help');
+  if (dbTitle) dbTitle.textContent = currentLang === 'th' ? 'จัด DECK' : 'DECK BUILDER';
+  setText('btn-deck-builder', currentLang === 'th' ? '🧩 จัด DECK' : '🧩 DECK BUILDER');
+  setText('btn-auto-build', currentLang === 'th' ? '🎲 สุ่ม Deck' : '🎲 Random');
+  setText('btn-reset-deck', currentLang === 'th' ? 'รีเซ็ต Deck' : 'Reset Default');
+  setText('btn-save-play', currentLang === 'th' ? 'บันทึกและเล่น' : 'Save & Play');
+  if (dbHelp) dbHelp.innerHTML = currentLang === 'th'
+    ? '<strong>กติกาจัด Deck:</strong> Deck ต้องมี 40 ใบ แนะนำ <strong>Character 24</strong> / <strong>Companion 8</strong> / <strong>Spell 8</strong> กด + / − เพื่อปรับจำนวน และใส่ซ้ำได้สูงสุด <strong>3 ใบต่อชื่อการ์ด</strong>'
+    : '<strong>Deck Rule:</strong> 40 cards total. Recommended ratio: <strong>24 Character</strong> / <strong>8 Companion</strong> / <strong>8 Spell</strong>. Tap + / − to adjust copies. Max <strong>3 copies per card</strong>.';
+  updateAiModeUI();
+  renderDeckSlotsUI();
 }
 
 // CHARACTER IMAGE MAP
@@ -1801,6 +3245,10 @@ const AIDECK = [
 let G = {};
 let msgTimer = null;
 let detailContext = null;
+let CUSTOM_PDECK = null;
+let AI_MODE = 'easy';
+let CURRENT_DECK_SLOT = 1;
+let DECKBUILDER_FILTER = 'all';
 
 function makeState(deckDef) {
   return {
@@ -1855,10 +3303,385 @@ function drawGateCard(side) {
   return s.deck.splice(idx, 1)[0];
 }
 
+
+
+function setAiMode(mode) {
+  AI_MODE = mode === 'hard' ? 'hard' : 'easy';
+  try { localStorage.setItem('mittaria_ai_mode', AI_MODE); } catch(e) {}
+  updateAiModeUI();
+  showMsg(AI_MODE === 'hard' ? 'AI Mode: Hard' : 'AI Mode: Easy');
+}
+
+function loadAiMode() {
+  try {
+    const saved = localStorage.getItem('mittaria_ai_mode');
+    if (saved === 'hard' || saved === 'easy') AI_MODE = saved;
+  } catch(e) {}
+  updateAiModeUI();
+}
+
+function updateAiModeUI() {
+  const easy = document.getElementById('btn-ai-easy');
+  const hard = document.getElementById('btn-ai-hard');
+  if (easy) easy.classList.toggle('on', AI_MODE === 'easy');
+  if (hard) hard.classList.toggle('on', AI_MODE === 'hard');
+}
+
+function deckSlotKey(slot) { return `mittaria_deck_slot_${slot}`; }
+function deckNameKey(slot) { return `mittaria_deck_name_${slot}`; }
+
+function loadDeckSlot(slot) {
+  CURRENT_DECK_SLOT = slot;
+  try {
+    const saved = localStorage.getItem(deckSlotKey(slot));
+    if (saved) {
+      const arr = JSON.parse(saved);
+      if (Array.isArray(arr) && arr.length === 40 && arr.every(id => CARDS[id])) {
+        CUSTOM_PDECK = arr;
+        deckBuilderCounts = {};
+        arr.forEach(id => deckBuilderCounts[id] = (deckBuilderCounts[id] || 0) + 1);
+      }
+    } else {
+      CUSTOM_PDECK = [...PDECK];
+      deckBuilderCounts = null;
+    }
+    const name = localStorage.getItem(deckNameKey(slot)) || `Deck ${slot}`;
+    const input = document.getElementById('deck-name-input');
+    if (input) input.value = name;
+  } catch(e) {}
+  renderDeckBuilder();
+  showMsg(`Loaded Slot ${slot}`);
+}
+
+function updateDeckNameDraft(value) {
+  try { localStorage.setItem(deckNameKey(CURRENT_DECK_SLOT), value || `Deck ${CURRENT_DECK_SLOT}`); } catch(e) {}
+  renderDeckSlotsUI();
+}
+
+function saveDeckToSlot() {
+  const arr = deckBuilderArray();
+  if (arr.length !== 40) {
+    showMsg(currentLang === 'th' ? 'Deck ต้องมี 40 ใบพอดี' : 'Deck must contain exactly 40 cards');
+    return false;
+  }
+  CUSTOM_PDECK = arr;
+  try {
+    localStorage.setItem(deckSlotKey(CURRENT_DECK_SLOT), JSON.stringify(arr));
+    const name = document.getElementById('deck-name-input')?.value || `Deck ${CURRENT_DECK_SLOT}`;
+    localStorage.setItem(deckNameKey(CURRENT_DECK_SLOT), name);
+    localStorage.setItem('mittaria_custom_deck_v1', JSON.stringify(arr));
+  } catch(e) {}
+  renderDeckSlotsUI();
+  showMsg(`Saved Slot ${CURRENT_DECK_SLOT}`);
+  return true;
+}
+
+function renderDeckSlotsUI() {
+  for (let slot=1; slot<=3; slot++) {
+    const btn = document.getElementById(`deck-slot-${slot}`);
+    if (!btn) continue;
+    let name = `Slot ${slot}`;
+    try { name = localStorage.getItem(deckNameKey(slot)) || name; } catch(e) {}
+    btn.textContent = `${slot}. ${name}`;
+    btn.classList.toggle('active', slot === CURRENT_DECK_SLOT);
+  }
+  const input = document.getElementById('deck-name-input');
+  if (input) {
+    try { input.value = localStorage.getItem(deckNameKey(CURRENT_DECK_SLOT)) || `Deck ${CURRENT_DECK_SLOT}`; } catch(e) {}
+  }
+}
+
+
+function getPlayerDeckDef() {
+  if (Array.isArray(CUSTOM_PDECK) && CUSTOM_PDECK.length === 40) return CUSTOM_PDECK;
+  try {
+    const saved = localStorage.getItem('mittaria_custom_deck_v1');
+    if (saved) {
+      const arr = JSON.parse(saved);
+      if (Array.isArray(arr) && arr.length === 40 && arr.every(id => CARDS[id])) {
+        CUSTOM_PDECK = arr;
+        return CUSTOM_PDECK;
+      }
+    }
+  } catch(e) {}
+  return PDECK;
+}
+
+function getDeckBuilderCounts() {
+  const counts = {};
+  const source = Array.isArray(CUSTOM_PDECK) ? CUSTOM_PDECK : getPlayerDeckDef();
+  source.forEach(id => counts[id] = (counts[id] || 0) + 1);
+  return counts;
+}
+
+let deckBuilderCounts = null;
+
+function ensureDeckBuilderCounts() {
+  if (!deckBuilderCounts) deckBuilderCounts = getDeckBuilderCounts();
+  return deckBuilderCounts;
+}
+
+function deckBuilderArray() {
+  const counts = ensureDeckBuilderCounts();
+  const arr = [];
+  Object.keys(counts).forEach(id => {
+    for (let i = 0; i < counts[id]; i++) arr.push(id);
+  });
+  return arr;
+}
+
+function deckBuilderStats() {
+  const arr = deckBuilderArray();
+  const stats = { total: arr.length, char:0, companion:0, spell:0 };
+  arr.forEach(id => {
+    const c = CARDS[id];
+    if (!c) return;
+    if (c.type === 'char') stats.char++;
+    else if (c.type === 'companion') stats.companion++;
+    else if (c.type === 'spell') stats.spell++;
+  });
+  return stats;
+}
+
+function setDeckCount(id, delta) {
+  const counts = ensureDeckBuilderCounts();
+  const current = counts[id] || 0;
+  const total = deckBuilderArray().length;
+  if (delta > 0 && current >= 3) {
+    showMsg(currentLang === 'th' ? 'การ์ดนี้เต็มโควต้าแล้ว' : 'Max copies reached');
+    return;
+  }
+  if (delta > 0 && total >= 40) {
+    showMsg(currentLang === 'th' ? 'Deck เต็ม 40 ใบแล้ว' : 'Deck is full');
+    return;
+  }
+  const next = Math.max(0, Math.min(3, current + delta));
+  counts[id] = next;
+  renderDeckBuilder();
+}
+
+
+function autoBuildDeck() {
+  // Random 24 / 8 / 8 deck with max 3 copies per card.
+  const all = Object.values(CARDS);
+  const pools = {
+    char: all.filter(c => c.type === 'char'),
+    companion: all.filter(c => c.type === 'companion'),
+    spell: all.filter(c => c.type === 'spell')
+  };
+
+  function weightedPick(pool, counts) {
+    const expanded = [];
+    pool.forEach(c => {
+      const current = counts[c.id] || 0;
+      if (current >= 3) return;
+      let w = 1;
+      if (c.rarity === 'common') w = 4;
+      else if (c.rarity === 'rare') w = 3;
+      else if (c.rarity === 'epic') w = 2;
+      else if (c.rarity === 'legendary') w = 1;
+      // favor artwork a little, but not deterministically
+      if (CHAR_IMGS[c.id]) w += 1;
+      for (let i=0;i<w;i++) expanded.push(c.id);
+    });
+    if (!expanded.length) return null;
+    return expanded[Math.floor(Math.random()*expanded.length)];
+  }
+
+  function fill(type, amount, picks, counts) {
+    let guard = 0;
+    while (picks.filter(id => CARDS[id]?.type === type).length < amount && guard++ < 300) {
+      const id = weightedPick(pools[type], counts);
+      if (!id) break;
+      picks.push(id);
+      counts[id] = (counts[id] || 0) + 1;
+    }
+  }
+
+  const picks = [];
+  const counts = {};
+  fill('char', 24, picks, counts);
+  fill('companion', 8, picks, counts);
+  fill('spell', 8, picks, counts);
+
+  deckBuilderCounts = {};
+  picks.forEach(id => deckBuilderCounts[id] = (deckBuilderCounts[id] || 0) + 1);
+  CUSTOM_PDECK = picks;
+  try { localStorage.setItem('mittaria_custom_deck_v1', JSON.stringify(picks)); } catch(e) {}
+  renderDeckBuilder();
+  showMsg(currentLang === 'th' ? '🎲 Random Deck แล้ว' : '🎲 Random Deck built');
+}
+
+
+
+function clearCurrentDeck() {
+  if (!confirm(currentLang === 'th' ? 'ล้างการ์ดทั้งหมดใน Deck นี้?' : 'Clear all cards from this deck?')) return;
+  deckBuilderCounts = {};
+  CUSTOM_PDECK = [];
+  try { localStorage.setItem('mittaria_custom_deck_v1', JSON.stringify([])); } catch(e) {}
+  renderDeckBuilder();
+  showMsg(currentLang === 'th' ? 'ล้างการ์ดใน Deck แล้ว' : 'Deck cleared');
+}
+
+
+function resetCustomDeck() {
+  CUSTOM_PDECK = [...PDECK];
+  deckBuilderCounts = null;
+  try { localStorage.removeItem('mittaria_custom_deck_v1'); } catch(e) {}
+  renderDeckBuilder();
+  showMsg('Deck reset to default');
+}
+
+function saveCustomDeck() {
+  const arr = deckBuilderArray();
+  if (arr.length !== 40) {
+    showMsg(currentLang === 'th' ? 'Deck ต้องมี 40 ใบพอดี' : 'Deck must contain exactly 40 cards');
+    return false;
+  }
+  CUSTOM_PDECK = arr;
+  try { localStorage.setItem('mittaria_custom_deck_v1', JSON.stringify(arr)); } catch(e) {}
+  saveDeckToSlot();
+  showMsg(currentLang === 'th' ? 'บันทึก Deck แล้ว' : 'Deck saved');
+  return true;
+}
+
+function saveDeckAndPlay() {
+  if (saveCustomDeck()) startGame();
+}
+
+
+
+function setDeckBuilderFilter(type) {
+  DECKBUILDER_FILTER = type || 'all';
+  renderDeckBuilder();
+}
+
+
+function renderDeckCurrentList() {
+  const root = document.getElementById('deck-current-list');
+  if (!root) return;
+  const counts = ensureDeckBuilderCounts();
+  const entries = Object.keys(counts).filter(id => counts[id] > 0).sort((a,b) => {
+    const ca = CARDS[a], cb = CARDS[b];
+    const typeOrder = { char:0, companion:1, spell:2 };
+    return ((typeOrder[ca?.type] ?? 9) - (typeOrder[cb?.type] ?? 9)) || (ca?.name||'').localeCompare(cb?.name||'');
+  });
+
+  const groups = [
+    ['char', 'CHARACTER', 'deck-zone-char'],
+    ['companion', 'COMPANION', 'deck-zone-comp'],
+    ['spell', 'SPELL', 'deck-zone-spell']
+  ];
+
+  function miniCard(id) {
+    const c = CARDS[id];
+    const img = CHAR_IMGS[id] ? `<img src="${CHAR_IMGS[id]}" alt="${c.name}">` : `<span>${c?.emoji || '🃏'}</span>`;
+    return `<div class="deck-mini-card" onclick="showCardDetailFromId('${id}')">
+      <div class="deck-mini-art">${img}</div>
+      <div class="deck-mini-name">${c?.name || id}</div>
+      <b>x${counts[id]}</b>
+      <button title="Remove" onclick="event.stopPropagation(); setDeckCount('${id}', -1)">×</button>
+    </div>`;
+  }
+
+  root.innerHTML = groups.map(([type,title,cls]) => {
+    const ids = entries.filter(id => CARDS[id]?.type === type);
+    return `<div class="deck-zone ${cls}">
+      <div class="deck-zone-title">${title} <small>${ids.reduce((sum,id)=>sum+(counts[id]||0),0)}</small></div>
+      <div class="deck-zone-cards">${ids.length ? ids.map(miniCard).join('') : '<div class="deck-empty-slot">Drop / add cards from below</div>'}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderDeckBuilder() {
+  const root = document.getElementById('deckbuilder-root');
+  if (!root || typeof CARDS === 'undefined') return;
+
+  const counts = ensureDeckBuilderCounts();
+  const stats = deckBuilderStats();
+
+  const total = document.getElementById('db-total');
+  const ch = document.getElementById('db-char');
+  const co = document.getElementById('db-comp');
+  const sp = document.getElementById('db-spell');
+  const label = document.getElementById('deckbuilder-count-label');
+  if (total) total.textContent = stats.total;
+  if (ch) ch.textContent = stats.char;
+  if (co) co.textContent = stats.companion;
+  if (sp) sp.textContent = stats.spell;
+  if (label) label.textContent = `${stats.total} / 40`;
+
+  const pill = document.querySelector('.db-total');
+  if (pill) {
+    pill.classList.toggle('good', stats.total === 40);
+    pill.classList.toggle('bad', stats.total !== 40);
+  }
+  renderDeckSlotsUI();
+  renderDeckCurrentList();
+  document.querySelectorAll('.db-pill').forEach(el => el.classList.remove('active'));
+  const activePill = document.querySelector(DECKBUILDER_FILTER === 'all' ? '.db-total' : DECKBUILDER_FILTER === 'char' ? '.db-char' : DECKBUILDER_FILTER === 'companion' ? '.db-comp' : '.db-spell');
+  if (activePill) activePill.classList.add('active');
+
+  const typeOrder = { char:0, companion:1, spell:2 };
+  const cards = Object.values(CARDS).sort((a,b) => {
+    const to = (typeOrder[a.type] ?? 9) - (typeOrder[b.type] ?? 9);
+    if (to) return to;
+    const ro = cardRarityOrder(a.rarity) - cardRarityOrder(b.rarity);
+    if (ro) return ro;
+    return (a.name || '').localeCompare(b.name || '');
+  });
+
+  function art(card) {
+    if (CHAR_IMGS[card.id]) return `<img src="${CHAR_IMGS[card.id]}" alt="${card.name}">`;
+    return `<span>${card.emoji || '🃏'}</span>`;
+  }
+
+  function statsText(card) {
+    if (card.type === 'char') return `⚔ ${card.atk || 0} / 🛡 ${card.def || 0} / 💎 ${card.cost || 0}`;
+    if (card.type === 'companion') return `+${card.ab || 0} ATK / +${card.db || 0} DEF`;
+    return card.cost ? `Cost ${card.cost}` : 'Free';
+  }
+
+  function item(card) {
+    const n = counts[card.id] || 0;
+    const full = n >= 3 || stats.total >= 40;
+    return `
+      <div class="deck-pick-card cl-${card.rarity} ${n===0?'zero':''} ${full?'full':''}" onclick="setDeckCount('${card.id}', 1)" title="${full ? 'Max / Deck full' : 'Click to add to deck'}">
+        <div class="deck-pick-art">${art(card)}</div>
+        <div class="deck-pick-body">
+          <div class="deck-pick-name">${card.name}</div>
+          <div class="deck-pick-meta">${cardTypeLabel(card)} • ${(card.rarity||'').toUpperCase()} • ${elIcon(card.el)} ${card.el || 'neutral'}</div>
+          <div class="deck-pick-meta">${statsText(card)}</div>
+          <div class="deck-pick-effect">${getCardDetailText(card)}</div>
+          <div class="deck-pick-controls">
+            <button onclick="event.stopPropagation(); setDeckCount('${card.id}', -1)">−</button>
+            <div class="deck-pick-count">${n}</div>
+            <button onclick="event.stopPropagation(); setDeckCount('${card.id}', 1)">+</button>
+            <button title="Info" onclick="event.stopPropagation(); showCardDetailFromId('${card.id}')">🔍</button>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  let groups = [
+    ['char', currentLang === 'th' ? 'CHARACTER / ตัวละคร' : 'CHARACTER'],
+    ['companion', currentLang === 'th' ? 'COMPANION / คู่หู' : 'COMPANION'],
+    ['spell', currentLang === 'th' ? 'SPELL / เวทมนตร์' : 'SPELL']
+  ];
+  if (DECKBUILDER_FILTER !== 'all') groups = groups.filter(([type]) => type === DECKBUILDER_FILTER);
+
+  root.innerHTML = `<div class="deckbuilder-layout">${
+    groups.map(([type,title]) => {
+      const items = cards.filter(c => c.type === type);
+      return `<section><div class="deckbuilder-section-title">${title}</div><div class="deckbuilder-card-grid">${items.map(item).join('')}</div></section>`;
+    }).join('')
+  }</div>`;
+}
+
 function initGame() {
   attackerLane = -1;
   G = {
-    player: makeState(PDECK),
+    player: makeState(getPlayerDeckDef()),
     ai: makeState(AIDECK),
     phase: 'draw',
     turn: 1,
@@ -2306,20 +4129,37 @@ function updateStepHelp() {
 }
 
 
+
+function mainPhaseAction() {
+  if (!G || G.aiThinking || G.activePlayer !== 'player') return;
+  if (G.phase === 'draw') {
+    drawCards('player', 2);
+    G.phase = 'main';
+    addLog('🃏 You draw 2 cards', 'lp');
+    showPhaseAnnounce('DRAW 2', 'Main Phase begins');
+    updatePhaseUI();
+    render();
+    return;
+  }
+  if (G.phase === 'main') {
+    goToBattle();
+    return;
+  }
+  if (G.phase === 'battle') {
+    endTurn();
+    return;
+  }
+}
+
 function updatePhaseUI() {
   const pill = document.getElementById('phase-pill');
-  const btnB = document.getElementById('btn-battle');
-  const btnE = document.getElementById('btn-end');
-  const btnCancelAtk = document.getElementById('btn-cancel-atk');
+  const btnMain = document.getElementById('btn-main-action');
   const btnR = document.getElementById('btn-redraw');
   const btnReset = document.getElementById('btn-reset-game');
   const btnAuto = document.getElementById('btn-auto');
   const turnEl = document.getElementById('g-turn');
 
-  turnEl.textContent = `${t('turn')} ${G.turn}`;
-  if (btnB) btnB.textContent = t('battle');
-  if (btnE) btnE.textContent = t('end');
-  if (btnCancelAtk) btnCancelAtk.textContent = currentLang === 'th' ? 'ยกเลิกโจมตี' : 'Cancel Attack';
+  if (turnEl) turnEl.textContent = `${t('turn')} ${G.turn}`;
   if (btnR) btnR.textContent = currentLang === 'th' ? `↻ จั่วใหม่ ${G.redrawCount||0}/${G.maxRedraw||3}` : `↻ Redraw ${G.redrawCount||0}/${G.maxRedraw||3}`;
   if (btnReset) btnReset.textContent = currentLang === 'th' ? '⟲ เริ่มใหม่' : '⟲ Restart';
   if (btnAuto) btnAuto.textContent = G?.autoPlay ? (currentLang === 'th' ? '⏸ Auto' : '⏸ Auto') : (currentLang === 'th' ? '▶ Auto' : '▶ Auto');
@@ -2332,13 +4172,33 @@ function updatePhaseUI() {
     ai: ['AI TURN', 'ph-ai'],
   };
   const [txt, cls] = phases[G.phase] || ['', ''];
-  pill.textContent = txt;
-  pill.className = 'phase-pill ' + cls;
+  if (pill) {
+    pill.textContent = txt;
+    pill.className = 'phase-pill ' + cls;
+  }
 
   const isPlayer = G.activePlayer === 'player' && !G.aiThinking;
-  btnB.disabled = !(isPlayer && G.phase === 'main');
-  btnE.disabled = !(isPlayer && G.phase === 'battle');
-  if (btnCancelAtk) btnCancelAtk.disabled = !(isPlayer && G.phase === 'battle' && attackerLane >= 0);
+  if (btnMain) {
+    btnMain.className = 'btn-phase btn-main-action';
+    if (!isPlayer || G.phase === 'ai' || G.phase === 'done') {
+      btnMain.disabled = true;
+      btnMain.textContent = currentLang === 'th' ? 'รอ AI' : 'WAIT';
+      btnMain.classList.add('main-action-wait');
+    } else if (G.phase === 'draw') {
+      btnMain.disabled = false;
+      btnMain.textContent = currentLang === 'th' ? '🃏 จั่วการ์ด' : '🃏 DRAW';
+      btnMain.classList.add('main-action-draw');
+    } else if (G.phase === 'main') {
+      btnMain.disabled = false;
+      btnMain.textContent = currentLang === 'th' ? '⚔️ ต่อสู้' : '⚔️ BATTLE';
+      btnMain.classList.add('main-action-battle');
+    } else if (G.phase === 'battle') {
+      btnMain.disabled = false;
+      btnMain.textContent = currentLang === 'th' ? 'จบเทิร์น →' : 'END TURN →';
+      btnMain.classList.add('main-action-end');
+    }
+  }
+
   if (btnR) btnR.disabled = !(isPlayer && G.phase === 'main' && G.redrawCount < G.maxRedraw);
   if (btnReset) btnReset.disabled = false;
   updateStepHelp();
@@ -2366,7 +4226,7 @@ function endTurn() {
   // remove buffs, reset veil
   ['player','ai'].forEach(side => {
     G[side].lanes.forEach(c => {
-      if (c) { c.atkBuff = 0; c.defBuff = 0; c.pairBuffAtk = 0; c.pairBuffDef = 0; c.veiled = false; c.exhausted = false; c.formationLocked = false; }
+      if (c) { c.atkBuff = 0; c.defBuff = 0; c.pairBuffAtk = 0; c.pairBuffDef = 0; c.veiled = false; c.exhausted = false; c.formationLocked = false; c.originalFormationThisTurn = null; }
     });
     recalcAllCompBuffs(side);
   });
@@ -2482,11 +4342,12 @@ function confirmPosition(pos) {
       return;
     }
 
-    const oldPos = c.pos;
+    if (!c.originalFormationThisTurn) c.originalFormationThisTurn = c.pos;
     c.pos = pos;
-    c.formationLocked = true;
+    c.formationLocked = c.pos !== c.originalFormationThisTurn;
     addLog(`${pos === 'attack' ? '⚔️' : '🛡️'} Formation Command: ${c.name} set to ${pos === 'attack' ? 'Attack' : 'Guard'} Formation`, 'lp');
-    addLog(`⏳ ${c.name} cannot attack this turn after switching Formation`, 'lc');
+    if (c.formationLocked) addLog(`⏳ ${c.name} cannot attack this turn after switching Formation`, 'lc');
+    else addLog(`✅ ${c.name} returned to original Formation and can attack this turn`, 'lc');
     render();
     return;
   }
@@ -2591,11 +4452,13 @@ function quickSwitchFormation(laneIdx) {
     showMsg(currentLang === 'th' ? 'ตัวที่เพิ่งลงยังเปลี่ยน Formation ไม่ได้' : 'Newly played cards cannot switch formation yet');
     return;
   }
+  if (!c.originalFormationThisTurn) c.originalFormationThisTurn = c.pos;
   c.pos = c.pos === 'attack' ? 'guard' : 'attack';
-  c.formationLocked = true;
+  c.formationLocked = c.pos !== c.originalFormationThisTurn;
   addLog(`🔄 ${c.name} switched to ${c.pos === 'attack' ? 'ATK' : 'GRD'} Formation`, 'lp');
-  addLog(`⏳ ${c.name} cannot attack this turn after switching Formation`, 'lc');
-  showMsg(`${c.name}: ${c.pos === 'attack' ? 'ATK' : 'GRD'} Formation — cannot attack this turn`);
+  if (c.formationLocked) addLog(`⏳ ${c.name} cannot attack this turn after switching Formation`, 'lc');
+  else addLog(`✅ ${c.name} returned to original Formation and can attack this turn`, 'lc');
+  showMsg(`${c.name}: ${c.pos === 'attack' ? 'ATK' : 'GRD'} Formation${c.formationLocked ? ' — cannot attack this turn' : ' — original formation restored'}`);
   render();
   updatePhaseUI();
 }
@@ -2773,6 +4636,7 @@ function damageLead(side, amount, laneIdx) {
 
 
 function showBattleResultBig(kind, main, sub='') {
+  if (!document.getElementById('sc-game')?.classList.contains('on')) return;
   document.querySelectorAll('.battle-result-big').forEach(e => e.remove());
   const el = document.createElement('div');
   el.className = `battle-result-big ${kind}`;
@@ -2783,6 +4647,7 @@ function showBattleResultBig(kind, main, sub='') {
 
 
 function showPhaseAnnounce(main, sub='') {
+  if (!document.getElementById('sc-game')?.classList.contains('on')) return;
   document.querySelectorAll('.phase-announce').forEach(e => e.remove());
   const el = document.createElement('div');
   el.className = 'phase-announce';
@@ -3083,7 +4948,7 @@ function aiBestLaneForCharacter(card) {
     let score = aiLaneThreatScore(i);
 
     if (!target) {
-      score += G.player.gatesActive[i] ? 3 : 7; // pressure is good, but defense now matters more.
+      score += G.player.gatesActive[i] ? 5 : 8; // pressure is good, but defense now matters more.
     } else {
       const fake = { ...card, atkBuff:0, defBuff:0, pos:'attack' };
       const cmp = compareCombat(fake, target);
@@ -3092,7 +4957,7 @@ function aiBestLaneForCharacter(card) {
       else score += 1; // still valuable as a blocker.
     }
 
-    score += aiCardScore(card) * .65;
+    score += aiCardScore(card) * .5;
     if (score > bestScore) { bestScore = score; bestLane = i; }
   }
   return bestLane;
@@ -3118,9 +4983,12 @@ function aiMainPhase() {
   // Remove sickness from AI chars
   G.ai.lanes.forEach(c => { if (c) c.sick = false; });
 
-  // Play spells first, but not blindly if they have no useful target handled in aiPlaySpell.
+  // Play spells first. Easy AI uses fewer tactical spells; Hard AI uses all.
   G.ai.hand.slice().forEach(c => {
-    if (c.type === 'spell') aiPlaySpell(c);
+    if (c.type === 'spell') {
+      if (AI_MODE === 'easy' && !['draw2','revive_char'].includes(c.spellFn)) return;
+      aiPlaySpell(c);
+    }
   });
   G.ai.hand.filter(c => c.type === 'spell').forEach(c => discardToGrave('ai', c));
   G.ai.hand = G.ai.hand.filter(c => c.type !== 'spell');
@@ -3128,7 +4996,15 @@ function aiMainPhase() {
   // Play / replace companions on best matching or strongest lanes.
   const compHand = G.ai.hand.filter(c => c.type === 'companion')
     .sort((a,b) => (n(b.ab)+n(b.db)) - (n(a.ab)+n(a.db)));
-  compHand.forEach(comp => {
+  if (AI_MODE === 'easy') {
+    compHand.slice(0,1).forEach(comp => {
+      const lane = G.ai.lanes.findIndex((c,i) => c && !G.ai.comps[i]);
+      if (lane >= 0) {
+        const result = attachCompToLane('ai', lane, comp, true);
+        addLog(`🤖 AI attached ${result.inst.name} to Lane ${lane+1}`, 'la');
+      }
+    });
+  } else compHand.forEach(comp => {
     let bestLane = -1;
     let bestScore = -999;
     for (let i = 0; i < 5; i++) {
@@ -3151,9 +5027,14 @@ function aiMainPhase() {
     }
   });
 
-  // AI can play up to 2 characters per turn to increase pressure.
+  // AI usually plays 1 character, but may play 2 when behind on board to keep the match close.
   let played = 0;
-  while (played < 2) {
+  const aiBoardCount = G.ai.lanes.filter(Boolean).length;
+  const playerBoardCount = G.player.lanes.filter(Boolean).length;
+  const aiGateCount = G.ai.gatesActive.filter(Boolean).length;
+  const playerGateCount = G.player.gatesActive.filter(Boolean).length;
+  const maxAiPlays = AI_MODE === 'hard' && (aiBoardCount < playerBoardCount || aiGateCount < playerGateCount) ? 2 : 1;
+  while (played < maxAiPlays) {
     const charCards = G.ai.hand.filter(c => c.type === 'char').sort((a,b) => aiCardScore(b) - aiCardScore(a));
     if (!charCards.length) break;
 
@@ -3276,13 +5157,14 @@ function aiPlaySpell(spell) {
 
 
 function aiAdjustFormationsForDefense() {
+  if (AI_MODE !== 'hard') return;
   G.ai.lanes.forEach((c, i) => {
     if (!c || c.sick) return;
     const threat = G.player.lanes[i];
     if (!threat || !G.ai.gatesActive[i]) return;
 
     const incoming = getEffAtk(threat);
-    const shouldGuard = c.def >= c.atk || c.def >= incoming || getEffAtk(c) < getDefenseValue(threat);
+    const shouldGuard = (c.def > c.atk && c.def >= incoming) || getEffAtk(c) < getDefenseValue(threat);
     if (shouldGuard && c.pos !== 'guard') {
       c.pos = 'guard';
       c.formationLocked = true;
@@ -3324,7 +5206,7 @@ function aiBattlePhase() {
 
       // Smarter AI: avoid suicide unless attacking a very important target.
       const importantTarget = target.rarity === 'legendary' || target.rarity === 'epic';
-      if (cmp.result === 'defender_wins' && !importantTarget) {
+      if (AI_MODE === 'hard' && cmp.result === 'defender_wins' && !importantTarget) {
         addLog(`🤖 AI holds ${c.name} in Lane ${laneIdx+1} to avoid bad trade`, 'la');
         return;
       }
@@ -3357,8 +5239,8 @@ function aiBattlePhase() {
 
   setTimeout(() => {
     // AI end turn
-    G.ai.lanes.forEach(c => { if(c){ c.atkBuff=0; c.defBuff=0; c.pairBuffAtk=0; c.pairBuffDef=0; c.exhausted=false; c.veiled=false; c.sick=false; c.formationLocked=false; } });
-    G.player.lanes.forEach(c => { if(c){ c.atkBuff=0; c.defBuff=0; c.pairBuffAtk=0; c.pairBuffDef=0; c.veiled=false; c.formationLocked=false; } });
+    G.ai.lanes.forEach(c => { if(c){ c.atkBuff=0; c.defBuff=0; c.pairBuffAtk=0; c.pairBuffDef=0; c.exhausted=false; c.veiled=false; c.sick=false; c.formationLocked=false; c.originalFormationThisTurn=null; } });
+    G.player.lanes.forEach(c => { if(c){ c.atkBuff=0; c.defBuff=0; c.pairBuffAtk=0; c.pairBuffDef=0; c.veiled=false; c.formationLocked=false; c.originalFormationThisTurn=null; } });
     recalcAllCompBuffs('ai');
     recalcAllCompBuffs('player');
     G.activePlayer = 'player';
@@ -3887,13 +5769,15 @@ function elIcon(el) {
 // LOG
 // ============================================================
 function addLog(msg, cls) {
+  if (!G.log) G.log = [];
+  G.log.unshift(msg);
   const container = document.getElementById('log-entries');
+  if (!container) return;
   const el = document.createElement('div');
   el.className = `log-entry ${cls||''}`;
   el.textContent = msg;
   container.prepend(el);
   container.scrollTop = 0;
-  G.log.unshift(msg);
 }
 
 // ============================================================
@@ -4058,6 +5942,7 @@ function toggleAutoPlay() {
 }
 
 function autoPlayTick() {
+  if (!document.getElementById('sc-game')?.classList.contains('on')) { if (G) G.autoPlay = false; return; }
   if (!G || !G.autoPlay || G.phase === 'done') return;
   if (G.aiThinking || G.activePlayer !== 'player') {
     setTimeout(autoPlayTick, 600);
@@ -4151,14 +6036,61 @@ function closeModal(id) {
   render();
 }
 
+
+function emergencyRenderDeckBuilder() {
+  const root = document.getElementById('deckbuilder-root');
+  if (!root || root.innerHTML.trim()) return;
+  const counts = ensureDeckBuilderCounts ? ensureDeckBuilderCounts() : {};
+  const cards = Object.values(CARDS || {}).sort((a,b) => (a.type||'').localeCompare(b.type||'') || (a.name||'').localeCompare(b.name||''));
+  const typeNames = { char:'CHARACTER', companion:'COMPANION', spell:'SPELL' };
+  function art(card){
+    if (typeof CHAR_IMGS !== 'undefined' && CHAR_IMGS[card.id]) return `<img src="${CHAR_IMGS[card.id]}" alt="${card.name}" style="width:100%;height:100%;object-fit:cover;object-position:top center;">`;
+    return `<span style="font-size:36px">${card.emoji || '🃏'}</span>`;
+  }
+  root.innerHTML = `<div class="deckbuilder-layout">${
+    ['char','companion','spell'].map(type => {
+      const list = cards.filter(c => c.type === type);
+      return `<section>
+        <div class="deckbuilder-section-title">${typeNames[type]}</div>
+        <div class="deckbuilder-card-grid">
+          ${list.map(card => `
+            <div class="deck-pick-card cl-${card.rarity||''}" onclick="setDeckCount('${card.id}',1)">
+              <div class="deck-pick-art">${art(card)}</div>
+              <div class="deck-pick-body">
+                <div class="deck-pick-name">${card.name}</div>
+                <div class="deck-pick-meta">${(card.rarity||'').toUpperCase()} • ${card.type}</div>
+                <div class="deck-pick-controls">
+                  <button onclick="event.stopPropagation(); setDeckCount('${card.id}',-1)">−</button>
+                  <div class="deck-pick-count">${counts[card.id] || 0}</div>
+                  <button onclick="event.stopPropagation(); setDeckCount('${card.id}',1)">+</button>
+                  <button onclick="event.stopPropagation(); showCardDetailFromId('${card.id}')">🔍</button>
+                </div>
+              </div>
+            </div>`).join('')}
+        </div>
+      </section>`;
+    }).join('')
+  }</div>`;
+}
+
 function showScreen(id) {
+  if (id !== 'sc-game' && G && typeof G === 'object') {
+    G.autoPlay = false;
+    G.aiThinking = false;
+    document.querySelectorAll('.phase-announce,.battle-result-big').forEach(e => e.remove());
+  }
   document.querySelectorAll('.sc').forEach(s => s.classList.remove('on'));
   document.getElementById(id).classList.add('on');
   updateLanguageUI();
   if (id === 'sc-cardlist') renderCardList();
+  if (id === 'sc-deckbuilder') {
+    renderDeckBuilder();
+    setTimeout(emergencyRenderDeckBuilder, 80);
+  }
 }
 
 function startGame() {
+  loadAiMode();
   document.getElementById('ov-win').classList.remove('on');
   showScreen('sc-game');
   initGame();
