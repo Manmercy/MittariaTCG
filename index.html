@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MITTARIA GENESIS — TCG Playtest Embedded</title>
+<title>MITTARIA GENESIS v6.60 — TCG Playtest Embedded</title>
 <link rel="icon" type="image/svg+xml" href="assets/embedded/img_002_98f0d555ec16.svg">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Prompt:wght@300;400;500;600;700;800&display=swap');
@@ -2631,6 +2631,65 @@ body, button, input, select, textarea {
   }
 }
 
+
+/* ===== v6_59 GitHub Build Badge ===== */
+.build-badge{
+  margin-top:10px;
+  padding:6px 12px;
+  border-radius:999px;
+  border:1px solid rgba(165,225,232,.28);
+  background:rgba(0,0,0,.28);
+  color:#a5e1e8;
+  font-size:12px;
+  letter-spacing:.08em;
+  font-weight:800;
+  box-shadow:0 0 16px rgba(165,225,232,.08);
+}
+.build-mini{
+  display:inline-block;
+  margin-left:8px;
+  padding:2px 7px;
+  border-radius:999px;
+  border:1px solid rgba(165,225,232,.25);
+  color:#a5e1e8;
+  font-family:'Prompt','Noto Sans Thai',system-ui,sans-serif;
+  font-size:10px;
+  letter-spacing:.03em;
+  vertical-align:middle;
+}
+.reset-local-btn{
+  border-color:rgba(255,211,110,.34) !important;
+  color:#ffd36e !important;
+  background:rgba(255,211,110,.08) !important;
+}
+.reset-local-btn:hover{
+  background:rgba(255,211,110,.16) !important;
+}
+
+
+/* ===== v6_60 Deck Builder Remove Button + Common Pool ===== */
+.deck-mini-card button{
+  width:30px !important;
+  height:30px !important;
+  right:4px !important;
+  bottom:4px !important;
+  font-size:20px !important;
+  line-height:1 !important;
+  font-weight:900 !important;
+  background:rgba(255,70,90,.92) !important;
+  color:#fff !important;
+  border:1px solid rgba(255,255,255,.35) !important;
+  box-shadow:0 0 12px rgba(255,70,90,.45) !important;
+}
+.deck-mini-card:hover button{
+  opacity:1 !important;
+  pointer-events:auto !important;
+  transform:scale(1.08) !important;
+}
+.deck-mini-card{
+  padding-bottom:6px;
+}
+
 </style>
 </head>
 <body>
@@ -2671,6 +2730,7 @@ body, button, input, select, textarea {
     <button class="btn btn-a" id="btn-deck-builder" onclick="showScreen('sc-deckbuilder')">🧩 DECK BUILDER</button>
     <button class="btn btn-a" id="btn-card-list" onclick="showScreen('sc-cardlist')">🃏 CARD LIST</button>
     <button class="btn btn-back" id="btn-lang-land" onclick="toggleLanguage()">TH / EN</button>
+    <button class="btn btn-back reset-local-btn" id="btn-reset-local" onclick="resetLocalData()">Reset Local Data</button>
   </div>
 </div>
 
@@ -3109,6 +3169,7 @@ const UI = {
 };
 function t(key){ return (UI[currentLang] && UI[currentLang][key]) || UI.en[key] || key; }
 function toggleLanguage(){ currentLang = currentLang === 'en' ? 'th' : 'en'; loadAiMode();
+console.log('MITTARIA TCG Loaded:', BUILD_VERSION);
 updateLanguageUI(); render(); if(document.getElementById('sc-cardlist')?.classList.contains('on')) renderCardList(); }
 function setText(id, text){ const el=document.getElementById(id); if(el) el.textContent=text; }
 function updateLanguageUI(){
@@ -3204,11 +3265,33 @@ const CARDS = {
   mini_mimic:{id:'mini_mimic',name:'Mini Mimic',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:1,el:'neutral',emoji:'👾',skill:'',bg:'linear-gradient(135deg,#12080a,#221014)'},
   fire_imp:{id:'fire_imp',name:'Fire Imp',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:1,el:'fire',emoji:'😈',skill:'',bg:'linear-gradient(135deg,#180800,#2a1200)'},
   moon_wisp:{id:'moon_wisp',name:'Moon Wisp',type:'char',rarity:'common',cost:0,cv:1,atk:0,def:2,el:'shadow',emoji:'👻',skill:'',bg:'linear-gradient(135deg,#080014,#141028)'},
+
+  // NEW COMMON CHARACTER POOL v6_60
+  river_moppet:{id:'river_moppet',name:'River Moppet',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:2,el:'water',emoji:'💧',skill:'Starter blocker',bg:'linear-gradient(135deg,#06182a,#0b3a5a)'},
+  ember_pup:{id:'ember_pup',name:'Ember Pup',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:1,el:'fire',emoji:'🐶',skill:'Starter attacker',bg:'linear-gradient(135deg,#220a00,#4a1600)'},
+  stone_turtle:{id:'stone_turtle',name:'Stone Turtle',type:'char',rarity:'common',cost:0,cv:1,atk:0,def:3,el:'earth',emoji:'🐢',skill:'High DEF common',bg:'linear-gradient(135deg,#101408,#283018)'},
+  wind_pixie:{id:'wind_pixie',name:'Wind Pixie',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:1,el:'air',emoji:'🧚‍♀️',skill:'Fast common attacker',bg:'linear-gradient(135deg,#081420,#163045)'},
+  paper_knight:{id:'paper_knight',name:'Paper Knight',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:2,el:'neutral',emoji:'🛡️',skill:'Simple guard unit',bg:'linear-gradient(135deg,#161616,#303030)'},
+  gear_mouse:{id:'gear_mouse',name:'Gear Mouse',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:1,el:'crystal',emoji:'🐭',skill:'Tiny tech attacker',bg:'linear-gradient(135deg,#071522,#153652)'},
+  mushroom_guard:{id:'mushroom_guard',name:'Mushroom Guard',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:3,el:'earth',emoji:'🍄',skill:'Durable common guard',bg:'linear-gradient(135deg,#101808,#26350c)'},
+  candle_mage:{id:'candle_mage',name:'Candle Mage',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:0,el:'fire',emoji:'🕯️',skill:'Fragile attacker',bg:'linear-gradient(135deg,#180808,#381010)'},
+  bubble_squire:{id:'bubble_squire',name:'Bubble Squire',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:2,el:'water',emoji:'🫧',skill:'Stable common defender',bg:'linear-gradient(135deg,#06101f,#123052)'},
+  night_cat:{id:'night_cat',name:'Night Cat',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:1,el:'shadow',emoji:'🐈‍⬛',skill:'Shadow common attacker',bg:'linear-gradient(135deg,#080810,#1c1230)'},
+  sunny_seed:{id:'sunny_seed',name:'Sunny Seed',type:'char',rarity:'common',cost:0,cv:1,atk:1,def:1,el:'light',emoji:'🌱',skill:'Balanced starter',bg:'linear-gradient(135deg,#141808,#2a3510)'},
+  tin_soldier:{id:'tin_soldier',name:'Tin Soldier',type:'char',rarity:'common',cost:0,cv:1,atk:2,def:2,el:'crystal',emoji:'🪖',skill:'Solid common unit',bg:'linear-gradient(135deg,#101820,#233444)'},
   // COMPANIONS
   lobot:{id:'lobot',name:'Lobot',type:'companion',rarity:'epic',cost:0,cv:0,el:'crystal',emoji:'🤖',effect:'+1 ATK +1 DEF',ab:1,db:1,skill:'Tech Support',bg:'linear-gradient(90deg,rgba(180,220,255,.5),rgba(80,130,255,.5))'},
   snowball:{id:'snowball',name:'Snowball',type:'companion',rarity:'epic',cost:0,cv:0,el:'water',emoji:'❄️',effect:'+0 ATK +2 DEF',ab:0,db:2,skill:'Frost Shield',bg:'linear-gradient(90deg,rgba(0,150,255,.5),rgba(165,225,232,.5))'},
   nero:{id:'nero',name:'Nero',type:'companion',rarity:'epic',cost:0,cv:0,el:'fire',emoji:'🦅',effect:'+2 ATK',ab:2,db:0,skill:'Blaze Wing',bg:'linear-gradient(90deg,rgba(255,80,80,.5),rgba(150,0,0,.5))'},
   dark_cloak:{id:'dark_cloak',name:'Dark Cloak',type:'companion',rarity:'rare',cost:0,cv:0,emoji:'🌒',effect:'+1 ATK +1 DEF',ab:1,db:1,bg:'linear-gradient(90deg,rgba(100,0,200,.5),rgba(50,0,100,.5))'},
+
+  // NEW COMMON COMPANION POOL v6_60
+  tiny_drone:{id:'tiny_drone',name:'Tiny Drone',type:'companion',rarity:'common',cost:0,cv:0,el:'crystal',emoji:'🛸',effect:'+1 ATK',ab:1,db:0,skill:'Simple attack support',bg:'linear-gradient(90deg,rgba(120,180,255,.36),rgba(80,100,180,.36))'},
+  leaf_charm:{id:'leaf_charm',name:'Leaf Charm',type:'companion',rarity:'common',cost:0,cv:0,el:'earth',emoji:'🍃',effect:'+1 DEF',ab:0,db:1,skill:'Simple guard support',bg:'linear-gradient(90deg,rgba(90,190,100,.36),rgba(30,90,40,.36))'},
+  spark_bug:{id:'spark_bug',name:'Spark Bug',type:'companion',rarity:'common',cost:0,cv:0,el:'fire',emoji:'🐞',effect:'+1 ATK',ab:1,db:0,skill:'Tiny attack buff',bg:'linear-gradient(90deg,rgba(255,120,70,.38),rgba(120,40,20,.35))'},
+  ribbon_bird:{id:'ribbon_bird',name:'Ribbon Bird',type:'companion',rarity:'common',cost:0,cv:0,el:'light',emoji:'🎀',effect:'+1 DEF',ab:0,db:1,skill:'Tiny defense buff',bg:'linear-gradient(90deg,rgba(255,180,240,.34),rgba(120,80,180,.34))'},
+  snail_shell:{id:'snail_shell',name:'Snail Shell',type:'companion',rarity:'common',cost:0,cv:0,el:'water',emoji:'🐌',effect:'+2 DEF',ab:0,db:2,skill:'Defensive common companion',bg:'linear-gradient(90deg,rgba(80,160,220,.34),rgba(30,70,120,.34))'},
+  coffee_bean:{id:'coffee_bean',name:'Coffee Bean',type:'companion',rarity:'common',cost:0,cv:0,el:'neutral',emoji:'☕',effect:'+1 ATK',ab:1,db:0,skill:'Energy boost',bg:'linear-gradient(90deg,rgba(120,80,50,.38),rgba(60,35,20,.34))'},
   // SPELLS
   crystal_burst:{id:'crystal_burst',name:'Crystal Burst',type:'spell',rarity:'rare',cost:0,cv:0,emoji:'💎',effect:'ทำลาย any number of Characters ฝ่ายตรงข้าม',spellFn:'destroy_enemy',bg:'linear-gradient(135deg,#001530,#002050)'},
   shield_charm:{id:'shield_charm',name:'Shield Charm',type:'spell',rarity:'common',cost:0,cv:0,emoji:'🔮',effect:'+3 DEF ให้ any number of Characters ของคุณ Turn นี้',spellFn:'buff_def',bg:'linear-gradient(135deg,#001820,#002030)'},
@@ -3218,6 +3301,12 @@ const CARDS = {
   shadow_veil:{id:'shadow_veil',name:'Shadow Veil',type:'spell',rarity:'rare',cost:0,cv:0,emoji:'🌫️',effect:'any number of Characters ฝ่ายตรงข้ามโจมตีไม่ได้ Turn นี้',spellFn:'veil_enemy',bg:'linear-gradient(135deg,#0a0818,#140c20)'},
   gate_recall:{id:'gate_recall',name:'Gate Recall',type:'spell',rarity:'common',cost:0,cv:0,emoji:'🛡️',effect:'เลือก 1 ใบจากมือ กลับไปเป็น Gate ที่ถูกทำลาย',spellFn:'restore_gate',bg:'linear-gradient(135deg,#081018,#182840)'},
   gate_rebuild:{id:'gate_rebuild',name:'Gate Rebuild',type:'spell',rarity:'common',cost:0,cv:0,emoji:'🏰',effect:'เลือก 1 ใบจากมือ กลับไปเป็น Gate ที่ถูกทำลาย',spellFn:'restore_gate',bg:'linear-gradient(135deg,#061420,#102a40)'},
+
+  // NEW COMMON SPELL POOL v6_60
+  pocket_map:{id:'pocket_map',name:'Pocket Map',type:'spell',rarity:'common',cost:0,cv:0,emoji:'🗺️',effect:'ย้าย Character ของคุณไป Lane ว่าง',spellFn:'move_own',bg:'linear-gradient(135deg,#081018,#202010)'},
+  lucky_shard:{id:'lucky_shard',name:'Lucky Shard',type:'spell',rarity:'common',cost:0,cv:0,emoji:'🍀',effect:'จั่ว 2 ใบ',spellFn:'draw2',bg:'linear-gradient(135deg,#06180a,#183018)'},
+  gate_patch:{id:'gate_patch',name:'Gate Patch',type:'spell',rarity:'common',cost:0,cv:0,emoji:'🧩',effect:'เลือก 1 ใบจากมือ กลับไปเป็น Gate ที่ถูกทำลาย',spellFn:'restore_gate',bg:'linear-gradient(135deg,#081018,#182440)'},
+  recycle_rune:{id:'recycle_rune',name:'Recycle Rune',type:'spell',rarity:'common',cost:0,cv:0,emoji:'♻️',effect:'ชุบชีวิต Character ที่ถูกทำลาย กลับขึ้นมือ',spellFn:'revive_char',bg:'linear-gradient(135deg,#101018,#202030)'},
   lane_shift:{id:'lane_shift',name:'Lane Shift',type:'spell',rarity:'common',cost:0,cv:0,emoji:'↔️',effect:'ย้าย Character ของคุณไป Lane ว่าง',spellFn:'move_own',bg:'linear-gradient(135deg,#061420,#102a35)'},
   quick_reposition:{id:'quick_reposition',name:'Quick Reposition',type:'spell',rarity:'common',cost:0,cv:0,emoji:'🏃',effect:'ย้าย Character ของคุณไป Lane ว่าง',spellFn:'move_own',bg:'linear-gradient(135deg,#081018,#162030)'},
   mirror_step:{id:'mirror_step',name:'Mirror Step',type:'spell',rarity:'rare',cost:0,cv:0,emoji:'🪞',effect:'ย้าย Character ของคุณไป Lane ว่าง',spellFn:'move_own',bg:'linear-gradient(135deg,#0d0820,#1d1238)'},
@@ -3331,6 +3420,7 @@ const AIDECK = [
 // GAME STATE
 // ============================================================
 let G = {};
+const BUILD_VERSION = 'v6.60 GitHub Build 002';
 let msgTimer = null;
 let detailContext = null;
 let CUSTOM_PDECK = null;
@@ -6098,6 +6188,23 @@ function confirmAutoPlace(lane, card, pos) {
   render();
   updatePhaseUI();
 }
+
+
+function resetLocalData() {
+  if (!confirm(currentLang === 'th' ? 'ล้างข้อมูล Deck/Settings ที่ค้างในเครื่องนี้?' : 'Clear local Deck/Settings data on this device?')) return;
+  try {
+    Object.keys(localStorage).forEach(k => {
+      if (k.startsWith('mittaria_')) localStorage.removeItem(k);
+    });
+  } catch(e) {}
+  CUSTOM_PDECK = null;
+  deckBuilderCounts = null;
+  AI_MODE = 'easy';
+  CURRENT_DECK_SLOT = 1;
+  updateAiModeUI();
+  showMsg(currentLang === 'th' ? 'ล้างข้อมูล Local แล้ว โหลดหน้าใหม่ได้เลย' : 'Local data cleared. You can refresh the page.');
+}
+
 
 function showMsg(txt) {
   const el = document.getElementById('msg-float');
