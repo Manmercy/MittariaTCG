@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MITTARIA TCG v6.68 — Ordered Collection Edition</title>
+<title>MITTARIA TCG v6.72 — Deck Builder & Table Scale Edition</title>
 <link rel="icon" type="image/svg+xml" href="assets/embedded/img_002_98f0d555ec16.svg">
-<link rel="stylesheet" href="assets/css/mittaria-v6.68.css">
+<link rel="stylesheet" href="assets/css/mittaria-v6.72.css">
+<link rel="stylesheet" href="assets/css/v6.72-polish.css">
 </head>
 <body>
 
@@ -34,7 +35,7 @@
   </div>
   <div class="brand-title">MITTARIA TCG</div>
   <div class="brand-sub">CHAOS DIMENSION • PLAYTEST</div>
-  <div class="build-badge">ORDERED COLLECTION <span class="build-mini">v6.68</span></div>
+  <div class="build-badge">DECK BUILDER & TABLE SCALE <span class="build-mini">v6.72</span></div>
   <div class="land-btns">
     <button class="btn btn-b play-hero-btn" id="btn-play" onclick="startGame()">PLAY TEST</button>
     <div class="ai-mode-toggle">
@@ -74,8 +75,8 @@
   </div>
   <div class="deckbuilder-body">
     <div class="deckbuilder-help" id="deckbuilder-help">
-      <strong>Deck Rule:</strong> 40 cards total. Recommended ratio: <strong>24 Character</strong> / <strong>8 Companion</strong> / <strong>8 Spell</strong>. 
-      Tap + / − to adjust copies. Current prototype allows up to <strong>3 copies per card</strong>.
+      <strong>Deck Rule:</strong> Build exactly <strong>40 cards</strong>: <strong>24 Character</strong> / <strong>8 Companion</strong> / <strong>8 Spell</strong>.
+      Tap + / − to adjust copies. Each card allows up to <strong>3 copies</strong>; grey cards have reached a copy or type quota.
     </div>
     <div class="deckbuilder-summary">
       <button class="db-pill db-total active" onclick="setDeckBuilderFilter('all')"><span id="db-total-label">Total</span> <span id="db-total">40</span>/40</button>
@@ -84,22 +85,25 @@
       <button class="db-pill db-spell" onclick="setDeckBuilderFilter('spell')"><span id="db-spell-label">Spell</span> <span id="db-spell">8</span></button>
     </div>
     <div class="deck-slot-panel">
-      <div class="deck-slot-head">
-        <strong id="deck-slot-label">DECK SLOTS</strong>
-        <input id="deck-name-input" maxlength="24" placeholder="Deck Name" oninput="updateDeckNameDraft(this.value)">
-        <button class="deck-save-inline" id="btn-save-slot-inline" onclick="saveDeckToSlot()">Save Slot</button>
+      <div class="deck-tabs-label" id="deck-slot-label">MY DECKS <span>Select a tab to edit</span></div>
+      <div class="deck-slot-buttons" role="tablist" aria-label="Saved deck workspaces">
+        <button id="deck-slot-1" role="tab" aria-selected="true" aria-controls="deck-workspace-panel" onclick="loadDeckSlot(1)"><span>DECK 1</span><strong>Deck 1</strong><small>Current deck</small></button>
+        <button id="deck-slot-2" role="tab" aria-selected="false" aria-controls="deck-workspace-panel" onclick="loadDeckSlot(2)"><span>DECK 2</span><strong>Deck 2</strong><small>Open deck</small></button>
+        <button id="deck-slot-3" role="tab" aria-selected="false" aria-controls="deck-workspace-panel" onclick="loadDeckSlot(3)"><span>DECK 3</span><strong>Deck 3</strong><small>Open deck</small></button>
       </div>
-      <div class="deck-slot-buttons">
-        <button id="deck-slot-1" onclick="loadDeckSlot(1)">Slot 1</button>
-        <button id="deck-slot-2" onclick="loadDeckSlot(2)">Slot 2</button>
-        <button id="deck-slot-3" onclick="loadDeckSlot(3)">Slot 3</button>
-      </div>
-      <div class="deck-current-list" id="deck-current-list"></div>
-      <div class="deck-manage-actions">
-        <button class="btn btn-back btn-sm random-build-btn" id="btn-random-build" onclick="autoBuildDeck()">🎲 Randomize</button>
-        <button class="btn btn-back btn-sm clear-deck-btn" id="btn-clear-deck" onclick="clearCurrentDeck()">Clear Cards</button>
-        <button class="btn btn-back btn-sm" id="btn-reset-custom" onclick="resetCustomDeck()">↺ Reset Default</button>
-        <button class="btn btn-b btn-sm deck-save-play" id="btn-save-play-bottom" onclick="saveDeckAndPlay()">Save &amp; Play</button>
+      <div class="deck-workspace-panel" id="deck-workspace-panel" role="tabpanel">
+        <div class="deck-slot-head">
+          <label for="deck-name-input" id="deck-name-label">Deck name</label>
+          <input id="deck-name-input" maxlength="24" placeholder="Deck Name" oninput="updateDeckNameDraft(this.value)">
+          <button class="deck-save-inline" id="btn-save-slot-inline" onclick="saveDeckToSlot()">Save Current Deck</button>
+        </div>
+        <div class="deck-current-list" id="deck-current-list"></div>
+        <div class="deck-manage-actions">
+          <button class="btn btn-back btn-sm random-build-btn" id="btn-random-build" onclick="autoBuildDeck()" title="Build a legal 24/8/8 deck automatically">🎲 Auto Build 24/8/8</button>
+          <button class="btn btn-back btn-sm clear-deck-btn" id="btn-clear-deck" onclick="clearCurrentDeck()" title="Remove every card from this deck">Clear Deck</button>
+          <button class="btn btn-back btn-sm" id="btn-reset-custom" onclick="resetCustomDeck()" title="Restore the starter deck">↺ Restore Starter Deck</button>
+          <button class="btn btn-b btn-sm deck-save-play" id="btn-save-play-bottom" onclick="saveDeckAndPlay()" title="Save this deck and start a game">Save Deck &amp; Start Game</button>
+        </div>
       </div>
     </div>
     <div class="deckbuilder-grid" id="deckbuilder-root"></div>
@@ -113,7 +117,16 @@
     <div class="how-title" id="how-title">HOW TO PLAY</div>
     <button class="btn btn-back btn-sm page-lang-control" id="btn-lang-how" onclick="toggleLanguage()" style="margin-left:auto">TH / EN</button>
   </div>
-  <div class="how-body"></div>
+  <div class="how-body">
+    <figure class="how-visual how-visual-static">
+      <picture>
+        <source media="(max-width:560px)" srcset="assets/embedded/how_to_play_source_portrait.jpg">
+        <img src="assets/embedded/how_to_play_source_landscape.jpg" alt="MITTARIA TCG five-lane table reference with Gates and Character cards" loading="eager">
+      </picture>
+      <figcaption id="how-visual-caption">Five-lane table reference • Current win rule: Reduce enemy Lead LP to 0</figcaption>
+    </figure>
+    <div class="how-content"></div>
+  </div>
 </div>
 
 <!-- ============ GAME ============ -->
@@ -157,8 +170,10 @@
       <div class="rail-panel rail-stats">
         <div class="deck-stat"><span id="lbl-your-deck">Your Deck</span><span id="p-deck-cnt">40</span></div>
         <div class="deck-stat"><span id="lbl-your-hand">Your Hand</span><span id="p-hand-cnt">5</span></div>
-        <div class="deck-stat void-link" onclick="openVoid('player')"><span>Your Void</span><span id="p-void-cnt">0</span></div>
       </div>
+      <button class="void-action" type="button" onclick="openVoid('player')" aria-label="Open Your Void" title="Open Your Void">
+        <span class="void-icon" aria-hidden="true">☠</span><span id="lbl-your-void">Your Void</span><strong id="p-void-cnt">0</strong>
+      </button>
     </aside>
 
     <main class="game-center">
@@ -173,12 +188,12 @@
         <div class="lanes-row" id="p-gates-row"></div>
         <div class="hand-row" id="p-hand-row"></div>
       </div>
-      <div class="g-log" id="g-log">
+      <div class="g-log" id="g-log" role="log" aria-live="polite" aria-label="Game action log">
         <div class="log-head">
           <div class="log-title" id="lbl-game-log">GAME LOG</div>
           <button class="log-toggle" id="log-toggle" onclick="toggleGameLog()" aria-label="Collapse game log" aria-expanded="true" title="Collapse game log">−</button>
         </div>
-        <div id="log-entries"></div>
+        <div id="log-entries" tabindex="0"></div>
       </div>
     </main>
 
@@ -195,8 +210,10 @@
       <div class="rail-panel rail-stats">
         <div class="deck-stat"><span id="lbl-ai-deck">AI Deck</span><span id="ai-deck-cnt">40</span></div>
         <div class="deck-stat"><span id="lbl-ai-hand">AI Hand</span><span id="ai-hand-cnt">5</span></div>
-        <div class="deck-stat void-link" onclick="openVoid('ai')"><span>AI Void</span><span id="ai-void-cnt">0</span></div>
       </div>
+      <button class="void-action" type="button" onclick="openVoid('ai')" aria-label="Open AI Void" title="Open AI Void">
+        <span class="void-icon" aria-hidden="true">☠</span><span id="lbl-ai-void">AI Void</span><strong id="ai-void-cnt">0</strong>
+      </button>
     </aside>
   </div>
 </div>
@@ -278,6 +295,6 @@
   </div>
 </div>
 
-<script src="assets/js/app-v6.68.js"></script>
+<script src="assets/js/app-v6.72.js"></script>
 </body>
 </html>

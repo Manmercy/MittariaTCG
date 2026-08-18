@@ -1,0 +1,939 @@
+/* MITTARIA TCG v6.72
+   Isolated responsive polish. This file intentionally loads after the
+   cumulative legacy stylesheet so new work does not add more rules to it. */
+
+/* ---------- Landing: one centered, non-scrolling mobile viewport ---------- */
+#sc-land {
+  overflow: hidden;
+}
+
+/* ---------- How to Play: crop the supplied artwork to the five-lane table ---------- */
+#sc-how .how-visual-static picture {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #020713;
+}
+
+#sc-how .how-visual-static img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+}
+
+/* ---------- Void: a permanent action instead of a hidden status row ---------- */
+.void-action {
+  min-height: 46px;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 120, 136, .34);
+  border-radius: 10px;
+  color: #f0d8de;
+  background: linear-gradient(135deg, rgba(92, 21, 48, .42), rgba(19, 12, 34, .72));
+  font-size: 10px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .16s ease, background .16s ease, transform .16s ease;
+}
+
+.void-action:hover,
+.void-action:focus-visible {
+  border-color: rgba(255, 120, 136, .8);
+  background: linear-gradient(135deg, rgba(125, 31, 60, .58), rgba(30, 16, 47, .84));
+  transform: translateY(-1px);
+}
+
+.void-action .void-icon {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff0f3;
+  background: rgba(255, 120, 136, .16);
+  font-size: 16px;
+}
+
+.void-action strong {
+  min-width: 25px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(255, 255, 255, .09);
+  text-align: center;
+}
+
+/* ---------- Game Log: useful open height with its own scroll area ---------- */
+.game-center {
+  grid-template-rows: minmax(0, 1fr) 148px;
+}
+
+.game-center.log-is-collapsed {
+  grid-template-rows: minmax(0, 1fr) 42px;
+}
+
+.g-log,
+#log-entries {
+  min-height: 0;
+}
+
+.log-head {
+  min-height: 41px;
+  padding: 6px 10px;
+}
+
+.g-log .log-title {
+  font-size: 15px;
+}
+
+#log-entries {
+  height: calc(100% - 41px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 7px 10px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(228, 189, 105, .45) transparent;
+}
+
+.log-entry {
+  margin-bottom: 5px;
+  padding: 5px 8px;
+  font-size: 11px;
+  line-height: 1.48;
+}
+
+/* ---------- Card Detail: stable viewport, scrollable content, no overflow ---------- */
+.card-detail-modal {
+  width: min(720px, 94vw);
+  max-height: min(820px, 90dvh);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+}
+
+#card-detail-body {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+}
+
+.card-detail-wrap {
+  display: grid;
+  grid-template-columns: minmax(150px, 210px) minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.card-detail-art {
+  width: 100%;
+  max-width: 210px;
+  margin: 0;
+}
+
+.card-detail-info,
+.card-detail-row,
+.card-detail-effect {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.card-detail-info .btn-small-action {
+  min-height: 44px;
+  white-space: normal;
+}
+
+.card-detail-modal .modal-actions {
+  padding-top: 10px;
+  border-top: 1px solid rgba(174, 202, 235, .14);
+  background: #061225;
+}
+
+/* ---------- Tablet / iPad: dedicated top-HUD layout ---------- */
+@media (min-width: 561px) and (max-width: 1180px) {
+  #sc-game {
+    --field-card-w: clamp(48px, 6.4dvh, 62px);
+    --hand-card-w: clamp(54px, 7dvh, 68px);
+  }
+
+  .board {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: 92px minmax(0, 1fr);
+    grid-template-areas: 'player ai' 'center center';
+    gap: 7px;
+    padding: 6px 9px 9px;
+  }
+
+  .player-rail { grid-area: player; }
+  .ai-rail { grid-area: ai; }
+  .game-center {
+    grid-area: center;
+    grid-column: 1 / -1;
+    grid-template-rows: minmax(0, 1fr) 132px;
+    gap: 7px;
+  }
+
+  .game-center.log-is-collapsed {
+    grid-template-rows: minmax(0, 1fr) 42px;
+  }
+
+  .game-rail,
+  .game-rail.hud-open {
+    height: 92px;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 84px 92px;
+    grid-template-rows: 22px 60px;
+    gap: 4px;
+    padding: 4px 6px;
+  }
+
+  .game-rail .rail-heading {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding: 0 2px;
+    font-size: 11px;
+  }
+
+  .game-rail .mobile-rail-toggle {
+    display: none;
+  }
+
+  .game-rail .lead-panel,
+  .game-rail.hud-open .lead-panel {
+    grid-column: 1;
+    grid-row: 2;
+    min-height: 0;
+    padding: 4px 6px;
+  }
+
+  .game-rail .lead-box,
+  .game-rail.hud-open .lead-box {
+    height: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 7px;
+  }
+
+  .game-rail .lead-art,
+  .game-rail.hud-open .lead-art {
+    width: 38px;
+    height: 52px;
+    flex: 0 0 auto;
+  }
+
+  .game-rail .lead-info { text-align: left; }
+  .game-rail .lead-name { font-size: 9px; }
+  .game-rail .lead-lp { font-size: 15px; }
+  .game-rail .lead-lp small { font-size: 8px; }
+
+  .game-rail > .rail-panel:not(.rail-stats),
+  .game-rail.hud-open > .rail-panel:not(.rail-stats) {
+    grid-column: 2;
+    grid-row: 2;
+    display: block;
+    padding: 5px;
+  }
+
+  .game-rail > .rail-stats,
+  .game-rail.hud-open > .rail-stats {
+    display: none;
+  }
+
+  .game-rail .void-action {
+    grid-column: 3;
+    grid-row: 2;
+    min-height: 0;
+    height: 60px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 24px auto;
+    place-items: center;
+    gap: 1px;
+    padding: 5px;
+    text-align: center;
+  }
+
+  .game-rail .void-action .void-icon { display: none; }
+  .game-rail .void-action strong { min-width: 30px; padding: 2px 7px; }
+
+  .board-main {
+    gap: 2px;
+    padding: 4px 7px;
+  }
+
+  .ai-hand-row { margin-bottom: 5px; }
+  .hand-row { margin-top: 5px; }
+}
+
+/* ---------- Phone ---------- */
+@media (max-width: 560px) {
+  #sc-land {
+    width: 100vw;
+    height: 100dvh;
+    min-height: 100dvh;
+    justify-content: center;
+    overflow: hidden;
+    padding: 50px 12px 16px;
+  }
+
+  #sc-land > .top-lang-control {
+    top: 9px;
+    right: 10px;
+  }
+
+  #sc-land .card-duo {
+    width: 238px;
+    height: 144px;
+    margin-bottom: 5px;
+  }
+
+  #sc-land .showcase {
+    width: 96px;
+    height: 135px;
+  }
+
+  #sc-land .card-duo .showcase:first-child { left: 30px; }
+  #sc-land .card-duo .showcase:nth-child(2) { right: 31px; }
+  #sc-land .brand-title { font-size: 40px; }
+  #sc-land .brand-sub { margin: 3px 0 5px; }
+  #sc-land .build-badge { padding: 4px 9px; font-size: 8px; }
+
+  #sc-land .land-btns {
+    width: min(350px, 100%);
+    margin-top: 8px;
+    gap: 5px;
+    padding: 8px;
+  }
+
+  #sc-land .land-btns::before { font-size: 9px; }
+  #sc-land .land-btns > .btn {
+    min-height: 43px;
+    padding: 7px 10px;
+    font-size: 15px;
+  }
+
+  #sc-land .land-btns > .ai-mode-toggle {
+    min-height: 34px;
+    padding: 2px 5px;
+    font-size: 9px;
+  }
+
+  #sc-land .land-btns > .ai-mode-toggle button {
+    min-height: 30px;
+    min-width: 62px;
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+
+  #sc-land .reset-local-compact {
+    right: 7px;
+    bottom: 3px;
+    padding: 4px;
+    font-size: 8px;
+  }
+
+  #sc-how .how-visual-static picture { aspect-ratio: 1 / 1; }
+  #sc-how .how-visual-static img { object-position: center top; }
+
+  .board {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .game-center {
+    grid-template-rows: minmax(0, 1fr) 112px;
+  }
+
+  .game-center.log-is-collapsed {
+    grid-template-rows: minmax(0, 1fr) 42px;
+  }
+
+  .game-rail {
+    height: 82px;
+    grid-template-columns: minmax(0, 1fr) 66px;
+    grid-template-rows: 24px 50px;
+    gap: 4px;
+    padding: 3px 4px;
+  }
+
+  .game-rail .rail-heading,
+  .game-rail.hud-open .rail-heading {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    font-size: 10px;
+  }
+
+  .game-rail .lead-panel,
+  .game-rail.hud-open .lead-panel {
+    grid-column: 1;
+    grid-row: 2;
+    min-height: 0;
+    padding: 3px 4px;
+  }
+
+  .game-rail .lead-box,
+  .game-rail.hud-open .lead-box {
+    height: 100%;
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  .game-rail .lead-art,
+  .game-rail.hud-open .lead-art {
+    width: 30px;
+    height: 42px;
+    flex: 0 0 auto;
+  }
+
+  .game-rail .lead-name,
+  .game-rail.hud-open .lead-name { font-size: 8px; }
+  .game-rail .lead-lp,
+  .game-rail.hud-open .lead-lp { font-size: 13px; }
+
+  .game-rail > .rail-panel:not(.lead-panel) {
+    display: none;
+  }
+
+  .game-rail .void-action,
+  .game-rail.hud-open .void-action {
+    grid-column: 2;
+    grid-row: 2;
+    min-height: 50px;
+    height: 50px;
+    grid-template-columns: 20px 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0 4px;
+    padding: 4px 5px;
+    font-size: 8px;
+  }
+
+  .game-rail .void-action .void-icon {
+    grid-row: 1 / 3;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+  }
+
+  .game-rail .void-action strong {
+    min-width: 0;
+    padding: 0;
+    background: transparent;
+    text-align: left;
+  }
+
+  .mobile-rail-toggle { display: grid; place-items: center; }
+
+  .game-rail.hud-open {
+    height: 138px;
+    grid-template-columns: minmax(0, 1fr) 66px;
+    grid-template-rows: 24px 52px 50px;
+  }
+
+  .game-rail.hud-open > .rail-panel:not(.rail-stats) {
+    grid-column: 1;
+    grid-row: 3;
+    display: block;
+    min-width: 0;
+    padding: 4px;
+  }
+
+  .game-rail.hud-open > .rail-stats {
+    grid-column: 2;
+    grid-row: 3;
+    display: grid;
+    align-content: center;
+    gap: 2px;
+    min-width: 0;
+    padding: 4px;
+  }
+
+  .game-rail.hud-open .deck-stat { font-size: 7px; }
+
+  .log-head { min-height: 39px; }
+  .g-log .log-title { font-size: 14px; }
+  #log-entries { height: calc(100% - 39px); padding: 6px 8px 9px; }
+  .log-entry { font-size: 10.5px; line-height: 1.45; }
+
+  .card-detail-modal {
+    width: calc(100vw - 14px);
+    max-height: calc(100dvh - 14px);
+    padding: 12px;
+  }
+
+  .card-detail-wrap {
+    grid-template-columns: 100px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .card-detail-art {
+    width: 100px;
+    max-width: 100px;
+  }
+
+  .card-detail-name { font-size: 21px; }
+  .card-detail-row { padding: 5px 0; font-size: 12px; line-height: 1.38; }
+  .card-detail-effect { padding: 8px; font-size: 12px; line-height: 1.45; }
+  .card-detail-modal .modal-actions .btn { min-height: 44px; }
+}
+
+/* Short phones keep the full landing centered without enabling document scroll. */
+@media (max-width: 560px) and (max-height: 700px) {
+  #sc-land { padding-top: 47px; padding-bottom: 10px; }
+  #sc-land .card-duo { width: 205px; height: 119px; margin-bottom: 2px; }
+  #sc-land .showcase { width: 80px; height: 112px; }
+  #sc-land .card-duo .showcase:first-child { left: 29px; }
+  #sc-land .card-duo .showcase:nth-child(2) { right: 30px; }
+  #sc-land .brand-title { font-size: 35px; }
+  #sc-land .brand-sub { font-size: 7px; }
+  #sc-land .build-badge { display: none; }
+  #sc-land .land-btns { margin-top: 5px; gap: 4px; padding: 6px; }
+  #sc-land .land-btns::before { font-size: 8px; }
+  #sc-land .land-btns > .btn { min-height: 39px; font-size: 14px; }
+  #sc-land .land-btns > .ai-mode-toggle { min-height: 31px; }
+}
+
+@media (max-width: 360px) {
+  .card-detail-wrap { grid-template-columns: 88px minmax(0, 1fr); }
+  .card-detail-art { width: 88px; max-width: 88px; }
+  .card-detail-name { font-size: 19px; }
+  .card-detail-row,
+  .card-detail-effect { font-size: 11px; }
+}
+
+/* ---------- v6.72 Deck Builder: tabbed workspace, readable quotas ---------- */
+#sc-deckbuilder .deckbuilder-body {
+  width: min(1480px, 100%);
+  padding: 20px 24px 64px;
+}
+
+#sc-deckbuilder .deckbuilder-help {
+  font-size: 15px;
+  line-height: 1.68;
+}
+
+#sc-deckbuilder .deckbuilder-summary {
+  min-height: 58px;
+  gap: 9px;
+}
+
+#sc-deckbuilder .db-pill {
+  min-height: 48px;
+  padding: 10px 15px;
+  font-size: 14px;
+}
+
+#sc-deckbuilder .db-pill.good {
+  border-color: rgba(113, 215, 165, .62);
+  color: #dffbea;
+}
+
+#sc-deckbuilder .db-pill.quota-full {
+  border-color: rgba(228, 189, 105, .78);
+  color: #ffe6a5;
+  background: rgba(151, 104, 31, .18);
+}
+
+.deck-slot-panel {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.deck-tabs-label {
+  min-height: 32px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 7px;
+  color: var(--gold-soft);
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 23px;
+  letter-spacing: .08em;
+}
+
+.deck-tabs-label span {
+  color: var(--muted);
+  font-family: 'Prompt', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.deck-slot-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: 5px;
+  margin: 0;
+}
+
+.deck-slot-buttons button {
+  min-width: 0;
+  min-height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1px;
+  padding: 9px 14px;
+  border-radius: 12px 12px 0 0;
+  color: #bdcce0;
+  background: linear-gradient(180deg, rgba(16, 38, 67, .9), rgba(6, 19, 38, .96));
+  text-align: left;
+}
+
+.deck-slot-buttons button span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .13em;
+}
+
+.deck-slot-buttons button strong {
+  width: 100%;
+  overflow: hidden;
+  color: #f2f6fb;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deck-slot-buttons button small {
+  color: #90a7c1;
+  font-size: 10px;
+}
+
+.deck-slot-buttons button.active {
+  border-color: rgba(228, 189, 105, .78);
+  border-bottom-color: #0b1d36;
+  color: var(--gold-soft);
+  background: linear-gradient(180deg, rgba(51, 50, 79, .98), #0b1d36);
+  transform: translateY(1px);
+}
+
+.deck-slot-buttons button.active strong,
+.deck-slot-buttons button.active span {
+  color: #ffe3a0;
+}
+
+.deck-workspace-panel {
+  padding: 16px;
+  border: 1px solid rgba(228, 189, 105, .34);
+  border-radius: 0 14px 14px 14px;
+  background: linear-gradient(150deg, rgba(11, 29, 54, .98), rgba(5, 17, 34, .98));
+  box-shadow: 0 18px 34px rgba(0, 0, 0, .2);
+}
+
+.deck-slot-head {
+  display: grid;
+  grid-template-columns: auto minmax(170px, 1fr) minmax(170px, auto);
+  align-items: center;
+  gap: 10px;
+}
+
+.deck-slot-head label {
+  color: var(--gold-soft);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.deck-slot-head input,
+.deck-save-inline {
+  min-height: 48px;
+  font-size: 14px;
+}
+
+.deck-save-inline {
+  padding-inline: 18px;
+  color: #071326;
+  border-color: #e3bf64;
+  background: linear-gradient(135deg, #f8e5a5, #d6a84b);
+  font-weight: 800;
+}
+
+.deck-current-list {
+  margin-top: 14px;
+}
+
+.deck-zone-title {
+  font-size: 14px;
+}
+
+.deck-zone-title small {
+  color: var(--gold-soft);
+  font-size: 12px;
+}
+
+.deck-manage-actions {
+  gap: 9px;
+}
+
+.deck-manage-actions .btn {
+  min-height: 50px;
+  padding: 9px 12px;
+  font-size: 12px;
+  line-height: 1.25;
+  white-space: normal;
+}
+
+#sc-deckbuilder .deckbuilder-card-grid {
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 13px;
+}
+
+#sc-deckbuilder .deck-pick-card {
+  min-width: 0;
+}
+
+#sc-deckbuilder .deck-pick-name {
+  font-size: 23px;
+}
+
+#sc-deckbuilder .deck-pick-meta,
+#sc-deckbuilder .deck-pick-effect {
+  font-size: 11px;
+}
+
+#sc-deckbuilder .deck-pick-controls {
+  grid-template-columns: 48px minmax(36px, 1fr) 48px;
+  gap: 7px;
+}
+
+#sc-deckbuilder .deck-pick-controls button {
+  min-height: 48px;
+  font-size: 18px;
+}
+
+#sc-deckbuilder .deck-pick-count {
+  font-size: 16px;
+}
+
+.deck-limit-state {
+  position: absolute;
+  z-index: 9;
+  top: 42%;
+  left: 50%;
+  width: calc(100% - 22px);
+  padding: 8px 7px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(227, 235, 243, .62);
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(10, 13, 18, .9);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .5);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-align: center;
+  pointer-events: none;
+}
+
+.deck-pick-card.add-locked,
+.deck-pick-card.add-locked:hover {
+  border-color: #697582;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .24);
+  transform: none;
+}
+
+.deck-pick-card.add-locked .deck-pick-art {
+  filter: grayscale(1) saturate(.12);
+  opacity: .52;
+}
+
+.deck-pick-card.add-locked .deck-pick-name,
+.deck-pick-card.add-locked .deck-pick-meta,
+.deck-pick-card.add-locked .deck-pick-stats,
+.deck-pick-card.add-locked .deck-view-hint {
+  filter: grayscale(1);
+  opacity: .48;
+}
+
+.deck-pick-card.add-locked .deck-pick-controls button:not(:disabled) {
+  color: #fff;
+  border-color: rgba(141, 226, 242, .48);
+  background: rgba(25, 66, 89, .62);
+}
+
+/* ---------- v6.72 Desktop: center the table and scale interactive cards ---------- */
+@media (min-width: 1181px) {
+  #sc-game {
+    --field-card-w: clamp(60px, 7.8dvh, 88px);
+    --hand-card-w: clamp(62px, 7.1dvh, 82px);
+  }
+
+  .board {
+    width: min(100%, 1680px);
+    grid-template-columns: minmax(190px, 230px) minmax(700px, 1fr) minmax(190px, 230px);
+    justify-self: center;
+    gap: clamp(10px, 1.4vw, 20px);
+    padding: 10px clamp(14px, 2vw, 32px) 14px;
+  }
+
+  .game-center {
+    width: 100%;
+    max-width: 1120px;
+    justify-self: center;
+  }
+
+  .board-main {
+    padding: 8px clamp(14px, 2vw, 26px);
+  }
+
+  .lanes-row,
+  .hand-row {
+    width: min(100%, 920px);
+  }
+
+  .lanes-row {
+    gap: clamp(8px, 1.15vw, 18px);
+  }
+
+  .game-rail .lead-art {
+    width: 126px;
+    height: 169px;
+  }
+
+  .game-rail .lead-name { font-size: 13px; }
+  .game-rail .lead-lp { font-size: 22px; }
+  .game-rail .info-btn,
+  .game-rail .action-icon-btn {
+    min-width: 34px;
+    min-height: 34px;
+  }
+
+  .bc-name,
+  .hc-name { font-size: 9px; }
+  .bc-stats,
+  .hc-foot { font-size: 8px; }
+}
+
+/* ---------- v6.72 iPad: wider field, larger controls, compact HUD ---------- */
+@media (min-width: 561px) and (max-width: 1180px) {
+  #sc-game {
+    --field-card-w: clamp(54px, 7.2dvh, 76px);
+    --hand-card-w: clamp(60px, 7.7dvh, 80px);
+  }
+
+  .board {
+    grid-template-rows: 100px minmax(0, 1fr);
+    gap: 9px;
+    padding: 8px 12px 11px;
+  }
+
+  .game-rail,
+  .game-rail.hud-open {
+    height: 100px;
+    grid-template-columns: minmax(0, 1fr) 94px 98px;
+    grid-template-rows: 24px 66px;
+    padding: 5px 7px;
+  }
+
+  .game-rail .rail-heading { font-size: 12px; }
+  .game-rail .lead-art,
+  .game-rail.hud-open .lead-art {
+    width: 43px;
+    height: 58px;
+  }
+
+  .game-rail .lead-name { font-size: 10px; }
+  .game-rail .lead-lp { font-size: 17px; }
+  .game-rail .void-action { height: 66px; font-size: 11px; }
+
+  .game-center {
+    grid-template-rows: minmax(0, 1fr) 132px;
+  }
+
+  .board-main {
+    padding: 6px 12px;
+  }
+
+  .lanes-row,
+  .hand-row {
+    width: min(100%, 880px);
+  }
+
+  .lanes-row { gap: clamp(5px, 1.1vw, 13px); }
+  .hand-row { gap: 7px; }
+  .game-actions .btn { min-height: 46px; font-size: 12px; }
+  .info-btn,
+  .action-icon-btn { min-width: 32px; min-height: 32px; }
+  .bc-name,
+  .hc-name { font-size: 8px; }
+  .bc-stats,
+  .hc-foot { font-size: 7px; }
+}
+
+@media (max-width: 860px) {
+  #sc-deckbuilder .deckbuilder-body { padding-inline: 14px; }
+  #sc-deckbuilder .deckbuilder-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .deck-slot-head { grid-template-columns: auto minmax(140px, 1fr); }
+  .deck-slot-head .deck-save-inline { grid-column: 1 / -1; }
+  .deck-manage-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  #sc-deckbuilder .deckbuilder-body {
+    padding: 12px 10px 32px;
+  }
+
+  #sc-deckbuilder .deckbuilder-help {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  #sc-deckbuilder .db-pill {
+    min-height: 48px;
+    font-size: 12px;
+  }
+
+  .deck-tabs-label {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1px;
+    font-size: 21px;
+  }
+
+  .deck-tabs-label span { font-size: 11px; }
+  .deck-slot-buttons {
+    grid-template-columns: repeat(3, minmax(118px, 1fr));
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .deck-slot-buttons button {
+    min-height: 68px;
+    padding: 8px 10px;
+  }
+
+  .deck-slot-buttons button strong { font-size: 13px; }
+  .deck-slot-buttons button small { font-size: 9px; }
+  .deck-workspace-panel { padding: 11px; border-radius: 0 12px 12px 12px; }
+  .deck-slot-head { grid-template-columns: 1fr; }
+  .deck-slot-head .deck-save-inline { grid-column: auto; }
+  .deck-slot-head input,
+  .deck-save-inline { min-height: 50px; font-size: 14px; }
+  .deck-manage-actions { grid-template-columns: 1fr; }
+  .deck-manage-actions .btn { min-height: 52px; font-size: 12px; }
+
+  #sc-deckbuilder .deckbuilder-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  #sc-deckbuilder .deck-pick-name { font-size: 19px; }
+  #sc-deckbuilder .deck-pick-meta,
+  #sc-deckbuilder .deck-pick-effect { font-size: 10px; }
+  #sc-deckbuilder .deck-pick-controls {
+    grid-template-columns: 46px minmax(32px, 1fr) 46px;
+  }
+  #sc-deckbuilder .deck-pick-controls button { min-height: 46px; }
+  .deck-limit-state { top: 39%; font-size: 10px; }
+}
